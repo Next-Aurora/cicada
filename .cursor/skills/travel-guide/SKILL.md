@@ -257,7 +257,7 @@ description: >
 **仅在 Phase 3a 已确认（或用户跳过粗规划）后执行。**
 
 1. **HTML**：按模板填侧重/适宜人群/充电/路书/导航，以及节点旁 `SOURCE_*`；预算后、页脚前加折叠「攻略参考地址」；字段写入正文时用中文（禁止 `return=` 等）；**所有 `{{…}}` 占位必须替换干净**。  
-   **落盘（cicada 站点）**：写入 **Next-Aurora/cicada** 仓库根目录 `guides/<slug>/index.html`，并写同目录 `meta.json`（`title` / `destination` / `dates` / `summary`）。本地常见路径：`d:/dveloper/cicada/guides/<slug>/`。`slug` 用目的地拼音或 ascii kebab（如 `liuzhou`）。页内悬浮条、章节、天气、待办、插图等同前（见下）。  
+   **落盘（cicada 站点）**：写入**本仓库**根目录 `guides/<slug>/index.html`，并写同目录 `meta.json`（`title` / `destination` / `dates` / `summary`）。工作区应为 Next-Aurora/cicada（如 `d:/dveloper/cicada`），**不要**再写入已停用的 `travel-skills`。`slug` 用目的地拼音或 ascii kebab（如 `liuzhou`）。页内悬浮条、章节、天气、待办、插图等同前（见下）。  
    **插图（攻略档默认做）**：  
    - **路线总览（视觉风格）**：只用一处 `.route-overview`。每日一张**独立卡片**（顶图 + **Day 徽章叠在图左上角** + 主题标题 + meta 虚线 + 3～4 要点）。桌面日与日之间用轻量 `›` 分隔符（`.route-day-sep`），**禁止**贯穿徽章的横线/竖线连接。手机竖排卡片、隐藏 `›`。跨城出发并入 Day1 meta。文案：「按日示意，非精确导航」。  
    - **章节顺序**：路线总览 → 每日行程（每卡含 `.day-weather` + 路书）→ **预约与行前准备 + 出发前待办（紧挨、包在 `.prep-cluster`）** → 适宜人群 → 实用建议 → 充电安排 → 预算 → **攻略参考地址（`<details class="refs-fold">` 默认收起）** → 页脚。  

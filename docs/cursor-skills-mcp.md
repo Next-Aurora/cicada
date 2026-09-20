@@ -1,4 +1,4 @@
-# Cursor project config (cicada)
+用 Cursor **打开本仓库根目录**（cicada）。旧仓 `travel-skills` 已停用。
 
 ## Skills
 
@@ -10,7 +10,7 @@
 | travel-skill | 归档 |
 | xhs-travel-skill | 归档 |
 
-用 Cursor **打开本仓库根目录**（`d:\dveloper\cicada`）时，Agent 会加载上述 Skills。攻略落盘：`guides/<slug>/` → `pnpm sync-guides` → push。
+攻略落盘：`guides/<slug>/` → `pnpm sync-guides` → push。
 
 ## MCP
 
