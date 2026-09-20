@@ -34,7 +34,10 @@ export default function Web() {
               Experience rapid UI development, AI-powered code reviews, and an extensive suite of tools for a smooth and
               enjoyable development process.
             </p>
-            <Button href="https://github.com/Blazity/next-enterprise" className="mr-3">
+            <Button href="/guides" className="mr-3">
+              旅行攻略
+            </Button>
+            <Button href="https://github.com/Blazity/next-enterprise" intent="secondary" className="mr-3">
               Get started
             </Button>
             <Button

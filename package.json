@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "sync-guides": "node scripts/sync-guides.mjs",
+    "predev": "node scripts/sync-guides.mjs",
+    "prebuild": "node scripts/sync-guides.mjs",
     "dev": "cross-env FORCE_COLOR=1 next dev --turbo",
     "build": "next build",
     "start": "next start",

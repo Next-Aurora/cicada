@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="a">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>柳州螺香三日 · 少景多吃 — 旅行攻略</title>
+<style>
+/* ========== Theme tokens ========== */
+/* A 山野旅行（默认） */
+html[data-theme="a"] {
+  --bg: #E7EBE6;
+  --bg-pattern: radial-gradient(ellipse 120% 80% at 10% -10%, rgba(61,107,79,0.12), transparent 50%),
+                radial-gradient(ellipse 80% 60% at 100% 0%, rgba(168,144,112,0.1), transparent 45%);
+  --surface: #F5F7F4;
+  --text: #1F2A24;
+  --muted: #5A6B60;
+  --accent: #3D6B4F;
+  --accent-2: #A89070;
+  --accent-soft: #D5E3D9;
+  --hero-grad: linear-gradient(145deg, #1E3D2F 0%, #3D6B4F 42%, #5A7D62 78%, #8FA890 100%);
+  --day-head: linear-gradient(135deg, #D5E3D9, #C5D4C8);
+  --budget-head: linear-gradient(135deg, #3D6B4F, #2A4F3A);
+  --shadow: 0 1px 0 rgba(31,42,36,0.04);
+  --hairline: rgba(31,42,36,0.1);
+  --tag-rec-bg: #D5E3D9; --tag-rec-fg: #1E3D2F;
+  --tag-free-bg: #DCE8F0; --tag-free-fg: #1A4A66;
+  --tag-book-bg: #EDE4D4; --tag-book-fg: #6B4E1B;
+  --tag-photo-bg: #E8D9DE; --tag-photo-fg: #6B2A3A;
+  --econ-bg: #D5E3D9; --econ-fg: #1E3D2F;
+  --comf-bg: #EDE4D4; --comf-fg: #6B4E1B;
+  --lux-bg: #DCE8F0; --lux-fg: #1A4A66;
+}
+
+/* B 海岸公路 */
+html[data-theme="b"] {
+  --bg: #EDE8DF;
+  --bg-pattern: radial-gradient(ellipse 100% 70% at 0% 0%, rgba(27,107,122,0.14), transparent 55%),
+                radial-gradient(ellipse 70% 50% at 100% 20%, rgba(196,181,154,0.2), transparent 50%);
+  --surface: #F7F4EF;
+  --text: #1A2F36;
+  --muted: #5A6E74;
+  --accent: #1B6B7A;
+  --accent-2: #C4B59A;
+  --accent-soft: #D2E4E8;
+  --hero-grad: linear-gradient(145deg, #0D3A44 0%, #1B6B7A 45%, #3A8A96 75%, #A8C5C9 100%);
+  --day-head: linear-gradient(135deg, #D2E4E8, #C5D8DC);
+  --budget-head: linear-gradient(135deg, #1B6B7A, #0F4A55);
+  --shadow: 0 1px 0 rgba(26,47,54,0.05);
+  --hairline: rgba(26,47,54,0.1);
+  --tag-rec-bg: #D2E4E8; --tag-rec-fg: #0D3A44;
+  --tag-free-bg: #DCE8F0; --tag-free-fg: #1A4A66;
+  --tag-book-bg: #EDE4D4; --tag-book-fg: #6B4E1B;
+  --tag-photo-bg: #E8D9DE; --tag-photo-fg: #6B2A3A;
+  --econ-bg: #D2E4E8; --econ-fg: #0D3A44;
+  --comf-bg: #EDE4D4; --comf-fg: #6B4E1B;
+  --lux-bg: #E0D8EC; --lux-fg: #3D2A5C;
+}
+
+/* C 城市夜游 */
+html[data-theme="c"] {
+  --bg: #12141A;
+  --bg-pattern: radial-gradient(ellipse 90% 60% at 80% -10%, rgba(232,165,75,0.12), transparent 50%),
+                radial-gradient(ellipse 70% 50% at 0% 40%, rgba(80,100,140,0.08), transparent 45%);
+  --surface: #1C1F28;
+  --text: #E8E6E3;
+  --muted: #9A9690;
+  --accent: #E8A54B;
+  --accent-2: #7A8499;
+  --accent-soft: #2A2E3A;
+  --hero-grad: linear-gradient(145deg, #0A0B0F 0%, #1A1D28 40%, #2A2430 70%, #3D3228 100%);
+  --day-head: linear-gradient(135deg, #252833, #1E222C);
+  --budget-head: linear-gradient(135deg, #E8A54B, #B87A2E);
+  --shadow: none;
+  --hairline: rgba(232,230,227,0.12);
+  --tag-rec-bg: #243028; --tag-rec-fg: #8FCB9B;
+  --tag-free-bg: #1E2A38; --tag-free-fg: #7EB6D9;
+  --tag-book-bg: #3A3020; --tag-book-fg: #E8A54B;
+  --tag-photo-bg: #3A2430; --tag-photo-fg: #E8A0B0;
+  --econ-bg: #243028; --econ-fg: #8FCB9B;
+  --comf-bg: #3A3020; --comf-fg: #E8A54B;
+  --lux-bg: #2A2438; --lux-fg: #C4B0E8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  background-image: var(--bg-pattern);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+
+/* Floating dock — theme + PDF (mobile-first) */
+.float-dock {
+  position: fixed;
+  z-index: 50;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: calc(100vw - 24px);
+  pointer-events: none;
+}
+.float-dock > * { pointer-events: auto; }
+.float-dock-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+}
+.float-theme-panel {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  min-width: 148px;
+}
+.float-dock.is-open .float-theme-panel { display: flex; }
+.float-theme-toggle,
+.theme-btn,
+.theme-btn-pdf {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.theme-btn { width: 100%; text-align: left; }
+.theme-btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+html[data-theme="c"] .theme-btn[aria-pressed="true"] { color: #12141A; }
+.float-theme-toggle[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-btn-pdf {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  white-space: nowrap;
+}
+html[data-theme="c"] .theme-btn-pdf { color: #12141A; }
+.theme-btn-pdf:active,
+.float-theme-toggle:active,
+.theme-btn:active { transform: scale(0.98); }
+.float-theme-toggle:focus-visible,
+.theme-btn:focus-visible,
+.theme-btn-pdf:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (min-width: 720px) {
+  .float-dock {
+    flex-direction: row;
+    align-items: center;
+    right: max(20px, env(safe-area-inset-right));
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .float-theme-panel {
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    padding: 6px;
+  }
+  .float-theme-toggle { display: none; }
+  .theme-btn { width: auto; text-align: center; }
+  .float-dock-main { padding: 6px; }
+}
+
+/* Hero — full-bleed */
+.hero {
+  position: relative;
+  background: var(--hero-grad);
+  color: #fff;
+  padding: 56px 32px 44px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,255,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.hero .subtitle { font-size: 14px; opacity: 0.88; margin-bottom: 24px; line-height: 1.6; }
+.hero-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+.hero-stat { display: flex; flex-direction: column; align-items: flex-start; }
+.hero-stat .value { font-size: 18px; font-weight: 700; }
+.hero-stat .label { font-size: 12px; opacity: 0.75; }
+
+/* Section */
+.section { margin: 28px auto; max-width: 800px; padding: 0 16px; }
+.section-title {
+  font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 18px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+}
+
+/* Route overview — day cards, no piercing connectors */
+.route-overview {
+  margin: 0 0 8px;
+  padding: 14px;
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--bg));
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+}
+.route-overview-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+.route-day-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+.route-day {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.route-day-sep {
+  display: none;
+  list-style: none;
+  flex: 0 0 auto;
+  align-self: center;
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.55;
+  padding: 0 2px;
+  user-select: none;
+}
+.route-day-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+  background: var(--accent-soft);
+}
+.route-day-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.route-day-badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 2;
+  width: auto;
+  min-width: 0;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 92%, #000);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+html[data-theme="c"] .route-day-badge { color: #12141A; }
+.route-day-body {
+  min-width: 0;
+  padding: 12px 12px 14px;
+}
+.route-day-body h4 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 700;
+}
+.route-day-meta {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--hairline);
+}
+.route-day-body ul {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.route-day-body li { margin: 3px 0; }
+@media (min-width: 720px) {
+  .route-day-track {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+  }
+  .route-day {
+    flex: 1;
+    min-width: 0;
+  }
+  .route-day-sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+  }
+  .route-day-media { height: 120px; }
+}
+
+/* Prep cluster — right after itinerary */
+.prep-cluster {
+  margin: 8px auto 28px;
+  max-width: 800px;
+  padding: 0 16px;
+}
+.prep-cluster > .section {
+  margin: 0 0 14px;
+  padding: 0;
+  max-width: none;
+}
+.prep-cluster > .section:last-child { margin-bottom: 0; }
+@media print {
+  .prep-cluster { margin: 8px 0 !important; padding: 0 !important; }
+  .prep-cluster > .section { margin-bottom: 8px !important; }
+}
+
+/* Media */
+.media-figure {
+  margin: 8px 0 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--accent-soft);
+  border: 1px solid var(--hairline);
+}
+.media-figure + .media-figure { margin-top: 4px; }
+.media-figure img {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+.media-figure figcaption {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 6px 8px;
+  line-height: 1.4;
+}
+.media-figure figcaption a { color: var(--accent); font-weight: 600; text-decoration: none; }
+
+/* Day */
+.day-card {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.day-header {
+  background: var(--day-head);
+  border-left: 4px solid var(--accent);
+  padding: 16px 22px;
+}
+.day-header h3 { font-size: 17px; font-weight: 700; color: var(--text); }
+.day-weather {
+  padding: 10px 22px;
+  border-bottom: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--accent-soft) 18%, var(--surface));
+  font-size: 13px;
+  line-height: 1.5;
+}
+.day-weather-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: baseline;
+}
+.dw-temp { font-weight: 700; color: var(--accent); font-size: 15px; }
+.dw-cond { font-weight: 600; color: var(--text); }
+.dw-precip { color: var(--muted); font-size: 12px; }
+.day-weather-wear { margin: 6px 0 0; color: var(--text); }
+.day-weather-note { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+.day-body { display: flex; padding: 22px; gap: 22px; }
+.day-timeline { flex: 1; min-width: 0; }
+.day-sidebar { width: 200px; flex-shrink: 0; }
+
+.tl-item {
+  position: relative;
+  padding-left: 28px;
+  padding-bottom: 22px;
+  border-left: 2px solid var(--accent-soft);
+  margin-left: 5px;
+}
+.tl-item:last-child { border-left-color: transparent; padding-bottom: 0; }
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -6px; top: 4px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+}
+.tl-time { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.tl-spot-name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+
+.nav-block {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 6px 0 8px;
+  padding: 8px 10px;
+  background: color-mix(in srgb, var(--accent-soft) 45%, var(--surface));
+  border-radius: 4px;
+  border: 1px dashed var(--hairline);
+}
+.nav-block a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.nav-block a:hover { text-decoration: underline; }
+.source-line {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 4px 0 8px;
+  line-height: 1.5;
+}
+.source-line a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.source-line a:hover { text-decoration: underline; }
+.roadbook {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  background: transparent;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+.roadbook strong { color: var(--accent); }
+
+.tl-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag-recommend { background: var(--tag-rec-bg); color: var(--tag-rec-fg); }
+.tag-free { background: var(--tag-free-bg); color: var(--tag-free-fg); }
+.tag-booking { background: var(--tag-book-bg); color: var(--tag-book-fg); }
+.tag-photo { background: var(--tag-photo-bg); color: var(--tag-photo-fg); }
+.tag-ticket { background: var(--accent-soft); color: var(--accent); }
+.tl-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.sidebar-box {
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.sidebar-box h4 { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.sidebar-box li {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  list-style: disc;
+  margin-left: 16px;
+  line-height: 1.5;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.info-card {
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+}
+.info-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+.info-card p, .info-card li { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.info-card ul { padding-left: 16px; }
+.info-card li { margin-bottom: 4px; list-style: disc; }
+
+.ticket-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ticket-table th {
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 2px solid var(--hairline);
+  color: var(--accent);
+  font-weight: 600;
+}
+.ticket-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--muted);
+}
+
+.budget-card {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.budget-header {
+  background: var(--budget-head);
+  padding: 16px 22px;
+  color: #fff;
+}
+html[data-theme="c"] .budget-header { color: #12141A; }
+.budget-header h3 { font-size: 17px; font-weight: 700; }
+.budget-header .budget-meta { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+.budget-body { padding: 22px; }
+.budget-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 18px; }
+.budget-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--accent-soft) 40%, var(--surface));
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 2px solid var(--hairline);
+  font-size: 13px;
+}
+.budget-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text);
+}
+.budget-table tbody td:last-child { color: var(--muted); font-size: 12px; }
+.budget-totals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.budget-level { border-radius: 6px; padding: 14px; text-align: center; }
+.budget-level .level-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.budget-level .level-price { font-size: 22px; font-weight: 800; }
+.budget-level .level-note { font-size: 11px; margin-top: 4px; opacity: 0.85; }
+.budget-economy { background: var(--econ-bg); color: var(--econ-fg); }
+.budget-comfort { background: var(--comf-bg); color: var(--comf-fg); }
+.budget-luxury { background: var(--lux-bg); color: var(--lux-fg); }
+.saving-tips {
+  background: color-mix(in srgb, var(--accent-soft) 50%, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.saving-tips h4 { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.saving-tips li {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  list-style: disc;
+  margin-left: 16px;
+  line-height: 1.5;
+}
+.budget-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  padding: 12px;
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  border-radius: 4px;
+}
+
+.check-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.check-card {
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+}
+.check-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+.todo-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: -8px 0 14px;
+  line-height: 1.45;
+}
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.todo-item input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+}
+.todo-item input:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.todo-item input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
+.todo-item.is-done span {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.todo-progress {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.footer {
+  text-align: center;
+  padding: 32px 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Collapsible guide refs (end of page) */
+.refs-fold {
+  margin: 8px 0 0;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.refs-fold > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+}
+.refs-fold > summary::-webkit-details-marker { display: none; }
+.refs-fold > summary::after {
+  content: "展开";
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.refs-fold[open] > summary::after { content: "收起"; }
+.refs-fold > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.refs-note {
+  margin: 0;
+  padding: 0 18px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.refs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 18px 16px;
+  border-top: 1px solid var(--hairline);
+}
+.refs-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--hairline);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.refs-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.refs-list a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all;
+}
+.refs-list a:hover { text-decoration: underline; }
+.refs-list .refs-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 40px 20px 28px; }
+  .hero h1 { font-size: 22px; }
+  .hero-stats { gap: 16px; }
+  .hero-stat .value { font-size: 15px; }
+  .day-body { flex-direction: column; }
+  .day-sidebar { width: 100%; }
+  .media-figure img { max-height: 160px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .check-grid { grid-template-columns: 1fr; }
+  .route-cards { grid-template-columns: repeat(2, 1fr); }
+  .budget-totals { grid-template-columns: 1fr; }
+}
+
+@media print {
+  @page { size: A4; margin: 10mm 12mm; }
+  .theme-bar,
+  .float-dock { display: none !important; }
+  html[data-theme="c"] {
+    --bg: #fff;
+    --surface: #fff;
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #8B6914;
+    --accent-2: #A89070;
+    --accent-soft: #F0E8DC;
+    --hero-grad: linear-gradient(135deg, #3D3228, #5C5043);
+    --day-head: #F5F0E8;
+    --budget-head: linear-gradient(135deg, #8B6914, #6B4E1B);
+    --hairline: #ddd;
+  }
+  html, body {
+    background: #fff !important;
+    background-image: none !important;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #1a1a1a;
+  }
+  .hero {
+    padding: 20px 18px 16px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .hero h1 { font-size: 20px !important; margin: 6px 0 !important; }
+  .hero .subtitle { font-size: 11px !important; margin: 4px 0 !important; }
+  .hero-badge { font-size: 10px !important; padding: 2px 8px !important; }
+  .hero-stats { gap: 10px !important; margin-top: 10px !important; }
+  .hero-stat .value { font-size: 13px !important; }
+  .hero-stat .label { font-size: 10px !important; }
+  .section { padding: 12px 0 !important; }
+  .section-title { font-size: 15px !important; margin: 0 0 8px !important; }
+  .route-overview { padding: 8px !important; margin-bottom: 8px !important; }
+  .route-overview-note { font-size: 9px !important; margin-bottom: 8px !important; }
+  .route-day-track { gap: 8px !important; }
+  .route-day { box-shadow: none !important; }
+  .route-day-sep { display: none !important; }
+  .route-day-media { height: 72px !important; }
+  .route-day-badge { height: 22px !important; font-size: 10px !important; left: 6px !important; top: 6px !important; padding: 0 8px !important; }
+  .route-day-body { padding: 8px 8px 10px !important; }
+  .route-day-body h4 { font-size: 12px !important; }
+  .route-day-meta { font-size: 10px !important; margin-bottom: 4px !important; padding-bottom: 4px !important; }
+  .route-day-body ul { font-size: 10px !important; }
+  .media-figure { margin: 4px 0 6px !important; }
+  .media-figure img { max-height: 120px !important; }
+  .media-figure figcaption { font-size: 9px !important; padding: 4px 6px !important; }
+  .day-card, .info-card, .check-card, .budget-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+    margin-bottom: 10px !important;
+  }
+  .day-header { padding: 8px 12px !important; }
+  .day-header h3 { font-size: 13px !important; margin: 0 !important; }
+  .day-weather { padding: 6px 12px !important; font-size: 10px !important; }
+  .dw-temp { font-size: 12px !important; }
+  .day-weather-wear, .day-weather-note { font-size: 9px !important; margin-top: 2px !important; }
+  .day-body { padding: 8px 12px !important; gap: 10px !important; }
+  .roadbook { font-size: 10px !important; padding: 6px 8px !important; margin-bottom: 8px !important; }
+  .tl-item { padding: 6px 0 !important; }
+  .tl-time { font-size: 10px !important; }
+  .tl-spot-name { font-size: 12px !important; margin: 2px 0 !important; }
+  .tl-desc { font-size: 10px !important; margin: 2px 0 !important; }
+  .nav-block {
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    margin: 3px 0 4px !important;
+  }
+  .source-line { font-size: 9px !important; margin: 2px 0 4px !important; }
+  .refs-fold { break-inside: avoid; border-color: #ccc !important; }
+  .refs-fold > summary { padding: 8px 12px !important; font-size: 13px !important; }
+  .refs-fold > summary::after { content: none !important; }
+  .refs-note { font-size: 9px !important; padding: 0 12px 6px !important; }
+  .refs-list { padding: 0 12px 10px !important; }
+  .refs-list li { font-size: 10px !important; padding: 6px 0 !important; }
+  .tl-tags .tag { font-size: 9px !important; padding: 1px 6px !important; }
+  .day-sidebar .sidebar-box { padding: 8px !important; margin-bottom: 8px !important; }
+  .day-sidebar h4 { font-size: 11px !important; margin: 0 0 4px !important; }
+  .day-sidebar li { font-size: 10px !important; }
+  .info-grid, .check-grid { gap: 8px !important; }
+  .info-card, .check-card { padding: 8px 10px !important; }
+  .info-card h4, .check-card h4 { font-size: 12px !important; margin: 0 0 6px !important; }
+  .info-card li, .todo-item { font-size: 10px !important; }
+  .todo-item input { width: 14px !important; height: 14px !important; }
+  .ticket-table { font-size: 10px !important; }
+  .ticket-table th, .ticket-table td { padding: 4px 6px !important; }
+  .budget-header { padding: 10px 12px !important; }
+  .budget-card .budget-body { padding: 8px 12px !important; }
+  .budget-totals { gap: 8px !important; }
+  .budget-level { padding: 8px !important; }
+  .level-name { font-size: 11px !important; }
+  .level-price { font-size: 14px !important; }
+  .level-note, .saving-tips, .budget-disclaimer { font-size: 10px !important; }
+  .saving-tips { padding: 8px !important; }
+  .footer { padding: 12px 8px !important; font-size: 9px !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="float-dock" id="float-dock">
+  <div class="float-theme-panel" id="float-theme-panel" role="group" aria-label="配色方案">
+    <button type="button" class="theme-btn" data-theme-set="a" aria-pressed="true">A 山野旅行</button>
+    <button type="button" class="theme-btn" data-theme-set="b" aria-pressed="false">B 海岸公路</button>
+    <button type="button" class="theme-btn" data-theme-set="c" aria-pressed="false">C 城市夜游</button>
+  </div>
+  <div class="float-dock-main">
+    <button type="button" class="float-theme-toggle" data-theme-menu aria-expanded="false" aria-controls="float-theme-panel">配色</button>
+    <button type="button" class="theme-btn-pdf" data-print-pdf>导出 PDF</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">2026 国庆 · 电车自驾 · 3天2晚</span>
+    <p class="subtitle" style="margin-bottom:12px;opacity:0.9;font-size:13px;">
+      侧重：偏美食 · 选点：软避网红 · 人流偏好：适中 · 出发：河池罗城青莲山庄 · 返程终点：柳州
+      · 适宜：情侣慢逛吃 · 电车续航约 500 km
+    </p>
+    <h1>柳州螺香三日 · 少景多吃</h1>
+    <p class="subtitle">罗城单程进城约 103 km；结束于柳州。主线偏本地口碑粉店与菜市逛吃，龙潭走轻量山水（不硬追网红机位）。国庆错峰嗦粉即可。</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="value">10.01–10.03</span>
+        <span class="label">出行日期</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">约 103 km</span>
+        <span class="label">去程里程（罗城→柳州）</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">3 段主题</span>
+        <span class="label">进城吃 / 山水拍 / 留柳收尾</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">本地口碑</span>
+        <span class="label">选店原则</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">路线总览</h2>
+  <div class="route-overview">
+    <p class="route-overview-note">按日示意，非精确导航；停靠细节、导航与来源见下方日程。</p>
+    <ol class="route-day-track">
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Luosifen_at_Guangya,_Liuzhou_(20190420141814).jpg?width=640" alt="柳州螺蛳粉" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day1</span>
+        </div>
+        <div class="route-day-body">
+          <h4>进城开吃</h4>
+          <p class="route-day-meta">10/1 · 罗城青莲山庄出发 · 约 103 km / 2h 进城 · 结束住城中</p>
+          <ul>
+            <li>入住五星/城中（优先有充电桩）</li>
+            <li>首碗口碑粉：六品坊或聚宝（可微辣）</li>
+            <li>青云菜市糖水小吃扫街</li>
+            <li>夜：滨江散步或胜利烧烤城（喷泉/夜市可选）</li>
+          </ul>
+        </div>
+      </li>
+      <li class="route-day-sep" aria-hidden="true">›</li>
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flowers_in_Longtan_Park,_Liuzhou.jpg?width=640" alt="龙潭公园" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day2</span>
+        </div>
+        <div class="route-day-body">
+          <h4>景少粉多</h4>
+          <p class="route-day-meta">10/2 · 龙潭轻游为主 · 风雨桥/洗头为可选</p>
+          <ul>
+            <li>早龙潭：镜山 → 镜湖（不硬排队出片）</li>
+            <li>午：凤张或居民区粉店换一家</li>
+            <li>午后：文庙或滨江慢走</li>
+            <li>晚：城中轻食收工（茶麸洗头可选）</li>
+          </ul>
+        </div>
+      </li>
+      <li class="route-day-sep" aria-hidden="true">›</li>
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/%E4%BA%94%E6%98%9F%E8%A1%97%E5%A4%9C%E6%99%AF%20-%20panoramio.jpg?width=640" alt="城中夜景" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day3</span>
+        </div>
+        <div class="route-day-body">
+          <h4>留柳收尾</h4>
+          <p class="route-day-meta">10/3 · 行程结束于柳州 · 不返回青莲山庄</p>
+          <ul>
+            <li>轻松早餐或再嗦一碗</li>
+            <li>伴手礼：真空袋装粉（居民区口碑店）</li>
+            <li>行程结束于柳州；续程另导航</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="section">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day 1 · 10月1日 · 主题：进城开吃</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">24–31°C</span>
+        <span class="dw-cond">雷阵雨风险</span>
+        <span class="dw-precip">降水概率约 33% · 预估 17mm（市区）</span>
+      </div>
+      <p class="day-weather-wear">穿衣：短袖透气为主，备一件薄外套；折叠伞或轻薄雨衣必带。上午罗城山区略凉潮湿，进城后闷热，少穿易湿白鞋。</p>
+      <p class="day-weather-note">预报截至生成日，出行前再核 · 数据：Open-Meteo（柳州；山区参考相近）</p>
+    </div>
+    <div class="day-body">
+      <div class="day-timeline">
+        <div class="roadbook">
+          <strong>当日路书</strong>：青莲山庄 → 城中酒店 → 六品坊/聚宝（口碑向）→ 青云市场 → 滨江散步或胜利烧烤城<br>
+          段间：自驾进城约 2h（103 km）· 市区多步行/网约 · 停车：酒店泊车后少挪车
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:30 - 11:00</div>
+          <div class="tl-spot-name">罗城青莲山庄 → 柳州城中</div>
+          <div class="nav-block">
+            导航搜：河池罗城青莲山庄<br>
+            地址：河池市罗城仫佬族自治县 · 青莲山庄<br>
+            找店：导航搜「青莲山庄」以入口为准；出山庄上高速往柳州 · <a href="https://uri.amap.com/search?keyword=%E6%B2%B3%E6%B1%A0%E7%BD%97%E5%9F%8E%E9%9D%92%E8%8E%B2%E5%B1%B1%E5%BA%84" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-recommend">自驾约 103 km / 2h</span></div>
+          <div class="tl-desc">经汕昆高速方向进市区。国庆首日高速易堵，预留缓冲。续航 500 km、段程远低于 350 km 上限，中途不必为续航专门停车充电；出发前在山庄或沿途确认电量即可。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:00 - 12:00</div>
+          <div class="tl-spot-name">入住（建议五星步行街 / 城中区一带）</div>
+          <div class="nav-block">
+            导航搜：柳州五星步行街<br>
+            地址：柳州市城中区五星步行街周边<br>
+            找店：优先带充电桩酒店；导航搜已订酒店全称 · <a href="https://uri.amap.com/search?keyword=%E6%9F%B3%E5%B7%9E%E4%BA%94%E6%98%9F%E6%AD%A5%E8%A1%8C%E8%A1%97" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-booking">国庆提前订</span><span class="tag tag-ticket">舒适约 350–550/晚</span></div>
+          <div class="tl-desc">优先带充电桩或步行可达公共桩的酒店。评论区常见「全季」等连锁作稳妥选项。放好行李再开吃，少折返。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/%E4%BA%94%E6%98%9F%E6%AD%A5%E8%A1%8C%E8%A1%97%20-%20panoramio.jpg?width=960" alt="柳州五星步行街" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：五星步行街一带（住宿参考氛围） · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E4%BA%94%E6%98%9F%E6%AD%A5%E8%A1%8C%E8%A1%97%20-%20panoramio.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:00 - 13:30</div>
+          <div class="tl-spot-name">首碗螺蛳粉：六品坊 或 聚宝（可要求微辣/少酸笋）</div>
+          <div class="nav-block">
+            导航搜：六品坊螺蛳粉金鱼巷<br>
+            地址：柳州市城中区公园路北三巷附近（金鱼巷内）<br>
+            找店：金鱼巷内近地下车库一带；门牌以店招为准；聚宝另搜店名 · <a href="https://uri.amap.com/search?keyword=%E5%85%AD%E5%93%81%E5%9D%8A%E8%9E%BA%E8%9B%B3%E7%B2%89%E9%87%91%E9%B1%BC%E5%B7%B7" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-recommend">本地口碑向</span><span class="tag tag-booking">错开午高峰</span></div>
+          <div class="tl-desc">主线选能改辣、口感稳的店：六品坊/聚宝一类（据@小呀小橘橘）；车站、景区步行街「必打卡」店不当主线。标准：好吃、能改口味、排队可接受——不是出片。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Luosifen_at_Guangya,_Liuzhou_(20190420141814).jpg?width=960" alt="柳州螺蛳粉" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：柳州螺蛳粉参考样貌（非指定门店出品）· 图源：<a href="https://commons.wikimedia.org/wiki/File:Luosifen_at_Guangya,_Liuzhou_(20190420141814).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line">来源：小红书@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">查看笔记</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00 - 17:30</div>
+          <div class="tl-spot-name">青云民生市场 · 糖水小吃扫街</div>
+          <div class="nav-block">
+            导航搜：青云民生市场<br>
+            地址：柳州市城中区青云路一带（近中山西路交叉口）<br>
+            找店：导航搜「青云民生市场」；市场内边逛边吃 · <a href="https://uri.amap.com/search?keyword=%E9%9D%92%E4%BA%91%E6%B0%91%E7%94%9F%E5%B8%82%E5%9C%BA" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-free">逛吃</span><span class="tag tag-recommend">真日常</span></div>
+          <div class="tl-desc">木薯羹、玉米汁、露水汤圆、炒冰等按胃口点，跟着本地人排队短的摊位走即可，不必按网红清单打卡每一家。热天可回酒店休整后再出夜场。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/%E4%BA%94%E6%98%9F%E8%A1%97%E5%A4%9C%E6%99%AF%20-%20panoramio.jpg?width=960" alt="柳州五星街夜景" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：城中夜景氛围（逛吃参考） · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E4%BA%94%E6%98%9F%E8%A1%97%E5%A4%9C%E6%99%AF%20-%20panoramio.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line">来源：综合公开渠道（菜市逛吃常见组合）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">19:30 - 21:30</div>
+          <div class="tl-spot-name">滨江慢走 或 胜利烧烤城夜宵（主）· 音乐喷泉（可选）</div>
+          <div class="nav-block">
+            导航搜：胜利烧烤城<br>
+            地址：柳州市城中区 · 以门店导航为准 / 滨江东堤一带散步<br>
+            找店：夜宵优先搜「胜利烧烤城」；想看喷泉再搜「柳江音乐喷泉」 · <a href="https://uri.amap.com/search?keyword=%E8%83%9C%E5%88%A9%E7%83%A7%E7%83%A4%E5%9F%8E" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-recommend">吃/散步为主</span><span class="tag tag-photo">喷泉可选</span></div>
+          <div class="tl-desc">主线：滨江散步或找一家正经夜宵（鸭脚煲、烧烤点到为止）。夜市「随便一家打卡」与音乐喷泉属可选——想看热闹再去，不当必打卡；喷泉场次以现场公告为准。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/%E7%BE%8E%E4%B8%BD%E7%9A%84%E6%9F%B3%E6%B1%9F%20-%20panoramio%20%281%29.jpg?width=960" alt="柳江风光" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：柳江夜色 / 滨江散步参考 · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E7%BE%8E%E4%B8%BD%E7%9A%84%E6%9F%B3%E6%B1%9F%20-%20panoramio%20%281%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line">来源：小红书@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">夜市提醒</a>；喷泉为可选公开信息</div>
+        </div>
+      </div>
+      <div class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>首碗粉立本地味基准（非打卡）</li>
+            <li>菜市逛吃比硬挤网红点更值</li>
+            <li>夜景可选，吃饱散步优先</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li>国庆粉店排队长：错峰或 15:00 后再去</li>
+            <li>雷雨天少长时间户外；伞/雨衣随身</li>
+            <li>酒店先确认充电车位</li>
+            <li>步行街「必打卡」粉店可路过不进</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day 2 · 10月2日 · 主题：少景多吃</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">22–31°C</span>
+        <span class="dw-cond">雷雨风险偏高</span>
+        <span class="dw-precip">降水概率约 42% · 预估 17mm</span>
+      </div>
+      <p class="day-weather-wear">穿衣：短袖 + 薄外套；龙潭户外穿防滑鞋，雨具随身。遇强雷雨缩短园内停留，改室内/吃。</p>
+      <p class="day-weather-note">预报截至生成日，出行前再核 · 数据：Open-Meteo（柳州）</p>
+    </div>
+    <div class="day-body">
+      <div class="day-timeline">
+        <div class="roadbook">
+          <strong>当日路书</strong>：酒店 → 龙潭北门（镜山/镜湖为主；风雨桥可选）→ 凤张或居民区粉店 → 文庙/滨江 → 轻食收工<br>
+          段间：酒店→龙潭约 20–40 分（视拥堵）· 园内步行 · 停车：龙潭周边停车场，以现场为准
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:30 - 11:00</div>
+          <div class="tl-spot-name">龙潭公园轻游（主：镜山 → 镜湖；可选：风雨桥）</div>
+          <div class="nav-block">
+            导航搜：龙潭公园北门<br>
+            地址：柳州市鱼峰区龙潭路43号（北门）<br>
+            找店：建议北门进；园内可辅搜「镜山」「镜湖」 · <a href="https://uri.amap.com/search?keyword=%E9%BE%99%E6%BD%AD%E5%85%AC%E5%9B%AD%E5%8C%97%E9%97%A8" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-free">免费</span><span class="tag tag-recommend">山水主线</span><span class="tag tag-photo">风雨桥可选</span></div>
+          <div class="tl-desc">主线：北门→镜山（趁早）→镜湖观景台→返回。不问出片也值得走一圈。风雨桥古风机位国庆常排半小时——想拍再去，人少角落即可，不硬追网图。园内流动摄影约 5 元/张，先看样片再决定。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/%E9%BE%99%E6%BD%AD%E9%A3%8E%E9%9B%A8%E6%A1%A5%20-%20panoramio.jpg?width=960" alt="龙潭风雨桥" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：龙潭风雨桥（可选机位，不必硬排队） · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E9%BE%99%E6%BD%AD%E9%A3%8E%E9%9B%A8%E6%A1%A5%20-%20panoramio.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Flowers_in_Longtan_Park,_Liuzhou.jpg?width=960" alt="柳州龙潭公园景色" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：龙潭公园一景 · 图源：<a href="https://commons.wikimedia.org/wiki/File:Flowers_in_Longtan_Park,_Liuzhou.jpg" target="_blank" rel="noopener">Wikimedia Commons · EditQ</a></figcaption>
+          </figure>
+          <div class="source-line">来源：小红书@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">路线</a>；@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">排队成本</a></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:30 - 13:00</div>
+          <div class="tl-spot-name">凤张螺蛳粉 / 其他居民区老店</div>
+          <div class="nav-block">
+            导航搜：凤张螺蛳粉<br>
+            地址：柳州市 · 以当前营业分店为准<br>
+            找店：导航搜「凤张螺蛳粉」选近的分店；也可就近问居民「哪家粉好吃」 · <a href="https://uri.amap.com/search?keyword=%E5%87%A4%E5%BC%A0%E8%9E%BA%E8%9B%B3%E7%B2%89" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-recommend">本地复访向</span></div>
+          <div class="tl-desc">标准：排队短、能改辣、汤底稳。居民区老店优先于景区门口网红店；「本地人螺蛳粉」清单仅作参考，以现场口感为准。</div>
+          <div class="source-line">来源：综合公开渠道 + 小红书粉店避坑共识（可搜「柳州本地人螺蛳粉」核对）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:00 - 17:30</div>
+          <div class="tl-spot-name">柳州文庙 或 滨江慢走</div>
+          <div class="nav-block">
+            导航搜：柳州文庙<br>
+            地址：柳州市城中区滨江东路附近（柳江边）<br>
+            找店：导航搜「柳州文庙」；散步沿滨江东路即可 · <a href="https://uri.amap.com/search?keyword=%E6%9F%B3%E5%B7%9E%E6%96%87%E5%BA%99" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-free">免费/低强度</span></div>
+          <div class="tl-desc">文庙红墙临江，节奏慢、人比马鞍山少，适合情侣散步而非挤网红交叉口打卡。日落想更安静可往惠龙山方向（公开攻略常见对比）。东台路「必出片」角可不专程。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/%E6%9F%B3%E5%B7%9E%E6%96%87%E5%BA%99%20-%20panoramio.jpg?width=960" alt="柳州文庙" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：柳州文庙 · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E6%9F%B3%E5%B7%9E%E6%96%87%E5%BA%99%20-%20panoramio.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/%E6%9F%B3%E5%B7%9E%E6%96%87%E5%BA%99%E7%9C%8B%E6%96%87%E6%83%A0%E6%A1%A5.jpg?width=960" alt="文庙望文惠桥" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：文庙望文惠桥 / 滨江 · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E6%9F%B3%E5%B7%9E%E6%96%87%E5%BA%99%E7%9C%8B%E6%96%87%E6%83%A0%E6%A1%A5.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+ alt="柳江沿岸夜景参考" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：柳江沿岸氛围参考 · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E6%9F%B3%E6%B1%9F%E6%98%8E%E7%8F%A0%E6%B0%B4%E4%B8%8A%E5%A4%A7%E8%88%9E%E5%8F%B0.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line">来源：小红书@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">查看笔记</a>；惠龙山对比为公开攻略常见说法</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:30 - 20:30</div>
+          <div class="tl-spot-name">轻食夜宵收工（茶麸洗头：可选体验）</div>
+          <div class="nav-block">
+            导航搜：五星步行街 糖水<br>
+            地址：城中区五星步行街小巷 / 若洗头则鱼峰区龙潭出入口附近<br>
+            找店：主线回城中觅糖水/卷粉；洗头另搜具体店名 · <a href="https://uri.amap.com/search?keyword=%E6%9F%B3%E5%B7%9E%E4%BA%94%E6%98%9F%E6%AD%A5%E8%A1%8C%E8%A1%97%20%E7%B3%96%E6%B0%B4" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+
+          <div class="tl-tags"><span class="tag tag-recommend">吃收工</span><span class="tag tag-booking">洗头可选</span></div>
+          <div class="tl-desc">主线：五星小巷糖水/卷粉收工即可。茶麸洗头属可选放松（约 38–50 元一档足够），不当打卡项目；不必上高价套餐。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/%E4%BA%94%E6%98%9F%E8%A1%97%E5%A4%9C%E6%99%AF%20-%20panoramio%20%281%29.jpg?width=960" alt="五星街夜景" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：城中收工夜景参考 · 图源：<a href="https://commons.wikimedia.org/wiki/File:%E4%BA%94%E6%98%9F%E8%A1%97%E5%A4%9C%E6%99%AF%20-%20panoramio%20%281%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line">来源：洗头价位来自小红书体验笔记交叉；店名以现场为准</div>
+        </div>
+      </div>
+      <div class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>龙潭山水一圈（不硬排队出片）</li>
+            <li>第二碗粉换居民区口味</li>
+            <li>文庙/滨江慢节奏收尾</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li>龙潭穿防滑鞋；镜山台阶热天易累</li>
+            <li>雷雨概率偏高：雨具随身，强雷雨改吃/室内</li>
+            <li>风雨桥、茶麸洗头均为可选</li>
+            <li>工业博物馆可跳过（非必去）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day 3 · 10月3日 · 主题：留柳收尾</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">约 22–30°C</span>
+        <span class="dw-cond">气候向 · 偶有阵雨</span>
+        <span class="dw-precip">历史同期降水偏少，仍建议备伞</span>
+      </div>
+      <p class="day-weather-wear">穿衣：短袖为主，备薄外套与折叠伞；市内轻松走动即可，不必厚装。</p>
+      <p class="day-weather-note">该日超出当前短期预报窗口，以上为气候向参考，出行前务必再核 · 气候：Open-Meteo Climate</p>
+    </div>
+    <div class="day-body">
+      <div class="day-timeline">
+        <div class="roadbook">
+          <strong>当日路书</strong>：酒店早餐/伴手礼 →（可选）再嗦一碗或青云扫尾 → <strong>结束于柳州</strong>（不返青莲山庄）<br>
+          段间：市内步行/网约 · 若续往他城请自设下一段导航 · 停车：酒店或商场泊车
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:30 - 10:00</div>
+          <div class="tl-spot-name">早餐：豆浆油条 / 市场小吃 或 最后一碗粉</div>
+          <div class="nav-block">
+            导航搜：青云民生市场<br>
+            地址：柳州市城中区青云路一带<br>
+            找店：就近酒店周边或回青云市场 · <a href="https://uri.amap.com/search?keyword=%E9%9D%92%E4%BA%91%E6%B0%91%E7%94%9F%E5%B8%82%E5%9C%BA" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-recommend">量力而行</span></div>
+          <div class="tl-desc">肠胃已「粉化」可改清淡早点。真空袋装螺蛳粉可作伴手礼，选居民区口碑店打包。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:00 - 12:00</div>
+          <div class="tl-spot-name">伴手礼 / 轻松闲逛 · 行程收束于柳州</div>
+          <div class="nav-block">
+            导航搜：柳州五星步行街<br>
+            地址：柳州市城中区五星步行街<br>
+            找店：行程在柳州结束；之后去向自行导航 · <a href="https://uri.amap.com/search?keyword=%E6%9F%B3%E5%B7%9E%E4%BA%94%E6%98%9F%E6%AD%A5%E8%A1%8C%E8%A1%97" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-recommend">留在柳州</span></div>
+          <div class="tl-desc">从罗城青莲山庄进城，第三日不安排回罗城。若之后另有目的地，从柳州再导航即可。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">视需要</div>
+          <div class="tl-spot-name">电车：在柳州补电（非返罗城段）</div>
+          <div class="nav-block">
+            导航搜：柳州超充<br>
+            地址：酒店桩或市区公共超充<br>
+            找店：出行前用车企 App 核验 · <a href="https://uri.amap.com/search?keyword=%E6%9F%B3%E5%B7%9E%E8%B6%85%E5%85%85" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-ticket">电车</span></div>
+          <div class="tl-desc">去程仅约 103 km。因不返罗城，无需为返程 103 km 预留电量；若续往更远城市，按下一程用续航×0.7 另算。</div>
+        </div>
+      </div>
+      <div class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>不赶返程，节奏更松</li>
+            <li>伴手礼从容采购</li>
+            <li>结束点明确在柳州</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li>勿按旧方案开回青莲山庄</li>
+            <li>当日天气为气候向，出发前再核预报</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="prep-cluster">
+<div class="section">
+  <h2 class="section-title">预约与行前准备</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>预约购票</h4>
+      <table class="ticket-table">
+        <thead>
+          <tr><th>景点</th><th>预约</th><th>参考价</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>龙潭公园</td><td>一般免票入园</td><td>免费</td></tr>
+          <tr><td>柳州文庙</td><td>以现场/公众号为准</td><td>多为免费</td></tr>
+          <tr><td>螺蛳粉饮食文化博物馆</td><td>建议公众号提前 1–3 天（可选）</td><td>免费（限流）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-card">
+      <h4>交通前往</h4>
+      <ul>
+        <li>出发地：河池罗城青莲山庄</li>
+        <li>返程终点：柳州（不返回青莲山庄）</li>
+        <li>自驾去程：罗城→柳州约 103 km / 约 2h，高速路桥约 25 元级</li>
+        <li>市内：美食圈步行+网约车；有车可停酒店后少挪车</li>
+        <li>不建议国庆在五星街长时间找临时车位</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>行前待办（可勾选）</h4>
+      <p class="todo-hint" style="margin:0 0 8px;">与下方待办共用勾选进度，保存在本机。</p>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-hotel"><span>酒店国庆房务必提前锁</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-museum"><span>（可选）螺蛳粉博物馆公众号提前 1–3 天预约</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-charge"><span>出发前确认电量；酒店有桩或附近公共桩</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-pack-early"><span>备好防晒、小风扇、防蚊、舒适鞋、折叠伞/雨衣</span></label>
+    </div>
+  </div>
+</div>
+<div class="section" id="trip-todos" data-todo-key="liuzhou-travel-guide">
+  <h2 class="section-title">出发前待办</h2>
+  <p class="todo-hint">与上方行前准备共用勾选；进度保存在本机。打印/导出 PDF 时会带上勾选状态。</p>
+  <p class="todo-progress" data-todo-progress>已完成 0 / 0</p>
+  <div class="check-grid">
+    <div class="check-card">
+      <h4>注意事项</h4>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-traffic"><span>国庆高速与粉店均易堵，日程已留空档</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-spice"><span>粉店能微辣就说微辣；酸笋可要求少放</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-queue"><span>风雨桥/网红机位不硬排队；步行街必打卡店可路过</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-return"><span>行程结束于柳州，勿按旧方案开回青莲山庄</span></label>
+    </div>
+    <div class="check-card">
+      <h4>携带清单</h4>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-id"><span>身份证、驾照</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-ev"><span>充电枪（若酒店需要自备）</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-sun"><span>防晒、墨镜、小风扇、防蚊</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-shoes"><span>舒适防滑鞋（龙潭台阶）</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-rain"><span>折叠伞或轻薄雨衣（国庆前后多雷雨）</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-cash"><span>少量现金/常用支付 App（夜市小吃）</span></label>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">适宜人群</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>比较适合</h4>
+      <ul>
+        <li>情侣 / 朋友慢节奏逛吃</li>
+        <li>能接受酸笋气味、愿改微辣的游客</li>
+        <li>自驾短途进城（罗城→柳州约 100 km；可结束于柳州）</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>需要留意 / 不太适合</h4>
+      <ul>
+        <li>完全不能闻酸笋、不能吃任何辣的人（选店成本高）</li>
+        <li>只想深度徒步 / 程阳八寨一日游的人（本线未排）</li>
+        <li>国庆只追网红机位硬排队——体验易崩</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>内容侧重</h4>
+      <ul>
+        <li>当前方案：偏美食</li>
+        <li>题材偏好：情侣慢逛 + 少量真山水（非打卡清单）</li>
+        <li>每日餐饮锚点 2–3 个，景点穿插且不排满；网红点仅可选</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">实用建议</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>住宿推荐</h4>
+      <ul>
+        <li>区域：五星步行街 / 城中区（吃逛近）</li>
+        <li>价位：舒适型约 350–550 元/晚（国庆可能上浮）</li>
+        <li>筛选：充电桩 + 好停车</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>美食推荐</h4>
+      <ul>
+        <li>粉：六品坊、聚宝、凤张等口碑向（以现场为准）</li>
+        <li>小吃：青云市场糖水、炒冰、木薯羹（跟短队走）</li>
+        <li>夜宵：胜利烧烤城等正经店；步行街必打卡店可路过</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>餐饮安排</h4>
+      <ul>
+        <li>每天 2–3 个餐饮锚点，不暴走 10 店</li>
+        <li>标准：好吃、能改辣、排队合理</li>
+        <li>忌：车站/景区纯网红长队店当主线</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <h2 class="section-title">电车充电安排</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>续航假设</h4>
+      <ul>
+        <li>用户续航：约 500 km</li>
+        <li>规划系数：×0.7（10 月非高寒，按常规留余量）</li>
+        <li>单段目标：约 ≤ 350 km</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>段间充电节点</h4>
+      <ul>
+        <li>罗城→柳州约 103 km：无需中途补电</li>
+        <li>不返回罗城：无回程充电段</li>
+        <li>正式节点：酒店过夜补电；离开柳州前按需超充</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>行前核验</h4>
+      <ul>
+        <li>用车企 App / 高德 / 星星充电等查酒店与服务区桩</li>
+        <li>桩位以出行前小程序为准，本文不保证实时空位</li>
+        <li>住宿：优先「有桩车位」或步行 300 m 内公共桩</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="section">
+  <h2 class="section-title">预算预估</h2>
+  <div class="budget-card">
+    <div class="budget-header">
+      <h3>2人 · 3天2晚 · 费用预估</h3>
+      <div class="budget-meta">基于小红书部分实测口碑 + 公开渠道（2026-09 参考价）</div>
+    </div>
+    <div class="budget-body">
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>费用项目</th>
+            <th>单价参考</th>
+            <th>小计（2人）</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>大交通</td>
+            <td>—</td>
+            <td>¥0</td>
+            <td>自驾单程进城；电费+过路费另计</td>
+          </tr>
+          <tr>
+            <td>高速过路</td>
+            <td>约 ¥25/单程</td>
+            <td>¥25–40</td>
+            <td>仅去程；无回罗城高速</td>
+          </tr>
+          <tr>
+            <td>电费</td>
+            <td>约 ¥0.5–1.2/度</td>
+            <td>¥40–100</td>
+            <td>去程约 103 km + 市内；无回罗城</td>
+          </tr>
+          <tr>
+            <td>酒店住宿</td>
+            <td>¥400/晚</td>
+            <td>¥800–1100</td>
+            <td>2 晚舒适型，国庆上浮</td>
+          </tr>
+          <tr>
+            <td>景点/活动</td>
+            <td>多为免费</td>
+            <td>¥0–100</td>
+            <td>含可选洗头/摄影</td>
+          </tr>
+          <tr>
+            <td>餐饮</td>
+            <td>¥120–180/人/天</td>
+            <td>¥720–1080</td>
+            <td>偏美食三日</td>
+          </tr>
+          <tr>
+            <td>市内交通/停车</td>
+            <td>—</td>
+            <td>¥80–150</td>
+            <td>停车+短途网约</td>
+          </tr>
+          <tr>
+            <td>其他</td>
+            <td>预留</td>
+            <td>¥200</td>
+            <td>伴手礼+应急</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="budget-totals">
+        <div class="budget-level budget-economy">
+          <div class="level-name">经济型</div>
+          <div class="level-price">≈ ¥1,800</div>
+          <div class="level-note">连锁快捷 + 克制夜宵</div>
+        </div>
+        <div class="budget-level budget-comfort">
+          <div class="level-name">舒适型</div>
+          <div class="level-price">≈ ¥2,600</div>
+          <div class="level-note">推荐档（2人合计）</div>
+        </div>
+        <div class="budget-level budget-luxury">
+          <div class="level-name">豪华型</div>
+          <div class="level-price">≈ ¥3,800</div>
+          <div class="level-note">更好酒店+多顿加料</div>
+        </div>
+      </div>
+      <div class="saving-tips">
+        <h4>省钱小贴士</h4>
+        <ul>
+          <li>景点基本免费，钱留给粉与小吃</li>
+          <li>国庆提前订房比临时贵一截</li>
+          <li>洗头 50 元内体验足够</li>
+        </ul>
+      </div>
+      <div class="budget-disclaimer">以上为 2026 年 9 月规划参考价，国庆实际以出行时平台为准；部分小红书笔记详情未能打开，粉店名单请现场复核。</div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h2 class="section-title">攻略参考地址</h2>
+  <details class="refs-fold">
+    <summary>灵感与参考链接（默认收起）</summary>
+    <p class="refs-note">仅汇总正文用到的攻略/笔记链接（去重）；高德导航与配图图源不列入。节点旁来源行仍保留。</p>
+    <ol class="refs-list">
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">小红书 · @小呀小橘橘</a>
+        <span class="refs-meta">粉店口碑、夜市与排队提醒</span>
+      </li>
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">小红书 · @山茶阿鱿</a>
+        <span class="refs-meta">龙潭路线、文庙/滨江节奏</span>
+      </li>
+    </ol>
+  </details>
+</div>
+
+<div class="footer">
+  <p>由 travel-guide 生成 · 2026-09-16</p>
+  <p>数据来源于公开信息与小红书笔记（含@小呀小橘橘、@山茶阿鱿等），出行前请核实最新价格和政策 · 右下角可切换配色 / 导出 PDF · 待办勾选保存在本机</p>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var dock = document.getElementById("float-dock");
+  var key = "travel-guide-theme";
+  function apply(theme) {
+    if (theme !== "a" && theme !== "b" && theme !== "c") theme = "a";
+    root.setAttribute("data-theme", theme);
+    try { localStorage.setItem(key, theme); } catch (e) {}
+    document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-set") === theme ? "true" : "false");
+    });
+  }
+  function setMenu(open) {
+    if (!dock) return;
+    dock.classList.toggle("is-open", open);
+    document.querySelectorAll("[data-theme-menu]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(key); } catch (e) {}
+  apply(saved || "a");
+  document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      apply(btn.getAttribute("data-theme-set"));
+      setMenu(false);
+    });
+  });
+  document.querySelectorAll("[data-theme-menu]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setMenu(!(dock && dock.classList.contains("is-open")));
+    });
+  });
+  document.querySelectorAll("[data-print-pdf]").forEach(function (btn) {
+    btn.addEventListener("click", function () { window.print(); });
+  });
+  document.addEventListener("click", function (e) {
+    if (!dock || dock.contains(e.target)) return;
+    setMenu(false);
+  });
+
+  (function initTodos() {
+    var host = document.getElementById("trip-todos");
+    var storageKey = "travel-guide-todos:" + ((host && host.getAttribute("data-todo-key")) || location.pathname || "default");
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"][data-todo-id]'));
+    if (!boxes.length) return;
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(storageKey) || "{}") || {}; } catch (e) { state = {}; }
+    function syncLabel(box) {
+      var label = box.closest(".todo-item");
+      if (label) label.classList.toggle("is-done", box.checked);
+    }
+    function renderProgress() {
+      var done = boxes.filter(function (b) { return b.checked; }).length;
+      document.querySelectorAll("[data-todo-progress]").forEach(function (el) {
+        el.textContent = "已完成 " + done + " / " + boxes.length;
+      });
+    }
+    function persist() {
+      var next = {};
+      boxes.forEach(function (b) { next[b.getAttribute("data-todo-id")] = !!b.checked; });
+      try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch (e) {}
+      renderProgress();
+    }
+    boxes.forEach(function (box) {
+      var id = box.getAttribute("data-todo-id");
+      if (state[id]) box.checked = true;
+      syncLabel(box);
+      box.addEventListener("change", function () {
+        syncLabel(box);
+        persist();
+      });
+    });
+    renderProgress();
+  })();
+
+  /* Print: expand refs fold so PDF/paper shows links */
+  window.addEventListener("beforeprint", function () {
+    document.querySelectorAll("details.refs-fold").forEach(function (el) {
+      el.dataset.wasOpen = el.open ? "1" : "0";
+      el.open = true;
+    });
+  });
+  window.addEventListener("afterprint", function () {
+    document.querySelectorAll("details.refs-fold").forEach(function (el) {
+      if (el.dataset.wasOpen !== "1") el.open = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>
+
