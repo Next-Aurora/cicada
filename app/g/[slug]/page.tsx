@@ -16,17 +16,17 @@ export default async function GuidePage({ params }: Props) {
   const src = `/guides/${slug}/index.html`
 
   return (
-    <div className="flex h-dvh flex-col bg-white dark:bg-gray-950">
-      <header className="flex shrink-0 items-center gap-3 border-b border-gray-200 bg-white px-4 py-2 dark:border-gray-800 dark:bg-gray-900">
-        <Link href="/guides" className="text-primary-700 dark:text-primary-300 text-sm font-semibold hover:underline">
-          ← 全部攻略
+    <div className="flex h-dvh flex-col bg-[var(--color-cicada-bg)]">
+      <header className="flex shrink-0 items-center gap-3 border-b border-[var(--color-cicada-hairline)] bg-[var(--color-cicada-surface)] px-4 py-2">
+        <Link href="/guides" className="text-sm font-semibold text-[var(--color-cicada-accent)] hover:underline">
+          ← 旅行攻略
         </Link>
-        <span className="text-sm text-gray-500 dark:text-gray-400">{slug}</span>
+        <span className="text-sm text-[var(--color-cicada-muted)]">{slug}</span>
         <a
           href={src}
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-auto text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+          className="ml-auto text-sm text-[var(--color-cicada-muted)] hover:text-[var(--color-cicada-accent)]"
         >
           单独打开
         </a>

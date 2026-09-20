@@ -1,69 +1,72 @@
-import { Metadata } from "next"
-import { Button } from "components/Button/Button"
-
-import { LP_GRID_ITEMS } from "lp-items"
+import type { Metadata } from "next"
+import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Next.js Enterprise Boilerplate",
-  twitter: {
-    card: "summary_large_image",
-  },
-  openGraph: {
-    url: "https://next-enterprise.vercel.app/",
-    images: [
-      {
-        width: 1200,
-        height: 630,
-        url: "https://raw.githubusercontent.com/Blazity/next-enterprise/main/.github/assets/project-logo.png",
-      },
-    ],
-  },
+  title: "蝉 · cicada",
+  description: "蝉（cicada）— 个人站点：旅行攻略、博客与小工具。",
 }
 
-export default function Web() {
+const entries = [
+  {
+    href: "/guides",
+    title: "旅行攻略",
+    desc: "可执行的行程页，持续更新",
+    available: true,
+  },
+  {
+    href: "#",
+    title: "博客",
+    desc: "随笔与记录 · 即将开放",
+    available: false,
+  },
+  {
+    href: "#",
+    title: "小工具",
+    desc: "日常好用的小能力 · 即将开放",
+    available: false,
+  },
+] as const
+
+export default function HomePage() {
   return (
-    <>
-      <section className="bg-white dark:bg-gray-900">
-        <div className="mx-auto grid max-w-(--breakpoint-xl) px-4 py-8 text-center lg:py-16">
-          <div className="mx-auto place-self-center">
-            <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-              Next.js Enterprise Boilerplate
-            </h1>
-            <p className="mb-6 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
-              Jumpstart your enterprise project with our feature-packed, high-performance Next.js boilerplate!
-              Experience rapid UI development, AI-powered code reviews, and an extensive suite of tools for a smooth and
-              enjoyable development process.
-            </p>
-            <Button href="/guides" className="mr-3">
-              旅行攻略
-            </Button>
-            <Button href="https://github.com/Blazity/next-enterprise" intent="secondary" className="mr-3">
-              Get started
-            </Button>
-            <Button
-              href="https://vercel.com/new/git/external?repository-url=https://github.com/Blazity/next-enterprise"
-              intent="secondary"
-            >
-              Deploy Now
-            </Button>
-          </div>
-        </div>
-      </section>
-      <section className="bg-white dark:bg-gray-900">
-        <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8 sm:py-16 lg:px-6">
-          <div className="justify-center space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-3">
-            {LP_GRID_ITEMS.map((singleItem) => (
-              <div key={singleItem.title} className="flex flex-col items-center justify-center text-center">
-                <div className="bg-primary-100 dark:bg-primary-900 mb-4 flex size-10 items-center justify-center rounded-full p-1.5 text-blue-700 lg:size-12">
-                  {singleItem.icon}
+    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col justify-center px-6 py-16 sm:px-8">
+      <header className="animate-[fade-up_0.7s_ease-out_both]">
+        <h1 className="font-[family-name:var(--font-cicada-display)] text-[clamp(4.5rem,18vw,7.5rem)] leading-none font-bold tracking-tight text-[var(--color-cicada-accent)]">
+          蝉
+        </h1>
+        <p className="mt-3 text-lg tracking-[0.2em] text-[var(--color-cicada-muted)] uppercase sm:text-xl">cicada</p>
+        <p className="mt-6 max-w-md text-base leading-relaxed text-[var(--color-cicada-text)] sm:text-lg">
+          个人站点。旅行攻略已经上线；博客与小工具会陆续长出来。
+        </p>
+      </header>
+
+      <nav
+        aria-label="站点入口"
+        className="mt-14 animate-[fade-up_0.7s_ease-out_0.12s_both] border-t border-[var(--color-cicada-hairline)] pt-8"
+      >
+        <ul className="flex flex-col gap-6">
+          {entries.map((item) => (
+            <li key={item.title}>
+              {item.available ? (
+                <Link href={item.href} className="group block max-w-md">
+                  <span className="text-xl font-semibold text-[var(--color-cicada-text)] transition group-hover:text-[var(--color-cicada-accent)] sm:text-2xl">
+                    {item.title}
+                    <span className="ml-2 inline-block text-[var(--color-cicada-accent)] transition group-hover:translate-x-1">
+                      →
+                    </span>
+                  </span>
+                  <span className="mt-1 block text-sm text-[var(--color-cicada-muted)]">{item.desc}</span>
+                </Link>
+              ) : (
+                <div className="max-w-md opacity-55">
+                  <span className="text-xl font-semibold text-[var(--color-cicada-muted)] sm:text-2xl">{item.title}</span>
+                  <span className="mt-1 block text-sm text-[var(--color-cicada-muted)]">{item.desc}</span>
                 </div>
-                <h3 className="mb-2 text-xl font-bold dark:text-white">{singleItem.title}</h3>
-                <p className="text-gray-500 dark:text-gray-400">{singleItem.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </main>
   )
 }
