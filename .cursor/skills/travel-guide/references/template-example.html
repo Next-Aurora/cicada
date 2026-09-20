@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="a">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} — 旅行攻略</title>
+<style>
+/* ========== Theme tokens ========== */
+/* A 山野旅行（默认） */
+html[data-theme="a"] {
+  --bg: #E7EBE6;
+  --bg-pattern: radial-gradient(ellipse 120% 80% at 10% -10%, rgba(61,107,79,0.12), transparent 50%),
+                radial-gradient(ellipse 80% 60% at 100% 0%, rgba(168,144,112,0.1), transparent 45%);
+  --surface: #F5F7F4;
+  --text: #1F2A24;
+  --muted: #5A6B60;
+  --accent: #3D6B4F;
+  --accent-2: #A89070;
+  --accent-soft: #D5E3D9;
+  --hero-grad: linear-gradient(145deg, #1E3D2F 0%, #3D6B4F 42%, #5A7D62 78%, #8FA890 100%);
+  --day-head: linear-gradient(135deg, #D5E3D9, #C5D4C8);
+  --budget-head: linear-gradient(135deg, #3D6B4F, #2A4F3A);
+  --shadow: 0 1px 0 rgba(31,42,36,0.04);
+  --hairline: rgba(31,42,36,0.1);
+  --tag-rec-bg: #D5E3D9; --tag-rec-fg: #1E3D2F;
+  --tag-free-bg: #DCE8F0; --tag-free-fg: #1A4A66;
+  --tag-book-bg: #EDE4D4; --tag-book-fg: #6B4E1B;
+  --tag-photo-bg: #E8D9DE; --tag-photo-fg: #6B2A3A;
+  --econ-bg: #D5E3D9; --econ-fg: #1E3D2F;
+  --comf-bg: #EDE4D4; --comf-fg: #6B4E1B;
+  --lux-bg: #DCE8F0; --lux-fg: #1A4A66;
+}
+
+/* B 海岸公路 */
+html[data-theme="b"] {
+  --bg: #EDE8DF;
+  --bg-pattern: radial-gradient(ellipse 100% 70% at 0% 0%, rgba(27,107,122,0.14), transparent 55%),
+                radial-gradient(ellipse 70% 50% at 100% 20%, rgba(196,181,154,0.2), transparent 50%);
+  --surface: #F7F4EF;
+  --text: #1A2F36;
+  --muted: #5A6E74;
+  --accent: #1B6B7A;
+  --accent-2: #C4B59A;
+  --accent-soft: #D2E4E8;
+  --hero-grad: linear-gradient(145deg, #0D3A44 0%, #1B6B7A 45%, #3A8A96 75%, #A8C5C9 100%);
+  --day-head: linear-gradient(135deg, #D2E4E8, #C5D8DC);
+  --budget-head: linear-gradient(135deg, #1B6B7A, #0F4A55);
+  --shadow: 0 1px 0 rgba(26,47,54,0.05);
+  --hairline: rgba(26,47,54,0.1);
+  --tag-rec-bg: #D2E4E8; --tag-rec-fg: #0D3A44;
+  --tag-free-bg: #DCE8F0; --tag-free-fg: #1A4A66;
+  --tag-book-bg: #EDE4D4; --tag-book-fg: #6B4E1B;
+  --tag-photo-bg: #E8D9DE; --tag-photo-fg: #6B2A3A;
+  --econ-bg: #D2E4E8; --econ-fg: #0D3A44;
+  --comf-bg: #EDE4D4; --comf-fg: #6B4E1B;
+  --lux-bg: #E0D8EC; --lux-fg: #3D2A5C;
+}
+
+/* C 城市夜游 */
+html[data-theme="c"] {
+  --bg: #12141A;
+  --bg-pattern: radial-gradient(ellipse 90% 60% at 80% -10%, rgba(232,165,75,0.12), transparent 50%),
+                radial-gradient(ellipse 70% 50% at 0% 40%, rgba(80,100,140,0.08), transparent 45%);
+  --surface: #1C1F28;
+  --text: #E8E6E3;
+  --muted: #9A9690;
+  --accent: #E8A54B;
+  --accent-2: #7A8499;
+  --accent-soft: #2A2E3A;
+  --hero-grad: linear-gradient(145deg, #0A0B0F 0%, #1A1D28 40%, #2A2430 70%, #3D3228 100%);
+  --day-head: linear-gradient(135deg, #252833, #1E222C);
+  --budget-head: linear-gradient(135deg, #E8A54B, #B87A2E);
+  --shadow: none;
+  --hairline: rgba(232,230,227,0.12);
+  --tag-rec-bg: #243028; --tag-rec-fg: #8FCB9B;
+  --tag-free-bg: #1E2A38; --tag-free-fg: #7EB6D9;
+  --tag-book-bg: #3A3020; --tag-book-fg: #E8A54B;
+  --tag-photo-bg: #3A2430; --tag-photo-fg: #E8A0B0;
+  --econ-bg: #243028; --econ-fg: #8FCB9B;
+  --comf-bg: #3A3020; --comf-fg: #E8A54B;
+  --lux-bg: #2A2438; --lux-fg: #C4B0E8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  background-image: var(--bg-pattern);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+
+/* Floating dock — theme + PDF (mobile-first) */
+.float-dock {
+  position: fixed;
+  z-index: 50;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: calc(100vw - 24px);
+  pointer-events: none;
+}
+.float-dock > * { pointer-events: auto; }
+.float-dock-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+}
+.float-theme-panel {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  min-width: 148px;
+}
+.float-dock.is-open .float-theme-panel { display: flex; }
+.float-theme-toggle,
+.theme-btn,
+.theme-btn-pdf {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.theme-btn { width: 100%; text-align: left; }
+.theme-btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+html[data-theme="c"] .theme-btn[aria-pressed="true"] { color: #12141A; }
+.float-theme-toggle[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-btn-pdf {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  white-space: nowrap;
+}
+html[data-theme="c"] .theme-btn-pdf { color: #12141A; }
+.theme-btn-pdf:active,
+.float-theme-toggle:active,
+.theme-btn:active { transform: scale(0.98); }
+.float-theme-toggle:focus-visible,
+.theme-btn:focus-visible,
+.theme-btn-pdf:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (min-width: 720px) {
+  .float-dock {
+    flex-direction: row;
+    align-items: center;
+    right: max(20px, env(safe-area-inset-right));
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .float-theme-panel {
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    padding: 6px;
+  }
+  .float-theme-toggle { display: none; }
+  .theme-btn { width: auto; text-align: center; }
+  .float-dock-main { padding: 6px; }
+}
+
+/* Hero — full-bleed */
+.hero {
+  position: relative;
+  background: var(--hero-grad);
+  color: #fff;
+  padding: 56px 32px 44px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,255,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.hero .subtitle { font-size: 14px; opacity: 0.88; margin-bottom: 24px; line-height: 1.6; }
+.hero-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+.hero-stat { display: flex; flex-direction: column; align-items: flex-start; }
+.hero-stat .value { font-size: 18px; font-weight: 700; }
+.hero-stat .label { font-size: 12px; opacity: 0.75; }
+
+/* Section */
+.section { margin: 28px auto; max-width: 800px; padding: 0 16px; }
+.section-title {
+  font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 18px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+}
+
+/* Route overview — day cards, no piercing connectors */
+.route-overview {
+  margin: 0 0 8px;
+  padding: 14px;
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--bg));
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+}
+.route-overview-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+.route-day-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+.route-day {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.route-day-sep {
+  display: none;
+  list-style: none;
+  flex: 0 0 auto;
+  align-self: center;
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.55;
+  padding: 0 2px;
+  user-select: none;
+}
+.route-day-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+  background: var(--accent-soft);
+}
+.route-day-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.route-day-badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 2;
+  width: auto;
+  min-width: 0;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 92%, #000);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+html[data-theme="c"] .route-day-badge { color: #12141A; }
+.route-day-body {
+  min-width: 0;
+  padding: 12px 12px 14px;
+}
+.route-day-body h4 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 700;
+}
+.route-day-meta {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--hairline);
+}
+.route-day-body ul {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.route-day-body li { margin: 3px 0; }
+@media (min-width: 720px) {
+  .route-day-track {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+  }
+  .route-day {
+    flex: 1;
+    min-width: 0;
+  }
+  .route-day-sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+  }
+  .route-day-media { height: 120px; }
+}
+
+/* Prep cluster — right after itinerary */
+.prep-cluster {
+  margin: 8px auto 28px;
+  max-width: 800px;
+  padding: 0 16px;
+}
+.prep-cluster > .section {
+  margin: 0 0 14px;
+  padding: 0;
+  max-width: none;
+}
+.prep-cluster > .section:last-child { margin-bottom: 0; }
+@media print {
+  .prep-cluster { margin: 8px 0 !important; padding: 0 !important; }
+  .prep-cluster > .section { margin-bottom: 8px !important; }
+}
+
+/* Media */
+.media-figure {
+  margin: 8px 0 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--accent-soft);
+  border: 1px solid var(--hairline);
+}
+.media-figure + .media-figure { margin-top: 4px; }
+.media-figure img {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+.media-figure figcaption {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 6px 8px;
+  line-height: 1.4;
+}
+.media-figure figcaption a { color: var(--accent); font-weight: 600; text-decoration: none; }
+
+/* Day */
+.day-card {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.day-header {
+  background: var(--day-head);
+  border-left: 4px solid var(--accent);
+  padding: 16px 22px;
+}
+.day-header h3 { font-size: 17px; font-weight: 700; color: var(--text); }
+.day-weather {
+  padding: 10px 22px;
+  border-bottom: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--accent-soft) 18%, var(--surface));
+  font-size: 13px;
+  line-height: 1.5;
+}
+.day-weather-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: baseline;
+}
+.dw-temp { font-weight: 700; color: var(--accent); font-size: 15px; }
+.dw-cond { font-weight: 600; color: var(--text); }
+.dw-precip { color: var(--muted); font-size: 12px; }
+.day-weather-wear { margin: 6px 0 0; color: var(--text); }
+.day-weather-note { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+.day-body { display: flex; padding: 22px; gap: 22px; }
+.day-timeline { flex: 1; min-width: 0; }
+.day-sidebar { width: 200px; flex-shrink: 0; }
+
+.tl-item {
+  position: relative;
+  padding-left: 28px;
+  padding-bottom: 22px;
+  border-left: 2px solid var(--accent-soft);
+  margin-left: 5px;
+}
+.tl-item:last-child { border-left-color: transparent; padding-bottom: 0; }
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -6px; top: 4px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+}
+.tl-time { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.tl-spot-name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.nav-block {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 6px 0 8px;
+  padding: 8px 10px;
+  background: color-mix(in srgb, var(--accent-soft) 45%, var(--surface));
+  border-radius: 4px;
+  border: 1px dashed var(--hairline);
+}
+.nav-block a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.nav-block a:hover { text-decoration: underline; }
+.source-line {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 4px 0 8px;
+  line-height: 1.5;
+}
+.source-line a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.source-line a:hover { text-decoration: underline; }
+.roadbook {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  background: transparent;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+.roadbook strong { color: var(--accent); }
+.tl-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag-recommend { background: var(--tag-rec-bg); color: var(--tag-rec-fg); }
+.tag-free { background: var(--tag-free-bg); color: var(--tag-free-fg); }
+.tag-booking { background: var(--tag-book-bg); color: var(--tag-book-fg); }
+.tag-photo { background: var(--tag-photo-bg); color: var(--tag-photo-fg); }
+.tag-ticket { background: var(--accent-soft); color: var(--accent); }
+.tl-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.sidebar-box {
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.sidebar-box h4 { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.sidebar-box li {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  list-style: disc;
+  margin-left: 16px;
+  line-height: 1.5;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.info-card {
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+}
+.info-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+.info-card p, .info-card li { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.info-card ul { padding-left: 16px; }
+.info-card li { margin-bottom: 4px; list-style: disc; }
+
+.ticket-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ticket-table th {
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 2px solid var(--hairline);
+  color: var(--accent);
+  font-weight: 600;
+}
+.ticket-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--muted);
+}
+
+.budget-card {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.budget-header {
+  background: var(--budget-head);
+  padding: 16px 22px;
+  color: #fff;
+}
+html[data-theme="c"] .budget-header { color: #12141A; }
+.budget-header h3 { font-size: 17px; font-weight: 700; }
+.budget-header .budget-meta { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+.budget-body { padding: 22px; }
+.budget-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 18px; }
+.budget-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--accent-soft) 40%, var(--surface));
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 2px solid var(--hairline);
+  font-size: 13px;
+}
+.budget-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text);
+}
+.budget-table tbody td:last-child { color: var(--muted); font-size: 12px; }
+.budget-totals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.budget-level { border-radius: 6px; padding: 14px; text-align: center; }
+.budget-level .level-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.budget-level .level-price { font-size: 22px; font-weight: 800; }
+.budget-level .level-note { font-size: 11px; margin-top: 4px; opacity: 0.85; }
+.budget-economy { background: var(--econ-bg); color: var(--econ-fg); }
+.budget-comfort { background: var(--comf-bg); color: var(--comf-fg); }
+.budget-luxury { background: var(--lux-bg); color: var(--lux-fg); }
+.saving-tips {
+  background: color-mix(in srgb, var(--accent-soft) 50%, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.saving-tips h4 { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.saving-tips li {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  list-style: disc;
+  margin-left: 16px;
+  line-height: 1.5;
+}
+.budget-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  padding: 12px;
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  border-radius: 4px;
+}
+
+.check-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.check-card {
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+}
+.check-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+.todo-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: -8px 0 14px;
+  line-height: 1.45;
+}
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.todo-item input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+}
+.todo-item input:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.todo-item input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
+.todo-item.is-done span {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.todo-progress {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.footer {
+  text-align: center;
+  padding: 32px 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Collapsible guide refs (end of page) */
+.refs-fold {
+  margin: 8px 0 0;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.refs-fold > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+}
+.refs-fold > summary::-webkit-details-marker { display: none; }
+.refs-fold > summary::after {
+  content: "展开";
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.refs-fold[open] > summary::after { content: "收起"; }
+.refs-fold > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.refs-note {
+  margin: 0;
+  padding: 0 18px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.refs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 18px 16px;
+  border-top: 1px solid var(--hairline);
+}
+.refs-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--hairline);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.refs-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.refs-list a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all;
+}
+.refs-list a:hover { text-decoration: underline; }
+.refs-list .refs-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 40px 20px 28px; }
+  .hero h1 { font-size: 22px; }
+  .hero-stats { gap: 16px; }
+  .hero-stat .value { font-size: 15px; }
+  .day-body { flex-direction: column; }
+  .day-sidebar { width: 100%; }
+  .media-figure img { max-height: 160px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .check-grid { grid-template-columns: 1fr; }
+  .route-cards { grid-template-columns: repeat(2, 1fr); }
+  .budget-totals { grid-template-columns: 1fr; }
+}
+
+@media print {
+  @page { size: A4; margin: 10mm 12mm; }
+  .theme-bar,
+  .float-dock { display: none !important; }
+  html[data-theme="c"] {
+    --bg: #fff;
+    --surface: #fff;
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #8B6914;
+    --accent-2: #A89070;
+    --accent-soft: #F0E8DC;
+    --hero-grad: linear-gradient(135deg, #3D3228, #5C5043);
+    --day-head: #F5F0E8;
+    --budget-head: linear-gradient(135deg, #8B6914, #6B4E1B);
+    --hairline: #ddd;
+  }
+  html, body {
+    background: #fff !important;
+    background-image: none !important;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #1a1a1a;
+  }
+  .hero {
+    padding: 20px 18px 16px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .hero h1 { font-size: 20px !important; margin: 6px 0 !important; }
+  .hero .subtitle { font-size: 11px !important; margin: 4px 0 !important; }
+  .hero-badge { font-size: 10px !important; padding: 2px 8px !important; }
+  .hero-stats { gap: 10px !important; margin-top: 10px !important; }
+  .hero-stat .value { font-size: 13px !important; }
+  .hero-stat .label { font-size: 10px !important; }
+  .section { padding: 12px 0 !important; }
+  .section-title { font-size: 15px !important; margin: 0 0 8px !important; }
+  .route-overview { padding: 8px !important; margin-bottom: 8px !important; }
+  .route-overview-note { font-size: 9px !important; margin-bottom: 8px !important; }
+  .route-day-track { gap: 8px !important; }
+  .route-day { box-shadow: none !important; }
+  .route-day-sep { display: none !important; }
+  .route-day-media { height: 72px !important; }
+  .route-day-badge { height: 22px !important; font-size: 10px !important; left: 6px !important; top: 6px !important; padding: 0 8px !important; }
+  .route-day-body { padding: 8px 8px 10px !important; }
+  .route-day-body h4 { font-size: 12px !important; }
+  .route-day-meta { font-size: 10px !important; margin-bottom: 4px !important; padding-bottom: 4px !important; }
+  .route-day-body ul { font-size: 10px !important; }
+  .media-figure { margin: 4px 0 6px !important; }
+  .media-figure img { max-height: 120px !important; }
+  .media-figure figcaption { font-size: 9px !important; padding: 4px 6px !important; }
+  .day-card, .info-card, .check-card, .budget-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+    margin-bottom: 10px !important;
+  }
+  .day-header { padding: 8px 12px !important; }
+  .day-header h3 { font-size: 13px !important; margin: 0 !important; }
+  .day-weather { padding: 6px 12px !important; font-size: 10px !important; }
+  .dw-temp { font-size: 12px !important; }
+  .day-weather-wear, .day-weather-note { font-size: 9px !important; margin-top: 2px !important; }
+  .day-body { padding: 8px 12px !important; gap: 10px !important; }
+  .roadbook { font-size: 10px !important; padding: 6px 8px !important; margin-bottom: 8px !important; }
+  .tl-item { padding: 6px 0 !important; }
+  .tl-time { font-size: 10px !important; }
+  .tl-spot-name { font-size: 12px !important; margin: 2px 0 !important; }
+  .tl-desc { font-size: 10px !important; margin: 2px 0 !important; }
+  .nav-block {
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    margin: 3px 0 4px !important;
+  }
+  .source-line { font-size: 9px !important; margin: 2px 0 4px !important; }
+  .refs-fold { break-inside: avoid; border-color: #ccc !important; }
+  .refs-fold > summary { padding: 8px 12px !important; font-size: 13px !important; }
+  .refs-fold > summary::after { content: none !important; }
+  .refs-note { font-size: 9px !important; padding: 0 12px 6px !important; }
+  .refs-list { padding: 0 12px 10px !important; }
+  .refs-list li { font-size: 10px !important; padding: 6px 0 !important; }
+  .tl-tags .tag { font-size: 9px !important; padding: 1px 6px !important; }
+  .day-sidebar .sidebar-box { padding: 8px !important; margin-bottom: 8px !important; }
+  .day-sidebar h4 { font-size: 11px !important; margin: 0 0 4px !important; }
+  .day-sidebar li { font-size: 10px !important; }
+  .info-grid, .check-grid { gap: 8px !important; }
+  .info-card, .check-card { padding: 8px 10px !important; }
+  .info-card h4, .check-card h4 { font-size: 12px !important; margin: 0 0 6px !important; }
+  .info-card li, .todo-item { font-size: 10px !important; }
+  .todo-item input { width: 14px !important; height: 14px !important; }
+  .ticket-table { font-size: 10px !important; }
+  .ticket-table th, .ticket-table td { padding: 4px 6px !important; }
+  .budget-header { padding: 10px 12px !important; }
+  .budget-card .budget-body { padding: 8px 12px !important; }
+  .budget-totals { gap: 8px !important; }
+  .budget-level { padding: 8px !important; }
+  .level-name { font-size: 11px !important; }
+  .level-price { font-size: 14px !important; }
+  .level-note, .saving-tips, .budget-disclaimer { font-size: 10px !important; }
+  .saving-tips { padding: 8px !important; }
+  .footer { padding: 12px 8px !important; font-size: 9px !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== FLOAT DOCK ==================== -->
+<div class="float-dock" id="float-dock">
+  <div class="float-theme-panel" id="float-theme-panel" role="group" aria-label="配色方案">
+    <button type="button" class="theme-btn" data-theme-set="a" aria-pressed="true">A 山野旅行</button>
+    <button type="button" class="theme-btn" data-theme-set="b" aria-pressed="false">B 海岸公路</button>
+    <button type="button" class="theme-btn" data-theme-set="c" aria-pressed="false">C 城市夜游</button>
+  </div>
+  <div class="float-dock-main">
+    <button type="button" class="float-theme-toggle" data-theme-menu aria-expanded="false" aria-controls="float-theme-panel">配色</button>
+    <button type="button" class="theme-btn-pdf" data-print-pdf>导出 PDF</button>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">{{YEAR}} {{HOLIDAY}} · {{TRAVEL_MODE}} · {{DAYS}}天{{NIGHTS}}晚</span>
+    <p class="subtitle" style="margin-bottom:12px;opacity:0.9;font-size:13px;">
+      侧重：{{CONTENT_FOCUS}} · 人流偏好：{{CROWD_PREFERENCE}} · 出发：{{ORIGIN_OR_PENDING}} · 返程：{{RETURN_DEST_OR_SAME}}
+      · 适宜：{{SUITABLE_FOR_SHORT}}{{EV_RANGE_BADGE}}
+    </p>
+    <h1>{{ROUTE_TITLE}}</h1>
+    <p class="subtitle">{{ROUTE_SUBTITLE}}</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="value">{{DATE_RANGE}}</span>
+        <span class="label">出行日期</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">{{TOTAL_KM}}</span>
+        <span class="label">总里程</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">{{THEME_COUNT}} 段主题</span>
+        <span class="label">路线分段</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">{{KEY_HIGHLIGHT}}</span>
+        <span class="label">重点提醒</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ROUTE OVERVIEW ==================== -->
+<div class="section">
+  <h2 class="section-title">路线总览</h2>
+  <div class="route-overview">
+    <p class="route-overview-note">按日示意，非精确导航；停靠细节、导航与来源见下方日程。</p>
+    <ol class="route-day-track">
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="{{D1_THUMB_URL}}" alt="{{D1_THUMB_ALT}}" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day{{D1}}</span>
+        </div>
+        <div class="route-day-body">
+          <h4>{{D1_THEME}}</h4>
+          <p class="route-day-meta">{{D1_META}}</p>
+          <ul>
+            <li>{{D1_POINT_1}}</li>
+            <li>{{D1_POINT_2}}</li>
+            <li>{{D1_POINT_3}}</li>
+          </ul>
+        </div>
+      </li>
+      <li class="route-day-sep" aria-hidden="true">›</li>
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="{{D2_THUMB_URL}}" alt="{{D2_THUMB_ALT}}" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day{{D2}}</span>
+        </div>
+        <div class="route-day-body">
+          <h4>{{D2_THEME}}</h4>
+          <p class="route-day-meta">{{D2_META}}</p>
+          <ul>
+            <li>{{D2_POINT_1}}</li>
+            <li>{{D2_POINT_2}}</li>
+            <li>{{D2_POINT_3}}</li>
+          </ul>
+        </div>
+      </li>
+      <li class="route-day-sep" aria-hidden="true">›</li>
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="{{D3_THUMB_URL}}" alt="{{D3_THUMB_ALT}}" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day{{D3}}</span>
+        </div>
+        <div class="route-day-body">
+          <h4>{{D3_THEME}}</h4>
+          <p class="route-day-meta">{{D3_META}}</p>
+          <ul>
+            <li>{{D3_POINT_1}}</li>
+            <li>{{D3_POINT_2}}</li>
+            <li>{{D3_POINT_3}}</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- ==================== DAY CARDS ==================== -->
+<div class="section">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day {{N}} &middot; {{MONTH}}月{{DATE}}日 &middot; 主题：{{DAY_THEME}}</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">{{TEMP_MIN}}–{{TEMP_MAX}}°C</span>
+        <span class="dw-cond">{{WEATHER_COND}}</span>
+        <span class="dw-precip">{{PRECIP_SUMMARY}}</span>
+      </div>
+      <p class="day-weather-wear">穿衣：{{CLOTHING_TIP}}</p>
+      <p class="day-weather-note">{{WEATHER_NOTE}} · 数据：{{WEATHER_SOURCE}}</p>
+    </div>
+    <div class="day-body">
+      <div class="day-timeline">
+        <div class="roadbook">
+          <strong>当日路书</strong>：{{ROADBOOK_FLOW}}<br>
+          段间：{{ROADBOOK_LEGS}} · 停车：{{ROADBOOK_PARKING}}
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">{{START_TIME}} - {{END_TIME}}</div>
+          <div class="tl-spot-name">{{SPOT_NAME}}</div>
+          <div class="nav-block">
+            导航搜：{{NAV_KEYWORD}}<br>
+            地址：{{NAV_ADDRESS}}<br>
+            找店：{{NAV_HINT}} · <a href="{{AMAP_SEARCH_URL}}" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags">
+            <span class="tag tag-ticket">{{TICKET_PRICE}}</span>
+            <span class="tag tag-recommend">推荐</span>
+          </div>
+          <div class="tl-desc">{{SPOT_DESCRIPTION}}</div>
+          <figure class="media-figure">
+            <img src="{{SPOT_IMAGE_URL}}" alt="{{SPOT_IMAGE_ALT}}" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：{{SPOT_IMAGE_CAPTION}} · 图源：<a href="{{SPOT_IMAGE_SOURCE_URL}}" target="_blank" rel="noopener">{{SPOT_IMAGE_SOURCE_LABEL}}</a></figcaption>
+          </figure>
+          <div class="source-line">来源：{{SOURCE_LABEL}} · <a href="{{SOURCE_URL}}" target="_blank" rel="noopener">查看</a></div>
+        </div>
+      </div>
+      <div class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>{{HIGHLIGHT_1}}</li>
+            <li>{{HIGHLIGHT_2}}</li>
+            <li>{{HIGHLIGHT_3}}</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li>{{TIP_1}}</li>
+            <li>{{TIP_2}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== AUDIENCE FIT ==================== -->
+
+<div class="prep-cluster">
+<div class="section">
+  <h2 class="section-title">预约与行前准备</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>预约购票</h4>
+      <table class="ticket-table">
+        <thead>
+          <tr><th>景点</th><th>预约</th><th>参考价</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>{{SPOT}}</td><td>{{BOOKING_STATUS}}</td><td>{{PRICE}}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-card">
+      <h4>交通前往</h4>
+      <ul>
+        <li>出发地：{{ORIGIN_OR_PENDING}}</li>
+        <li>{{TRANSPORT_OPTION_1}}</li>
+        <li>{{TRANSPORT_OPTION_2}}</li>
+        <li>{{TRANSPORT_OPTION_3}}</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>行前待办（可勾选）</h4>
+      <p class="todo-hint" style="margin:0 0 8px;">与下方待办共用勾选进度，保存在本机。</p>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-hotel"><span>{{REMINDER_1}}</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-book"><span>{{REMINDER_2}}</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-pack-early"><span>{{REMINDER_3}}</span></label>
+    </div>
+  </div>
+</div>
+<div class="section" id="trip-todos" data-todo-key="{{TODO_STORAGE_KEY}}">
+  <h2 class="section-title">出发前待办</h2>
+  <p class="todo-hint">与上方行前准备共用勾选；进度保存在本机。打印/导出 PDF 时会带上勾选状态。</p>
+  <p class="todo-progress" data-todo-progress>已完成 0 / 0</p>
+  <div class="check-grid">
+    <div class="check-card">
+      <h4>注意事项</h4>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-1"><span>{{NOTICE_1}}</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-2"><span>{{NOTICE_2}}</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-3"><span>{{NOTICE_3}}</span></label>
+    </div>
+    <div class="check-card">
+      <h4>携带清单</h4>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-1"><span>{{PACK_1}}</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-2"><span>{{PACK_2}}</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-3"><span>{{PACK_3}}</span></label>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">适宜人群</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>比较适合</h4>
+      <ul>
+        <li>{{SUITABLE_1}}</li>
+        <li>{{SUITABLE_2}}</li>
+        <li>{{SUITABLE_3}}</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>需要留意 / 不太适合</h4>
+      <ul>
+        <li>{{NOT_SUITABLE_1}}</li>
+        <li>{{NOT_SUITABLE_2}}</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>内容侧重</h4>
+      <ul>
+        <li>当前方案：{{CONTENT_FOCUS}}</li>
+        <li>题材偏好：{{PREFERENCE_OR_NONE}}</li>
+        <li>{{FOCUS_NOTE}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">实用建议</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>住宿推荐</h4>
+      <ul>
+        <li>{{ACCOMMODATION_1}}</li>
+        <li>{{ACCOMMODATION_2}}</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>美食推荐</h4>
+      <ul>
+        <li>{{FOOD_1}}</li>
+        <li>{{FOOD_2}}</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>餐饮安排</h4>
+      <ul>
+        <li>{{DINING_1}}</li>
+        <li>{{DINING_2}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- ==================== EV CHARGING (电车时保留；非电车整段删除) ==================== -->
+<div class="section">
+  <h2 class="section-title">电车充电安排</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>续航假设</h4>
+      <ul>
+        <li>用户续航：{{EV_RANGE_KM}} km</li>
+        <li>规划系数：{{EV_RANGE_FACTOR}}（冬季/雨雪已加严则注明）</li>
+        <li>单段目标：约 ≤ {{EV_SEGMENT_CAP_KM}} km</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>段间充电节点</h4>
+      <ul>
+        <li>{{EV_CHARGE_STOP_1}}</li>
+        <li>{{EV_CHARGE_STOP_2}}</li>
+        <li>{{EV_CHARGE_STOP_3}}</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>行前核验</h4>
+      <ul>
+        <li>{{EV_APP_HINT}}</li>
+        <li>桩位以出行前小程序为准，本文不保证实时空位</li>
+        <li>住宿：{{EV_HOTEL_CHARGE}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== BOOKING & PREP ==================== -->
+
+
+<!-- ==================== PRACTICAL TIPS ==================== -->
+
+
+<!-- ==================== BUDGET ESTIMATE ==================== -->
+<div class="section">
+  <h2 class="section-title">预算预估</h2>
+  <div class="budget-card">
+    <div class="budget-header">
+      <h3>{{PEOPLE_COUNT}}人 · {{DAYS}}天{{NIGHTS}}晚 · 费用预估</h3>
+      <div class="budget-meta">基于 {{DATA_SOURCE}} 数据（{{PRICE_DATE}} 参考价）</div>
+    </div>
+    <div class="budget-body">
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>费用项目</th>
+            <th>单价参考</th>
+            <th>小计（{{PEOPLE_COUNT}}人）</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>往返机票</td>
+            <td>{{FLIGHT_UNIT}}</td>
+            <td>{{FLIGHT_SUBTOTAL}}</td>
+            <td>{{FLIGHT_NOTE}}</td>
+          </tr>
+          <tr>
+            <td>酒店住宿</td>
+            <td>{{HOTEL_UNIT}}</td>
+            <td>{{HOTEL_SUBTOTAL}}</td>
+            <td>{{HOTEL_NOTE}}</td>
+          </tr>
+          <tr>
+            <td>景点/活动</td>
+            <td>{{ACTIVITY_UNIT}}</td>
+            <td>{{ACTIVITY_SUBTOTAL}}</td>
+            <td>{{ACTIVITY_NOTE}}</td>
+          </tr>
+          <tr>
+            <td>餐饮</td>
+            <td>{{FOOD_UNIT}}</td>
+            <td>{{FOOD_SUBTOTAL}}</td>
+            <td>{{FOOD_NOTE}}</td>
+          </tr>
+          <tr>
+            <td>当地交通</td>
+            <td>{{TRANSPORT_UNIT}}</td>
+            <td>{{TRANSPORT_SUBTOTAL}}</td>
+            <td>{{TRANSPORT_NOTE}}</td>
+          </tr>
+          <tr>
+            <td>签证/保险</td>
+            <td>{{VISA_UNIT}}</td>
+            <td>{{VISA_SUBTOTAL}}</td>
+            <td>{{VISA_NOTE}}</td>
+          </tr>
+          <tr>
+            <td>其他</td>
+            <td>{{OTHER_UNIT}}</td>
+            <td>{{OTHER_SUBTOTAL}}</td>
+            <td>{{OTHER_NOTE}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="budget-totals">
+        <div class="budget-level budget-economy">
+          <div class="level-name">经济型</div>
+          <div class="level-price">{{TOTAL_ECONOMY}}</div>
+          <div class="level-note">{{ECONOMY_DESC}}</div>
+        </div>
+        <div class="budget-level budget-comfort">
+          <div class="level-name">舒适型</div>
+          <div class="level-price">{{TOTAL_COMFORT}}</div>
+          <div class="level-note">{{COMFORT_DESC}}</div>
+        </div>
+        <div class="budget-level budget-luxury">
+          <div class="level-name">豪华型</div>
+          <div class="level-price">{{TOTAL_LUXURY}}</div>
+          <div class="level-note">{{LUXURY_DESC}}</div>
+        </div>
+      </div>
+
+      <div class="saving-tips">
+        <h4>省钱小贴士</h4>
+        <ul>
+          <li>{{SAVING_TIP_1}}</li>
+          <li>{{SAVING_TIP_2}}</li>
+          <li>{{SAVING_TIP_3}}</li>
+        </ul>
+      </div>
+
+      <div class="budget-disclaimer">{{BUDGET_DISCLAIMER}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== GUIDE REFS (collapsible) ==================== -->
+<div class="section">
+  <h2 class="section-title">攻略参考地址</h2>
+  <details class="refs-fold">
+    <summary>灵感与参考链接（默认收起）</summary>
+    <p class="refs-note">仅汇总正文用到的攻略/笔记链接（去重）；高德导航与配图图源不列入。节点旁来源行仍保留。</p>
+    <ol class="refs-list">
+      <li>
+        <a href="{{REF_URL_1}}" target="_blank" rel="noopener">{{REF_LABEL_1}}</a>
+        <span class="refs-meta">{{REF_META_1}}</span>
+      </li>
+      <li>
+        <a href="{{REF_URL_2}}" target="_blank" rel="noopener">{{REF_LABEL_2}}</a>
+        <span class="refs-meta">{{REF_META_2}}</span>
+      </li>
+    </ol>
+  </details>
+</div>
+
+<div class="footer">
+  <p>由 travel-guide 生成 &middot; {{GENERATE_DATE}}</p>
+  <p>数据来源于公开信息，出行前请核实最新价格和政策 · 右下角可切换配色 / 导出 PDF · 待办勾选保存在本机</p>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var dock = document.getElementById("float-dock");
+  var key = "travel-guide-theme";
+  function apply(theme) {
+    if (theme !== "a" && theme !== "b" && theme !== "c") theme = "a";
+    root.setAttribute("data-theme", theme);
+    try { localStorage.setItem(key, theme); } catch (e) {}
+    document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-set") === theme ? "true" : "false");
+    });
+  }
+  function setMenu(open) {
+    if (!dock) return;
+    dock.classList.toggle("is-open", open);
+    document.querySelectorAll("[data-theme-menu]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(key); } catch (e) {}
+  apply(saved || "a");
+  document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      apply(btn.getAttribute("data-theme-set"));
+      setMenu(false);
+    });
+  });
+  document.querySelectorAll("[data-theme-menu]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setMenu(!(dock && dock.classList.contains("is-open")));
+    });
+  });
+  document.querySelectorAll("[data-print-pdf]").forEach(function (btn) {
+    btn.addEventListener("click", function () { window.print(); });
+  });
+  document.addEventListener("click", function (e) {
+    if (!dock || dock.contains(e.target)) return;
+    setMenu(false);
+  });
+
+  /* ---- Interactive todos (localStorage) ---- */
+  (function initTodos() {
+    var host = document.getElementById("trip-todos");
+    var storageKey = "travel-guide-todos:" + ((host && host.getAttribute("data-todo-key")) || location.pathname || "default");
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"][data-todo-id]'));
+    if (!boxes.length) return;
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(storageKey) || "{}") || {}; } catch (e) { state = {}; }
+    function syncLabel(box) {
+      var label = box.closest(".todo-item");
+      if (label) label.classList.toggle("is-done", box.checked);
+    }
+    function renderProgress() {
+      var done = boxes.filter(function (b) { return b.checked; }).length;
+      document.querySelectorAll("[data-todo-progress]").forEach(function (el) {
+        el.textContent = "已完成 " + done + " / " + boxes.length;
+      });
+    }
+    function persist() {
+      var next = {};
+      boxes.forEach(function (b) { next[b.getAttribute("data-todo-id")] = !!b.checked; });
+      try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch (e) {}
+      renderProgress();
+    }
+    boxes.forEach(function (box) {
+      var id = box.getAttribute("data-todo-id");
+      if (state[id]) box.checked = true;
+      syncLabel(box);
+      box.addEventListener("change", function () {
+        syncLabel(box);
+        persist();
+      });
+    });
+    renderProgress();
+  })();
+
+  window.addEventListener("beforeprint", function () {
+    document.querySelectorAll("details.refs-fold").forEach(function (el) {
+      el.dataset.wasOpen = el.open ? "1" : "0";
+      el.open = true;
+    });
+  });
+  window.addEventListener("afterprint", function () {
+    document.querySelectorAll("details.refs-fold").forEach(function (el) {
+      if (el.dataset.wasOpen !== "1") el.open = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>
