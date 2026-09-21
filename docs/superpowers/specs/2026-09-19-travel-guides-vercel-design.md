@@ -5,7 +5,7 @@ Status: superseded by cicada repo root app
 
 ## Goal
 
-Travel-guide HTML itineraries on Vercel. **Canonical repo: [Next-Aurora/cicada](https://github.com/Next-Aurora/cicada)**（品牌「蝉」；攻略为站点能力之一）。
+Travel-guide HTML itineraries on Vercel. **Canonical repo: [Next-Aurora/cicada](https://github.com/Next-Aurora/cicada)**（品牌「逆蝉 / cicadar」；攻略为站点能力之一）。
 
 原 monorepo `web/` 方案已废弃；cicada 在仓库根跑 Next，`guides/` + `public/guides/` + `/guides` + `/g/[slug]`。
 

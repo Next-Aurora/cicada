@@ -4,10 +4,10 @@ import "styles/tailwind.css"
 
 export const metadata: Metadata = {
   title: {
-    default: "蝉 · cicada",
-    template: "%s · 蝉",
+    default: "逆蝉 · cicadar",
+    template: "%s · 逆蝉",
   },
-  description: "蝉（cicada）— 个人站点：旅行攻略、博客与小工具。",
+  description: "逆蝉（cicadar）— 个人站点：旅行攻略、博客与小工具。",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

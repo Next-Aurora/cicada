@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "蝉 · cicada",
-  description: "蝉（cicada）— 个人站点：旅行攻略、博客与小工具。",
+  title: { absolute: "逆蝉 · cicadar" },
+  description: "逆蝉（cicadar）— 个人站点：旅行攻略、博客与小工具。",
 }
 
 const entries = [
@@ -31,10 +31,10 @@ export default function HomePage() {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col justify-center px-6 py-16 sm:px-8">
       <header className="animate-[fade-up_0.7s_ease-out_both]">
-        <h1 className="font-[family-name:var(--font-cicada-display)] text-[clamp(4.5rem,18vw,7.5rem)] leading-none font-bold tracking-tight text-[var(--color-cicada-accent)]">
-          蝉
+        <h1 className="font-[family-name:var(--font-cicada-display)] text-[clamp(3.25rem,14vw,5.75rem)] leading-none font-bold tracking-tight text-[var(--color-cicada-accent)]">
+          逆蝉
         </h1>
-        <p className="mt-3 text-lg tracking-[0.2em] text-[var(--color-cicada-muted)] uppercase sm:text-xl">cicada</p>
+        <p className="mt-3 text-lg tracking-[0.2em] text-[var(--color-cicada-muted)] sm:text-xl">cicadar</p>
         <p className="mt-6 max-w-md text-base leading-relaxed text-[var(--color-cicada-text)] sm:text-lg">
           个人站点。旅行攻略已经上线；博客与小工具会陆续长出来。
         </p>
