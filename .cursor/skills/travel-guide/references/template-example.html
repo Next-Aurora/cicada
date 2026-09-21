@@ -600,16 +600,17 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
   margin: 0;
   font-size: 13px;
   line-height: 1.55;
+}
+.spot-side .spot-tips,
+.spot-side .spot-play {
   padding: 10px 12px;
-  background: color-mix(in srgb, var(--accent-soft) 40%, var(--surface));
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
 }
 .spot-side .photo-fold {
   padding: 0;
   overflow: hidden;
   border: 1px dashed var(--hairline);
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid color-mix(in srgb, var(--tag-photo-fg) 55%, var(--hairline));
+  border-radius: 4px;
   background: color-mix(in srgb, var(--surface) 90%, var(--tag-photo-bg));
 }
 .spot-side .photo-fold > summary { padding: 10px 12px; }
@@ -674,9 +675,9 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
   line-height: 1.55;
   margin: 6px 0 8px;
   padding: 8px 10px;
-  background: color-mix(in srgb, var(--surface) 88%, var(--tag-book-bg));
+  background: color-mix(in srgb, var(--surface) 86%, var(--tag-book-bg));
   border-radius: 4px;
-  border-left: 3px solid color-mix(in srgb, var(--accent-2) 70%, var(--hairline));
+  border-left: 3px solid color-mix(in srgb, var(--accent-2) 75%, var(--tag-book-fg));
 }
 .spot-tips strong { color: var(--text); font-weight: 600; }
 .spot-tips a { color: var(--accent); font-weight: 600; text-decoration: none; }
@@ -687,7 +688,7 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
   line-height: 1.6;
   margin: 6px 0 8px;
   padding: 8px 10px;
-  background: color-mix(in srgb, var(--surface) 92%, var(--accent-soft));
+  background: color-mix(in srgb, var(--surface) 94%, var(--accent-soft));
   border-radius: 4px;
   border: 1px solid var(--hairline);
 }
