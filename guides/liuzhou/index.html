@@ -105,13 +105,46 @@ body {
   right: max(12px, env(safe-area-inset-right));
   bottom: max(12px, env(safe-area-inset-bottom));
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-items: flex-end;
   gap: 8px;
   max-width: calc(100vw - 24px);
   pointer-events: none;
 }
 .float-dock > * { pointer-events: auto; }
+.float-dock-actions { display: none; align-items: center; gap: 4px; }
+.float-dock.is-tools-open .float-dock-actions { display: flex; }
+.float-dock:not(.is-tools-open) .float-dock-main {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.float-dock.is-tools-open .float-dock-toggle {
+  box-shadow: none;
+  background: transparent;
+  border-color: transparent;
+  min-height: 32px;
+  color: var(--muted);
+}
+.float-dock-toggle {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.float-dock.is-tools-open .float-dock-main { padding: 4px; gap: 2px; }
 .float-dock-main {
   display: flex;
   align-items: center;
@@ -140,11 +173,11 @@ body {
 .theme-btn,
 .theme-btn-pdf {
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0 14px;
+  min-height: 32px;
+  min-width: 0;
+  padding: 0 10px;
   border-radius: 999px;
   border: 1px solid var(--hairline);
   background: var(--surface);
@@ -173,11 +206,11 @@ html[data-theme="c"] .theme-btn[aria-pressed="true"] { color: #12141A; }
 html[data-theme="c"] .theme-btn-pdf { color: #12141A; }
 .theme-btn-dock {
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0 14px;
+  min-height: 32px;
+  min-width: 0;
+  padding: 0 10px;
   border-radius: 999px;
   border: 1px solid var(--hairline);
   background: var(--surface);
@@ -295,11 +328,15 @@ body.drawer-open { overflow: hidden; }
     right: max(20px, env(safe-area-inset-right));
     bottom: max(20px, env(safe-area-inset-bottom));
   }
-  .float-theme-panel {
+  .float-dock.is-tools-open {
+    flex-direction: row;
+    align-items: center;
+  }
+  .float-dock.is-tools-open .float-theme-panel {
     display: flex;
     flex-direction: row;
     min-width: 0;
-    padding: 6px;
+    padding: 4px;
   }
   .float-theme-toggle { display: none; }
   .theme-btn { width: auto; text-align: center; }
@@ -348,6 +385,50 @@ body.drawer-open { overflow: hidden; }
 
 /* Section */
 .section { margin: 28px auto; max-width: 800px; padding: 0 16px; }
+.day-switch {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 8px 16px 4px;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 96%, transparent) 55%, transparent);
+}
+.day-switch-track {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  backdrop-filter: blur(10px);
+}
+.day-switch button {
+  flex: 0 0 auto;
+  min-width: 52px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.day-switch button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+html[data-theme="c"] .day-switch button[aria-pressed="true"] { color: #12141A; }
+.day-section { scroll-margin-top: 52px; }
+.day-section.is-day-off { display: none; }
 .section-title {
   font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
   font-size: 22px;
@@ -587,7 +668,7 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
 }
 .spot-side--empty {
   min-height: 0;
@@ -600,9 +681,10 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
   font-size: 13px;
   line-height: 1.55;
 }
+.spot-side .spot-tips { line-height: 1.8; }
 .spot-side .spot-tips,
 .spot-side .spot-play {
-  padding: 10px 12px;
+  padding: 14px 14px;
 }
 .spot-side .photo-fold {
   padding: 0;
@@ -675,9 +757,9 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
 .spot-tips {
   font-size: 13px;
   color: var(--muted);
-  line-height: 1.55;
+  line-height: 1.8;
   margin: 6px 0 8px;
-  padding: 10px 12px;
+  padding: 14px 14px;
   background: color-mix(in srgb, var(--surface) 86%, var(--tag-book-bg));
   border-radius: 4px;
   border-left: 3px solid color-mix(in srgb, var(--accent-2) 75%, var(--tag-book-fg));
@@ -685,7 +767,7 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
 .spot-tips strong { color: var(--text); font-weight: 600; }
 .spot-tips a { color: var(--accent); font-weight: 600; text-decoration: none; }
 .spot-tips a:hover { text-decoration: underline; }
-.spot-tips .tip-src { display: block; margin-top: 4px; font-size: 11px; opacity: 0.9; }
+.spot-tips .tip-src { display: block; margin-top: 10px; font-size: 11px; opacity: 0.9; }
 .spot-play {
   font-size: 13px;
   color: var(--muted);
@@ -758,6 +840,35 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
 }
 .source-line a { color: var(--accent); text-decoration: none; font-weight: 600; }
 .source-line a:hover { text-decoration: underline; }
+.source-line a + a,
+.tip-src a + a,
+.play-src a + a { margin-left: 8px; }
+.src-more {
+  display: inline;
+  margin-left: 6px;
+  font-weight: 400;
+}
+.src-more > summary {
+  display: inline;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  list-style: none;
+}
+.src-more > summary::-webkit-details-marker { display: none; }
+.src-more > summary::before { content: "· "; }
+.src-more > span {
+  display: none;
+}
+.src-more[open] > span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.5;
+}
 .roadbook {
   font-size: 13px;
   color: var(--text);
@@ -1105,6 +1216,37 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   .day-rail-meta .day-sidebar { position: static; }
   .spot-side--empty { display: none; }
   .day-rail-row.tl-pair > .spot-side:not(.spot-side--empty) { margin-top: 0; }
+  .day-rail-row.tl-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    margin-left: 5px;
+    padding-left: 28px;
+    padding-bottom: 22px;
+    border-left: 2px solid var(--accent-soft);
+  }
+  .day-rail-row.tl-pair:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .day-rail-row.tl-pair::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--surface);
+    z-index: 1;
+  }
+  .day-rail-row.tl-pair > .tl-item {
+    display: contents;
+  }
+  .day-rail-row.tl-pair > .tl-item::before { content: none; }
+  .day-rail-row.tl-pair > .tl-item > * { order: 4; }
+  .day-rail-row.tl-pair > .tl-item > .tl-time { order: 1; }
+  .day-rail-row.tl-pair > .tl-item > .tl-spot-name { order: 2; }
+  .day-rail-row.tl-pair > .spot-side:not(.spot-side--empty) { order: 3; }
   .day-sidebar { width: 100%; }
   .media-figure img { max-height: 160px; }
   .info-grid { grid-template-columns: 1fr; }
@@ -1120,6 +1262,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   .guide-drawer-backdrop,
   .guide-drawer-close,
   .screen-only { display: none !important; }
+  .day-section.is-day-off { display: block !important; }
   .guide-drawer {
     position: static !important;
     transform: none !important;
@@ -1244,6 +1387,8 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   .photo-fold > summary::after { content: none !important; }
   .rain-alt { font-size: 9px !important; padding: 4px 6px !important; margin: 3px 0 6px !important; }
   .source-line { font-size: 9px !important; margin: 2px 0 4px !important; }
+  .src-more > summary { display: none !important; }
+  .src-more > span { display: block !important; }
   .refs-fold { break-inside: avoid; border-color: #ccc !important; }
   .refs-fold > summary { padding: 8px 12px !important; font-size: 13px !important; }
   .refs-fold > summary::after { content: none !important; }
@@ -1283,11 +1428,14 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
     <button type="button" class="theme-btn" data-theme-set="b" aria-pressed="true">B 海岸公路</button>
     <button type="button" class="theme-btn" data-theme-set="c" aria-pressed="false">C 城市夜游</button>
   </div>
-  <div class="float-dock-main">
-    <button type="button" class="float-theme-toggle" data-theme-menu aria-expanded="false" aria-controls="float-theme-panel">配色</button>
-    <button type="button" class="theme-btn-dock" data-open-drawer="drawer-todos" aria-expanded="false" aria-controls="drawer-todos">待办</button>
-    <button type="button" class="theme-btn-dock" data-open-drawer="drawer-budget" aria-expanded="false" aria-controls="drawer-budget">预算</button>
-    <button type="button" class="theme-btn-pdf" data-print-pdf>导出 PDF</button>
+  <div class="float-dock-main" id="float-dock-body">
+    <button type="button" class="float-dock-toggle" data-dock-toggle aria-expanded="false" aria-controls="float-dock-actions">工具</button>
+    <div class="float-dock-actions" id="float-dock-actions">
+      <button type="button" class="float-theme-toggle" data-theme-menu aria-expanded="false" aria-controls="float-theme-panel">配色</button>
+      <button type="button" class="theme-btn-dock" data-open-drawer="drawer-todos" aria-expanded="false" aria-controls="drawer-todos">待办</button>
+      <button type="button" class="theme-btn-dock" data-open-drawer="drawer-budget" aria-expanded="false" aria-controls="drawer-budget">预算</button>
+      <button type="button" class="theme-btn-pdf" data-print-pdf>导出 PDF</button>
+    </div>
   </div>
 </div>
 
@@ -1379,7 +1527,9 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   </div>
 </div>
 
-<div class="section">
+<nav class="day-switch screen-only" data-day-switch aria-label="切换日程"></nav>
+
+<div class="section day-section" data-day="1" id="day-1">
   <div class="day-card">
     <div class="day-header">
       <h3>Day 1 · 10月1日 · 主题：进城开吃</h3>
@@ -1461,7 +1611,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
         <aside class="spot-side">
           <div class="spot-tips">
             <strong>游玩注意</strong>：国庆务必提前锁房；问作者要酒店推荐时，回复里出现过「全季」作稳妥选项——以出行时平台价与有无充电桩为准。
-            <span class="tip-src">来源：小红书@小呀小橘橘笔记评论区 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">打开笔记看评论</a>（无法直链单条评论）</span>
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>@小呀小橘橘评论区 · 无法直链单条评论</span></details></span>
           </div>
             </aside>
       </div>
@@ -1481,14 +1631,14 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
             <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Luosifen_at_Guangya,_Liuzhou_(20190420141814).jpg?width=960" alt="柳州螺蛳粉" loading="lazy" decoding="async" width="800" height="450">
             <figcaption>图：柳州螺蛳粉参考样貌（非指定门店出品）· 图源：<a href="https://commons.wikimedia.org/wiki/File:Luosifen_at_Guangya,_Liuzhou_(20190420141814).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
           </figure>
-          <div class="source-line">来源：小红书@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">查看笔记</a></div>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>@小呀小橘橘</span></details></div>
             
         
         </div>
         <aside class="spot-side">
           <div class="spot-tips">
             <strong>游玩注意</strong>：午餐高峰易排长队——尽量 <strong>11 点前到</strong>，或错开到 <strong>15:00 后再去</strong>；能微辣就明说微辣。评论区提醒：避开车站/景区步行街网红店，优先老街菜市、居民区周边。
-            <span class="tip-src">来源：小红书@小呀小橘橘正文 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">避雷攻略</a>；评论区补充「避网红、去老巷」</span>
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>正文避雷；评论区「避网红、去老巷」</span></details></span>
           </div>
             </aside>
       </div>
@@ -1508,14 +1658,14 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
             <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Liuzhou_at_Night_1.jpg?width=960" alt="柳州夜景" loading="lazy" decoding="async" width="800" height="450">
             <figcaption>图：柳州夜景（逛吃氛围参考，2022） · 图源：<a href="https://commons.wikimedia.org/wiki/File:Liuzhou_at_Night_1.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
           </figure>
-          <div class="source-line">来源：综合公开渠道（菜市逛吃常见组合）</div>
+          <div class="source-line"><details class="src-more"><summary>说明</summary><span>综合公开渠道（菜市逛吃常见组合）</span></details></div>
             
         
         </div>
         <aside class="spot-side">
           <div class="spot-tips">
             <strong>游玩注意</strong>：热天走不了几家就湿透——备好小风扇、防晒、防蚊；逛累了可回酒店休整到傍晚再出（「正确玩法」常见建议）。
-            <span class="tip-src">来源：小红书@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">查看笔记</a></span>
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>@小呀小橘橘</span></details></span>
           </div>
             </aside>
       </div>
@@ -1535,7 +1685,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
             <img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Guantang_Bridge_in_Liuzhou,_Guangxi.jpg?width=960" alt="柳江风光" loading="lazy" decoding="async" width="800" height="450">
             <figcaption>图：官塘大桥 / 柳江滨江散步参考 · 图源：<a href="https://commons.wikimedia.org/wiki/File:The_Guantang_Bridge_in_Liuzhou,_Guangxi.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
           </figure>
-          <div class="source-line">来源：小红书@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">夜市提醒</a>；喷泉为可选公开信息</div>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>夜市提醒；喷泉为可选公开信息</span></details></div>
         
         </div>
         <aside class="spot-side spot-side--empty" aria-hidden="true"></aside>
@@ -1545,7 +1695,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   </div>
 </div>
 
-<div class="section">
+<div class="section day-section" data-day="2" id="day-2">
   <div class="day-card">
     <div class="day-header">
       <h3>Day 2 · 10月2日 · 主题：少景多吃</h3>
@@ -1605,8 +1755,8 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
           </div>
           <div class="ticket-line">
             <strong>门票/预约</strong>：免票入园（偶有刷证要求）· 参考价 免费（以出行时为准）<br>
-            购票/核验：<a href="https://you.ctrip.com/sight/liuzhou143/62242.html" target="_blank" rel="noopener">携程景点页</a>
-            · <a href="https://m.ly.com/trip/detail/5270850" target="_blank" rel="noopener">同程攻略</a>
+            购票/核验：<a href="https://you.ctrip.com/sight/liuzhou143/62242.html" target="_blank" rel="noopener">携程</a>
+            · <a href="https://m.ly.com/trip/detail/5270850" target="_blank" rel="noopener">同程</a>
             · 电话咨询 0772-3171883
             <span class="ticket-caveat">链接可能失效，下单前核对景区名与日期；园内游船/观光车另计，以现场为准。</span>
           </div>
@@ -1620,20 +1770,20 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
             <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Flowers_in_Longtan_Park,_Liuzhou.jpg?width=960" alt="柳州龙潭公园景色" loading="lazy" decoding="async" width="800" height="450">
             <figcaption>图：龙潭公园一景 · 图源：<a href="https://commons.wikimedia.org/wiki/File:Flowers_in_Longtan_Park,_Liuzhou.jpg" target="_blank" rel="noopener">Wikimedia Commons · EditQ</a></figcaption>
           </figure>
-          <div class="source-line">来源：小红书@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">路线</a>；@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">排队成本</a>；@Rayray · <a href="https://www.xiaohongshu.com/explore/6a1c0534000000000702cf4d" target="_blank" rel="noopener">半日速通</a></div>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener" title="@山茶阿鱿">小红书</a><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><a href="https://www.xiaohongshu.com/explore/6a1c0534000000000702cf4d" target="_blank" rel="noopener" title="@Rayray">小红书</a><details class="src-more"><summary>说明</summary><span>@山茶阿鱿路线；@小呀小橘橘排队成本；@Rayray半日速通</span></details></div>
             
         
         </div>
         <aside class="spot-side">
           <div class="spot-tips">
             <strong>游玩注意</strong>：想少挤，尽量 <a href="https://www.xiaohongshu.com/explore/6a1c0534000000000702cf4d" target="_blank" rel="noopener"><strong>7:00–9:00 到北门</strong></a>；穿 <strong>防滑鞋</strong>（石阶/近水潮湿，可备轻便涉水鞋）。镜山建议 <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">趁早</a>。
-            <span class="tip-src">笔记：@Rayray · <a href="https://www.xiaohongshu.com/explore/6a1c0534000000000702cf4d" target="_blank" rel="noopener">半日速通</a>；@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">轻松版路线</a></span>
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/6a1c0534000000000702cf4d" target="_blank" rel="noopener" title="@Rayray">小红书</a><a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener" title="@山茶阿鱿">小红书</a><details class="src-more"><summary>说明</summary><span>@Rayray半日速通；@山茶阿鱿轻松版路线</span></details></span>
           </div>
           <div class="spot-play">
             <strong>建议时长</strong>：山水约 <strong>1.5–2.5h</strong>；含 <a href="https://www.xiaohongshu.com/explore/69df6070000000002202a900" target="_blank" rel="noopener">风雨桥</a> 排队可到 <strong>3–4h</strong>。<br>
             <strong>可选岔路</strong>：雷潭 / 歪脖子树（北门右手约 5 分）/ 风雨桥 + S 弯；镜山若临时封闭改雷潭方向（<a href="https://www.xiaohongshu.com/explore/6a4f667d000000001c026dd8" target="_blank" rel="noopener">封闭提示</a>）。<br>
             <strong>避堵</strong>：尽早进；不硬跟桥上长队；长假可只走镜山–镜湖短线。
-            <span class="play-src">笔记：@Rayray · <a href="https://www.xiaohongshu.com/explore/6a1c0534000000000702cf4d" target="_blank" rel="noopener">半日速通</a>；@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">路线</a>；@是咪呼呀 · <a href="https://www.xiaohongshu.com/explore/69df6070000000002202a900" target="_blank" rel="noopener">风雨桥速通</a>；@东Ge · <a href="https://www.xiaohongshu.com/explore/6a4f667d000000001c026dd8" target="_blank" rel="noopener">机位</a></span>
+            <p class="play-src"><a href="https://www.xiaohongshu.com/explore/6a1c0534000000000702cf4d" target="_blank" rel="noopener" title="@Rayray">小红书</a><a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener" title="@山茶阿鱿">小红书</a><a href="https://www.xiaohongshu.com/explore/69df6070000000002202a900" target="_blank" rel="noopener" title="@是咪呼呀">小红书</a><a href="https://www.xiaohongshu.com/explore/6a4f667d000000001c026dd8" target="_blank" rel="noopener" title="@东Ge">小红书</a><details class="src-more"><summary>说明</summary><span>@Rayray半日速通；@山茶阿鱿路线；@是咪呼呀风雨桥；@东Ge机位</span></details></p>
           </div>
           <details class="photo-fold">
             <summary>可选 · 出片穿搭与机位（评论核验）</summary>
@@ -1641,7 +1791,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
               <p><strong>穿搭</strong>：旗袍 / 新中式 / 白色收腰长裙较常见；浅色易衬山水。易出汗可先扎发，拍时再放下；简单化妆或口红即可。中午桥上很晒，备遮阳帽/墨镜。</p>
               <p><strong>相对好拍</strong>：镜山（需趁早排队）；歪脖子树（北门右手，人相对少时可先拍）；风雨桥 + S 弯堤坝（评论认可出片，8–11 点人相对少、光线更好，中午易晒；排队成本写清再决定是否跟）；雷潭光线约到下午四点前更稳。</p>
               <p><strong>避雷</strong>：园内流动摄影约 5 元/张，先看样片再决定；评论里「只为网图排半小时不值」的声音也有——按你的耐心取舍。</p>
-              <p class="tip-src" style="margin:6px 0 0;font-size:11px;">来源：@东Ge · <a href="https://www.xiaohongshu.com/explore/6a4f667d000000001c026dd8" target="_blank" rel="noopener">旗袍机位与时段</a>；@是咪呼呀 · <a href="https://www.xiaohongshu.com/explore/69df6070000000002202a900" target="_blank" rel="noopener">风雨桥 8–11 点</a>；@小呀小橘橘 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">打开笔记看评论</a>（排队成本）</p>
+              <p class="tip-src" style="margin:6px 0 0;font-size:11px;"><a href="https://www.xiaohongshu.com/explore/6a4f667d000000001c026dd8" target="_blank" rel="noopener" title="@东Ge">小红书</a><a href="https://www.xiaohongshu.com/explore/69df6070000000002202a900" target="_blank" rel="noopener" title="@是咪呼呀">小红书</a><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>@东Ge旗袍机位；@是咪呼呀风雨桥 8–11 点；@小呀小橘橘评论排队成本</span></details></p>
             </div>
           </details>
             </aside>
@@ -1658,14 +1808,14 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
 
           <div class="tl-tags"><span class="tag tag-recommend">本地复访向</span></div>
           <div class="tl-desc">标准：排队短、能改辣、汤底稳。居民区老店优先于景区门口网红店；「本地人螺蛳粉」清单仅作参考，以现场口感为准。</div>
-          <div class="source-line">来源：综合公开渠道 + <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">小红书@小呀小橘橘</a>（粉店避坑共识，可搜「柳州本地人螺蛳粉」核对）</div>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>公开渠道 + @小呀小橘橘粉店避坑；可搜「柳州本地人螺蛳粉」核对</span></details></div>
             
         
         </div>
         <aside class="spot-side">
           <div class="spot-tips">
             <strong>游玩注意</strong>：评论区共识——游客扎堆的步行街网红店可坚决避开，老街老巷、菜市、居民区周边更稳。
-            <span class="tip-src">来源：小红书@小呀小橘橘笔记评论区 · <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">打开笔记看评论</a></span>
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>@小呀小橘橘评论区</span></details></span>
           </div>
           <div class="spot-play">
             <strong>建议时长</strong>：一碗粉约 <strong>30–50 分钟</strong>（含等位）。<br>
@@ -1684,7 +1834,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
           </div>
           <div class="ticket-line">
             <strong>门票/预约</strong>：免费（多为刷证入园）· 参考价 免费（以出行时为准）<br>
-            购票/预约：<a href="https://you.ctrip.com/sight/liuzhou143/1476773.html" target="_blank" rel="noopener">携程景点页</a>
+            购票/预约：<a href="https://you.ctrip.com/sight/liuzhou143/1476773.html" target="_blank" rel="noopener">携程</a>
             · 限流时微信搜「广西游直通车」实名预约（无可靠网页深链）
             · 咨询 0772-3869564
             <span class="ticket-caveat">链接可能失效；通常周二至周日日场约 9:30–16:30、夜场约 19:30/20:00–22:00，周一闭馆（节假日以公告为准）。下单/入园前核对景区名与日期。</span>
@@ -1703,19 +1853,19 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
             <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Liuzhou_City_seen_from_Ma%27an_Mountain.jpg?width=960" alt="马鞍山望柳州城景" loading="lazy" decoding="async" width="800" height="450">
             <figcaption>图：马鞍山望柳州城景（滨江城区参考，2022） · 图源：<a href="https://commons.wikimedia.org/wiki/File:Liuzhou_City_seen_from_Ma%27an_Mountain.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
           </figure>
-          <div class="source-line">来源：小红书@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">查看笔记</a>；惠龙山对比为公开攻略常见说法</div>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener" title="@山茶阿鱿">小红书</a><details class="src-more"><summary>说明</summary><span>@山茶阿鱿；惠龙山对比为公开攻略常见说法</span></details></div>
             
         
         </div>
         <aside class="spot-side">
           <div class="spot-tips">
             <strong>游玩注意</strong>：日场约 16:00 停入、周一多闭馆，曾有夜场检修白跑——<a href="https://www.xiaohongshu.com/explore/674d3f820000000002019042" target="_blank" rel="noopener"><strong>出行前再核公告</strong></a>。雨天优先日场或改夜场（若开放）。
-            <span class="tip-src">笔记：@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">开放时间</a>；@大美女 · <a href="https://www.xiaohongshu.com/explore/674d3f820000000002019042" target="_blank" rel="noopener">夜场检修</a></span>
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener" title="@山茶阿鱿">小红书</a><a href="https://www.xiaohongshu.com/explore/674d3f820000000002019042" target="_blank" rel="noopener" title="@大美女">小红书</a><details class="src-more"><summary>说明</summary><span>@山茶阿鱿开放时间；@大美女夜场检修</span></details></span>
           </div>
           <div class="spot-play">
             <strong>建议时长</strong>：约 <a href="https://www.xiaohongshu.com/explore/674d3f820000000002019042" target="_blank" rel="noopener"><strong>30–60 分</strong></a>；细看可到 <strong>1–1.5h</strong>。<br>
             <strong>怎么走</strong>：<a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">棂星门 → 泮池 → 大成殿</a>一线；少走可打车「文庙东门」。东台路网红角可不专程。
-            <span class="play-src">笔记：@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">文庙节奏</a>；@风栖野 · <a href="https://www.xiaohongshu.com/explore/6a3e0f7900000000150245ae" target="_blank" rel="noopener">出入与光线</a>；@大美女评论 · <a href="https://www.xiaohongshu.com/explore/674d3f820000000002019042" target="_blank" rel="noopener">约半小时</a></span>
+            <p class="play-src"><a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener" title="@山茶阿鱿">小红书</a><a href="https://www.xiaohongshu.com/explore/6a3e0f7900000000150245ae" target="_blank" rel="noopener" title="@风栖野">小红书</a><a href="https://www.xiaohongshu.com/explore/674d3f820000000002019042" target="_blank" rel="noopener" title="@大美女">小红书</a><details class="src-more"><summary>说明</summary><span>@山茶阿鱿文庙节奏；@风栖野出入与光线；@大美女约半小时</span></details></p>
           </div>
           <details class="photo-fold">
             <summary>可选 · 出片穿搭与机位（评论核验）</summary>
@@ -1723,7 +1873,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
               <p><strong>穿搭</strong>：旗袍 / 新中式最贴红墙黛瓦；备驱蚊（临江）、小扇或藤编包、遮阳帽。夜景可带浅补光（可选）。</p>
               <p><strong>光线</strong>：上午约 <strong>9–11 点</strong>侧光柔和，廊下/石阶近景不易顶光翻脸；夜场灯火另有一套氛围。</p>
               <p><strong>相对好拍</strong>：红柱白栏回廊、泮池三拱桥、大成殿金顶远景；不必挤东台路信号灯网红角。</p>
-              <p class="tip-src" style="margin:6px 0 0;font-size:11px;">来源：@风栖野 · <a href="https://www.xiaohongshu.com/explore/6a3e0f7900000000150245ae" target="_blank" rel="noopener">文庙旗袍出片指南</a>；@山茶阿鱿 · <a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener">新中式建议</a></p>
+              <p class="tip-src" style="margin:6px 0 0;font-size:11px;"><a href="https://www.xiaohongshu.com/explore/6a3e0f7900000000150245ae" target="_blank" rel="noopener" title="@风栖野">小红书</a><a href="https://www.xiaohongshu.com/explore/67e7e70e000000001c00b2c7" target="_blank" rel="noopener" title="@山茶阿鱿">小红书</a><details class="src-more"><summary>说明</summary><span>@风栖野文庙旗袍；@山茶阿鱿新中式</span></details></p>
             </div>
           </details>
             </aside>
@@ -1744,14 +1894,14 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
             <img src="https://commons.wikimedia.org/wiki/Special:FilePath/East_Gate_of_Liuzhou_2.jpg?width=960" alt="柳州东门一带" loading="lazy" decoding="async" width="800" height="450">
             <figcaption>图：东门一带城中氛围（收工参考） · 图源：<a href="https://commons.wikimedia.org/wiki/File:East_Gate_of_Liuzhou_2.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
           </figure>
-          <div class="source-line">来源：洗头价位见 <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">小红书@小呀小橘橘</a>（正文+评论）；店名以现场为准</div>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>洗头价位见@小呀小橘橘正文+评论；店名以现场为准</span></details></div>
             
         
         </div>
         <aside class="spot-side">
           <div class="spot-tips">
             <strong>游玩注意</strong>：晚上洗头店常爆满——建议 <strong>美团找店后打电话预约时段</strong>；50 元内体验通常够用。龙潭出口附近也有人推「出园累了顺路洗」的店，以现场为准。
-            <span class="tip-src">来源：小红书@小呀小橘橘正文+评论（作者回复预约方式）· <a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener">打开笔记</a></span>
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/6a7972e2000000003300d104" target="_blank" rel="noopener" title="@小呀小橘橘">小红书</a><details class="src-more"><summary>说明</summary><span>@小呀小橘橘正文+评论（作者回复预约方式）</span></details></span>
           </div>
             </aside>
       </div>
@@ -1760,7 +1910,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   </div>
 </div>
 
-<div class="section">
+<div class="section day-section" data-day="3" id="day-3">
   <div class="day-card">
     <div class="day-header">
       <h3>Day 3 · 10月3日 · 主题：留柳收尾</h3>
@@ -1873,13 +2023,13 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
             <td>龙潭公园</td>
             <td>一般免票；偶需刷证</td>
             <td>免费</td>
-            <td><a href="https://you.ctrip.com/sight/liuzhou143/62242.html" target="_blank" rel="noopener">携程景点页</a></td>
+            <td><a href="https://you.ctrip.com/sight/liuzhou143/62242.html" target="_blank" rel="noopener">携程</a></td>
           </tr>
           <tr>
             <td>柳州文庙</td>
             <td>多为刷证；限流时「广西游直通车」</td>
             <td>免费</td>
-            <td><a href="https://you.ctrip.com/sight/liuzhou143/1476773.html" target="_blank" rel="noopener">携程景点页</a></td>
+            <td><a href="https://you.ctrip.com/sight/liuzhou143/1476773.html" target="_blank" rel="noopener">携程</a></td>
           </tr>
           <tr>
             <td>螺蛳粉饮食文化博物馆（可选）</td>
@@ -2226,6 +2376,15 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
       btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-set") === theme ? "true" : "false");
     });
   }
+  function setTools(open) {
+    if (!dock) return;
+    dock.classList.toggle("is-tools-open", open);
+    document.querySelectorAll("[data-dock-toggle]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "收起" : "工具";
+    });
+    if (!open) setMenu(false);
+  }
   function setMenu(open) {
     if (!dock) return;
     dock.classList.toggle("is-open", open);
@@ -2250,7 +2409,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   }
   function openDrawer(id) {
     if (!id) return;
-    setMenu(false);
+    setTools(false);
     if (openDrawerId && openDrawerId !== id) closeDrawer();
     var panel = document.getElementById(id);
     if (!panel) return;
@@ -2281,6 +2440,16 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
       setMenu(!(dock && dock.classList.contains("is-open")));
     });
   });
+  document.querySelectorAll("[data-dock-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setTools(!(dock && dock.classList.contains("is-tools-open")));
+    });
+  });
+  document.addEventListener("click", function (e) {
+    if (!dock || !dock.classList.contains("is-tools-open")) return;
+    if (dock.contains(e.target)) return;
+    setTools(false);
+  });
   document.querySelectorAll("[data-print-pdf]").forEach(function (btn) {
     btn.addEventListener("click", function () { window.print(); });
   });
@@ -2298,7 +2467,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       if (openDrawerId) closeDrawer();
-      else setMenu(false);
+      else setTools(false);
     }
   });
   document.addEventListener("click", function (e) {
@@ -2306,6 +2475,51 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
     if (e.target.closest && e.target.closest(".guide-drawer")) return;
     setMenu(false);
   });
+
+  (function initDayFilter() {
+    var nav = document.querySelector("[data-day-switch]");
+    var sections = Array.prototype.slice.call(document.querySelectorAll(".day-section"));
+    if (!nav || !sections.length) return;
+    var track = document.createElement("div");
+    track.className = "day-switch-track";
+    nav.appendChild(track);
+    function makeBtn(id, label, title) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-day-filter", id);
+      btn.textContent = label;
+      if (title) {
+        btn.title = title;
+        btn.setAttribute("aria-label", title);
+      }
+      track.appendChild(btn);
+      return btn;
+    }
+    var buttons = [makeBtn("all", "全部", "显示全部日程")];
+    sections.forEach(function (sec) {
+      var n = sec.getAttribute("data-day");
+      var heading = sec.querySelector(".day-header h3");
+      buttons.push(makeBtn(n, "D" + n, heading ? heading.textContent.replace(/\s+/g, " ").trim() : ("Day " + n)));
+    });
+    function apply(id) {
+      buttons.forEach(function (btn) {
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-day-filter") === id ? "true" : "false");
+      });
+      sections.forEach(function (sec) {
+        sec.classList.toggle("is-day-off", id !== "all" && sec.getAttribute("data-day") !== id);
+      });
+      if (id !== "all") {
+        var target = document.getElementById("day-" + id);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        apply(btn.getAttribute("data-day-filter"));
+      });
+    });
+    apply("all");
+  })();
 
   (function initTodos() {
     var host = document.querySelector("[data-todo-key]") || document.getElementById("drawer-todos");

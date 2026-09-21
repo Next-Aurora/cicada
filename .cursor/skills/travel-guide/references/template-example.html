@@ -105,13 +105,46 @@ body {
   right: max(12px, env(safe-area-inset-right));
   bottom: max(12px, env(safe-area-inset-bottom));
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-items: flex-end;
   gap: 8px;
   max-width: calc(100vw - 24px);
   pointer-events: none;
 }
 .float-dock > * { pointer-events: auto; }
+.float-dock-actions { display: none; align-items: center; gap: 4px; }
+.float-dock.is-tools-open .float-dock-actions { display: flex; }
+.float-dock:not(.is-tools-open) .float-dock-main {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.float-dock.is-tools-open .float-dock-toggle {
+  box-shadow: none;
+  background: transparent;
+  border-color: transparent;
+  min-height: 32px;
+  color: var(--muted);
+}
+.float-dock-toggle {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.float-dock.is-tools-open .float-dock-main { padding: 4px; gap: 2px; }
 .float-dock-main {
   display: flex;
   align-items: center;
@@ -140,11 +173,11 @@ body {
 .theme-btn,
 .theme-btn-pdf {
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0 14px;
+  min-height: 32px;
+  min-width: 0;
+  padding: 0 10px;
   border-radius: 999px;
   border: 1px solid var(--hairline);
   background: var(--surface);
@@ -173,11 +206,11 @@ html[data-theme="c"] .theme-btn[aria-pressed="true"] { color: #12141A; }
 html[data-theme="c"] .theme-btn-pdf { color: #12141A; }
 .theme-btn-dock {
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0 14px;
+  min-height: 32px;
+  min-width: 0;
+  padding: 0 10px;
   border-radius: 999px;
   border: 1px solid var(--hairline);
   background: var(--surface);
@@ -296,11 +329,11 @@ body.drawer-open { overflow: hidden; }
     right: max(20px, env(safe-area-inset-right));
     bottom: max(20px, env(safe-area-inset-bottom));
   }
-  .float-theme-panel {
+  .float-dock.is-tools-open .float-theme-panel {
     display: flex;
     flex-direction: row;
     min-width: 0;
-    padding: 6px;
+    padding: 4px;
   }
   .float-theme-toggle { display: none; }
   .theme-btn { width: auto; text-align: center; }
@@ -349,6 +382,50 @@ body.drawer-open { overflow: hidden; }
 
 /* Section */
 .section { margin: 28px auto; max-width: 800px; padding: 0 16px; }
+.day-switch {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 8px 16px 4px;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 96%, transparent) 55%, transparent);
+}
+.day-switch-track {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  backdrop-filter: blur(10px);
+}
+.day-switch button {
+  flex: 0 0 auto;
+  min-width: 52px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.day-switch button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+html[data-theme="c"] .day-switch button[aria-pressed="true"] { color: #12141A; }
+.day-section { scroll-margin-top: 52px; }
+.day-section.is-day-off { display: none; }
 .section-title {
   font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
   font-size: 22px;
@@ -601,6 +678,7 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
   font-size: 13px;
   line-height: 1.55;
 }
+.spot-side .spot-tips { line-height: 1.8; }
 .spot-side .spot-tips,
 .spot-side .spot-play {
   padding: 10px 12px;
@@ -751,6 +829,33 @@ html[data-theme="c"] .route-day-badge { color: #12141A; }
 }
 .source-line a { color: var(--accent); text-decoration: none; font-weight: 600; }
 .source-line a:hover { text-decoration: underline; }
+.source-line a + a,
+.tip-src a + a,
+.play-src a + a { margin-left: 8px; }
+.src-more {
+  display: inline;
+  margin-left: 6px;
+  font-weight: 400;
+}
+.src-more > summary {
+  display: inline;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  list-style: none;
+}
+.src-more > summary::-webkit-details-marker { display: none; }
+.src-more > summary::before { content: "· "; }
+.src-more > span { display: none; }
+.src-more[open] > span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.5;
+}
 .roadbook {
   font-size: 13px;
   color: var(--text);
@@ -1097,6 +1202,35 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   .day-rail-meta .day-sidebar { position: static; }
   .spot-side--empty { display: none; }
   .day-rail-row.tl-pair > .spot-side:not(.spot-side--empty) { margin-top: 0; }
+  .day-rail-row.tl-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    margin-left: 5px;
+    padding-left: 28px;
+    padding-bottom: 22px;
+    border-left: 2px solid var(--accent-soft);
+  }
+  .day-rail-row.tl-pair:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .day-rail-row.tl-pair::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--surface);
+    z-index: 1;
+  }
+  .day-rail-row.tl-pair > .tl-item { display: contents; }
+  .day-rail-row.tl-pair > .tl-item::before { content: none; }
+  .day-rail-row.tl-pair > .tl-item > * { order: 4; }
+  .day-rail-row.tl-pair > .tl-item > .tl-time { order: 1; }
+  .day-rail-row.tl-pair > .tl-item > .tl-spot-name { order: 2; }
+  .day-rail-row.tl-pair > .spot-side:not(.spot-side--empty) { order: 3; }
   .day-sidebar { width: 100%; }
   .media-figure img { max-height: 160px; }
   .info-grid { grid-template-columns: 1fr; }
@@ -1112,6 +1246,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   .guide-drawer-backdrop,
   .guide-drawer-close,
   .screen-only { display: none !important; }
+  .day-section.is-day-off { display: block !important; }
   .guide-drawer {
     position: static !important;
     transform: none !important;
@@ -1218,6 +1353,8 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   }
   .ticket-line .ticket-caveat { font-size: 8px !important; margin-top: 2px !important; }
   .source-line { font-size: 9px !important; margin: 2px 0 4px !important; }
+  .src-more > summary { display: none !important; }
+  .src-more > span { display: block !important; }
   .refs-fold { break-inside: avoid; border-color: #ccc !important; }
   .refs-fold > summary { padding: 8px 12px !important; font-size: 13px !important; }
   .refs-fold > summary::after { content: none !important; }
@@ -1258,11 +1395,14 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
     <button type="button" class="theme-btn" data-theme-set="b" aria-pressed="false">B 海岸公路</button>
     <button type="button" class="theme-btn" data-theme-set="c" aria-pressed="false">C 城市夜游</button>
   </div>
-  <div class="float-dock-main">
-    <button type="button" class="float-theme-toggle" data-theme-menu aria-expanded="false" aria-controls="float-theme-panel">配色</button>
-    <button type="button" class="theme-btn-dock" data-open-drawer="drawer-todos" aria-expanded="false" aria-controls="drawer-todos">待办</button>
-    <button type="button" class="theme-btn-dock" data-open-drawer="drawer-budget" aria-expanded="false" aria-controls="drawer-budget">预算</button>
-    <button type="button" class="theme-btn-pdf" data-print-pdf>导出 PDF</button>
+  <div class="float-dock-main" id="float-dock-body">
+    <button type="button" class="float-dock-toggle" data-dock-toggle aria-expanded="false" aria-controls="float-dock-actions">工具</button>
+    <div class="float-dock-actions" id="float-dock-actions">
+      <button type="button" class="float-theme-toggle" data-theme-menu aria-expanded="false" aria-controls="float-theme-panel">配色</button>
+      <button type="button" class="theme-btn-dock" data-open-drawer="drawer-todos" aria-expanded="false" aria-controls="drawer-todos">待办</button>
+      <button type="button" class="theme-btn-dock" data-open-drawer="drawer-budget" aria-expanded="false" aria-controls="drawer-budget">预算</button>
+      <button type="button" class="theme-btn-pdf" data-print-pdf>导出 PDF</button>
+    </div>
   </div>
 </div>
 
@@ -1354,8 +1494,10 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   </div>
 </div>
 
+<nav class="day-switch screen-only" data-day-switch aria-label="切换日程"></nav>
+
 <!-- ==================== DAY CARDS ==================== -->
-<div class="section">
+<div class="section day-section" data-day="{{N}}" id="day-{{N}}">
   <div class="day-card">
     <div class="day-header">
       <h3>Day {{N}} &middot; {{MONTH}}月{{DATE}}日 &middot; 主题：{{DAY_THEME}}</h3>
@@ -1761,6 +1903,15 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
       btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-set") === theme ? "true" : "false");
     });
   }
+  function setTools(open) {
+    if (!dock) return;
+    dock.classList.toggle("is-tools-open", open);
+    document.querySelectorAll("[data-dock-toggle]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "收起" : "工具";
+    });
+    if (!open) setMenu(false);
+  }
   function setMenu(open) {
     if (!dock) return;
     dock.classList.toggle("is-open", open);
@@ -1785,7 +1936,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   }
   function openDrawer(id) {
     if (!id) return;
-    setMenu(false);
+    setTools(false);
     if (openDrawerId && openDrawerId !== id) closeDrawer();
     var panel = document.getElementById(id);
     if (!panel) return;
@@ -1816,6 +1967,16 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
       setMenu(!(dock && dock.classList.contains("is-open")));
     });
   });
+  document.querySelectorAll("[data-dock-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setTools(!(dock && dock.classList.contains("is-tools-open")));
+    });
+  });
+  document.addEventListener("click", function (e) {
+    if (!dock || !dock.classList.contains("is-tools-open")) return;
+    if (dock.contains(e.target)) return;
+    setTools(false);
+  });
   document.querySelectorAll("[data-print-pdf]").forEach(function (btn) {
     btn.addEventListener("click", function () { window.print(); });
   });
@@ -1833,7 +1994,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       if (openDrawerId) closeDrawer();
-      else setMenu(false);
+      else setTools(false);
     }
   });
   document.addEventListener("click", function (e) {
@@ -1841,6 +2002,51 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
     if (e.target.closest && e.target.closest(".guide-drawer")) return;
     setMenu(false);
   });
+
+  (function initDayFilter() {
+    var nav = document.querySelector("[data-day-switch]");
+    var sections = Array.prototype.slice.call(document.querySelectorAll(".day-section"));
+    if (!nav || !sections.length) return;
+    var track = document.createElement("div");
+    track.className = "day-switch-track";
+    nav.appendChild(track);
+    function makeBtn(id, label, title) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-day-filter", id);
+      btn.textContent = label;
+      if (title) {
+        btn.title = title;
+        btn.setAttribute("aria-label", title);
+      }
+      track.appendChild(btn);
+      return btn;
+    }
+    var buttons = [makeBtn("all", "全部", "显示全部日程")];
+    sections.forEach(function (sec) {
+      var n = sec.getAttribute("data-day");
+      var heading = sec.querySelector(".day-header h3");
+      buttons.push(makeBtn(n, "D" + n, heading ? heading.textContent.replace(/\s+/g, " ").trim() : ("Day " + n)));
+    });
+    function apply(id) {
+      buttons.forEach(function (btn) {
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-day-filter") === id ? "true" : "false");
+      });
+      sections.forEach(function (sec) {
+        sec.classList.toggle("is-day-off", id !== "all" && sec.getAttribute("data-day") !== id);
+      });
+      if (id !== "all") {
+        var target = document.getElementById("day-" + id);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        apply(btn.getAttribute("data-day-filter"));
+      });
+    });
+    apply("all");
+  })();
 
   /* ---- Interactive todos (localStorage) ---- */
   (function initTodos() {

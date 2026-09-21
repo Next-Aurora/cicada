@@ -232,13 +232,14 @@ description: >
 
 **节点排版（HTML）**：
 
-- 有 tips/play/photo 的景点：用 `.day-rail-row.tl-pair`——左 `.tl-item` 主线，右 `.spot-side`（注意/时长/出片），与「今日亮点 / 重要提醒」同属右栏竖轨；≥640px 并排，窄屏上下叠  
+- 有 tips/play/photo 的景点：用 `.day-rail-row.tl-pair`——左 `.tl-item` 主线，右 `.spot-side`（注意/时长/出片），与「今日亮点 / 重要提醒」同属右栏竖轨；≥640px 并排。窄屏把侧栏插到景点名正下方（导航/配图仍在其后），避免时长被长图压出首屏  
 - 无侧栏信息的节点右栏用 `.spot-side--empty` 占位（窄屏隐藏）  
 - 路书+亮点/提醒放 `.day-rail-row.day-rail-meta`；雨备用全宽 `.day-rail-rain`  
 - **重要提醒**：默认可写多条，页内 JS 只展示前 3 条，其余进 `.tip-more` 折叠；打印展开  
 - **去重**：同日同事实（路线/时长/到点）不在路书、提醒、侧栏三处复读；提醒只留决策句  
-- **精简≠删链**：收短文案时把 `explore` 链挂到关键词/时段/店名上，或保留一行「笔记：@x · 链」；禁止为省字删掉可点来源  
-- **出发前待办**、**预算预估**进右侧抽屉（`#drawer-todos` / `#drawer-budget`）；`float-dock` 放「待办」「预算」按钮；正文留 `.dock-jump.screen-only` 短链；**打印时抽屉静态展开全文**（dock 仍隐藏）  
+- **来源占位**：节点 `.source-line` / `.tip-src` / `.play-src` 默认只显示平台名链接（如「小红书」），作者与摘录放 `.src-more`；链必须还在，打印展开说明  
+- **出发前待办**、**预算预估**进右侧抽屉（`#drawer-todos` / `#drawer-budget`）；`float-dock` 默认收成「工具」，点开才出配色/待办/预算/导出 PDF；正文留 `.dock-jump.screen-only` 短链；**打印时抽屉静态展开全文**（dock 仍隐藏）  
+- **日程日切**：日程卡前放 `.day-switch`（`screen-only`）；每个日程 `.section` 加 `.day-section` 与 `data-day`。默认「全部」；点 D1/D2/… 只显示该日，总览与待办预算不藏。打印忽略筛选、三日全文都出  
 
 **游玩时长 · 重点区 · 避堵（Phase 3b / HTML · 景点必做）**：
 
