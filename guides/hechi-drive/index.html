@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="a">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桂西北电车四日 · 三门海到柳州 — 旅行攻略</title>
+<style>
+/* ========== Theme tokens ========== */
+/* A 山野旅行（默认） */
+html[data-theme="a"] {
+  --bg: #E7EBE6;
+  --bg-pattern: radial-gradient(ellipse 120% 80% at 10% -10%, rgba(61,107,79,0.12), transparent 50%),
+                radial-gradient(ellipse 80% 60% at 100% 0%, rgba(168,144,112,0.1), transparent 45%);
+  --surface: #F5F7F4;
+  --text: #1F2A24;
+  --muted: #5A6B60;
+  --accent: #3D6B4F;
+  --accent-2: #A89070;
+  --accent-soft: #D5E3D9;
+  --hero-grad: linear-gradient(145deg, #1E3D2F 0%, #3D6B4F 42%, #5A7D62 78%, #8FA890 100%);
+  --day-head: linear-gradient(135deg, #D5E3D9, #C5D4C8);
+  --budget-head: linear-gradient(135deg, #3D6B4F, #2A4F3A);
+  --shadow: 0 1px 0 rgba(31,42,36,0.04);
+  --hairline: rgba(31,42,36,0.1);
+  --tag-rec-bg: #D5E3D9; --tag-rec-fg: #1E3D2F;
+  --tag-free-bg: #DCE8F0; --tag-free-fg: #1A4A66;
+  --tag-book-bg: #EDE4D4; --tag-book-fg: #6B4E1B;
+  --tag-photo-bg: #E8D9DE; --tag-photo-fg: #6B2A3A;
+  --econ-bg: #D5E3D9; --econ-fg: #1E3D2F;
+  --comf-bg: #EDE4D4; --comf-fg: #6B4E1B;
+  --lux-bg: #DCE8F0; --lux-fg: #1A4A66;
+}
+
+/* B 海岸公路 */
+html[data-theme="b"] {
+  --bg: #EDE8DF;
+  --bg-pattern: radial-gradient(ellipse 100% 70% at 0% 0%, rgba(27,107,122,0.14), transparent 55%),
+                radial-gradient(ellipse 70% 50% at 100% 20%, rgba(196,181,154,0.2), transparent 50%);
+  --surface: #F7F4EF;
+  --text: #1A2F36;
+  --muted: #5A6E74;
+  --accent: #1B6B7A;
+  --accent-2: #C4B59A;
+  --accent-soft: #D2E4E8;
+  --hero-grad: linear-gradient(145deg, #0D3A44 0%, #1B6B7A 45%, #3A8A96 75%, #A8C5C9 100%);
+  --day-head: linear-gradient(135deg, #D2E4E8, #C5D8DC);
+  --budget-head: linear-gradient(135deg, #1B6B7A, #0F4A55);
+  --shadow: 0 1px 0 rgba(26,47,54,0.05);
+  --hairline: rgba(26,47,54,0.1);
+  --tag-rec-bg: #D2E4E8; --tag-rec-fg: #0D3A44;
+  --tag-free-bg: #DCE8F0; --tag-free-fg: #1A4A66;
+  --tag-book-bg: #EDE4D4; --tag-book-fg: #6B4E1B;
+  --tag-photo-bg: #E8D9DE; --tag-photo-fg: #6B2A3A;
+  --econ-bg: #D2E4E8; --econ-fg: #0D3A44;
+  --comf-bg: #EDE4D4; --comf-fg: #6B4E1B;
+  --lux-bg: #E0D8EC; --lux-fg: #3D2A5C;
+}
+
+/* C 城市夜游 */
+html[data-theme="c"] {
+  --bg: #12141A;
+  --bg-pattern: radial-gradient(ellipse 90% 60% at 80% -10%, rgba(232,165,75,0.12), transparent 50%),
+                radial-gradient(ellipse 70% 50% at 0% 40%, rgba(80,100,140,0.08), transparent 45%);
+  --surface: #1C1F28;
+  --text: #E8E6E3;
+  --muted: #9A9690;
+  --accent: #E8A54B;
+  --accent-2: #7A8499;
+  --accent-soft: #2A2E3A;
+  --hero-grad: linear-gradient(145deg, #0A0B0F 0%, #1A1D28 40%, #2A2430 70%, #3D3228 100%);
+  --day-head: linear-gradient(135deg, #252833, #1E222C);
+  --budget-head: linear-gradient(135deg, #E8A54B, #B87A2E);
+  --shadow: none;
+  --hairline: rgba(232,230,227,0.12);
+  --tag-rec-bg: #243028; --tag-rec-fg: #8FCB9B;
+  --tag-free-bg: #1E2A38; --tag-free-fg: #7EB6D9;
+  --tag-book-bg: #3A3020; --tag-book-fg: #E8A54B;
+  --tag-photo-bg: #3A2430; --tag-photo-fg: #E8A0B0;
+  --econ-bg: #243028; --econ-fg: #8FCB9B;
+  --comf-bg: #3A3020; --comf-fg: #E8A54B;
+  --lux-bg: #2A2438; --lux-fg: #C4B0E8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  background-image: var(--bg-pattern);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 900px) {
+  .container { max-width: 1040px; }
+  .hero-content { max-width: 1040px; }
+}
+
+/* Floating dock — theme + PDF (mobile-first) */
+.float-dock {
+  position: fixed;
+  z-index: 50;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: calc(100vw - 24px);
+  pointer-events: none;
+}
+.float-dock > * { pointer-events: auto; }
+.float-dock-actions { display: none; align-items: center; gap: 4px; }
+.float-dock.is-tools-open .float-dock-actions { display: flex; }
+.float-dock:not(.is-tools-open) .float-dock-main {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.float-dock.is-tools-open .float-dock-toggle {
+  box-shadow: none;
+  background: transparent;
+  border-color: transparent;
+  min-height: 32px;
+  color: var(--muted);
+}
+.float-dock-toggle {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.float-dock.is-tools-open .float-dock-main { padding: 4px; gap: 2px; }
+.float-dock-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+}
+.float-theme-panel {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  min-width: 148px;
+}
+.float-dock.is-open .float-theme-panel { display: flex; }
+.float-theme-toggle,
+.theme-btn,
+.theme-btn-pdf {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 32px;
+  min-width: 0;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.theme-btn { width: 100%; text-align: left; }
+.theme-btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+html[data-theme="c"] .theme-btn[aria-pressed="true"] { color: #12141A; }
+.float-theme-toggle[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-btn-pdf {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  white-space: nowrap;
+}
+html[data-theme="c"] .theme-btn-pdf { color: #12141A; }
+.theme-btn-dock {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 32px;
+  min-width: 0;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.theme-btn-dock[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-btn-pdf:active,
+.theme-btn-dock:active,
+.float-theme-toggle:active,
+.theme-btn:active { transform: scale(0.98); }
+.float-theme-toggle:focus-visible,
+.theme-btn:focus-visible,
+.theme-btn-pdf:focus-visible,
+.theme-btn-dock:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.guide-drawer-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgba(20, 28, 32, 0.35);
+}
+.guide-drawer-backdrop.is-open { display: block; }
+.guide-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 60;
+  width: min(640px, 96vw);
+  height: 100%;
+  max-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  color: var(--text);
+  border-left: 1px solid var(--hairline);
+  box-shadow: -12px 0 40px rgba(0,0,0,0.14);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+  visibility: hidden;
+}
+.guide-drawer.is-open {
+  transform: translateX(0);
+  visibility: visible;
+}
+.guide-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--hairline);
+  flex-shrink: 0;
+}
+.guide-drawer-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+.guide-drawer-close {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+.guide-drawer-body {
+  flex: 1;
+  overflow: auto;
+  padding: 14px 16px 28px;
+  -webkit-overflow-scrolling: touch;
+}
+.guide-drawer-body .todo-hint,
+.guide-drawer-body .todo-progress { margin-bottom: 10px; }
+.guide-drawer-body .check-grid { margin-top: 8px; }
+.guide-drawer-body .budget-card { margin: 0; }
+.dock-jump {
+  margin: 12px 0 20px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.dock-jump-btn {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.screen-only { display: block; }
+body.drawer-open { overflow: hidden; }
+@media (min-width: 720px) {
+  .float-dock {
+    flex-direction: row;
+    align-items: center;
+    right: max(20px, env(safe-area-inset-right));
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .float-dock.is-tools-open {
+    flex-direction: row;
+    align-items: center;
+  }
+  .float-dock.is-tools-open .float-theme-panel {
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    padding: 4px;
+  }
+  .float-theme-toggle { display: none; }
+  .theme-btn { width: auto; text-align: center; }
+  .float-dock-main { padding: 6px; }
+}
+
+/* Hero — full-bleed */
+.hero {
+  position: relative;
+  background: var(--hero-grad);
+  color: #fff;
+  padding: 56px 32px 44px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,255,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.hero .subtitle { font-size: 14px; opacity: 0.88; margin-bottom: 24px; line-height: 1.6; }
+.hero-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+.hero-stat { display: flex; flex-direction: column; align-items: flex-start; }
+.hero-stat .value { font-size: 18px; font-weight: 700; }
+.hero-stat .label { font-size: 12px; opacity: 0.75; }
+
+/* Section */
+.section { margin: 28px auto; max-width: 800px; padding: 0 16px; }
+.day-switch {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 8px 16px 4px;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 96%, transparent) 55%, transparent);
+}
+.day-switch-track {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  backdrop-filter: blur(10px);
+}
+.day-switch button {
+  flex: 0 0 auto;
+  min-width: 52px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.day-switch button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+html[data-theme="c"] .day-switch button[aria-pressed="true"] { color: #12141A; }
+.day-section { scroll-margin-top: 52px; }
+.day-section.is-day-off { display: none; }
+.section-title {
+  font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 18px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+}
+
+/* Route overview — day cards, no piercing connectors */
+.route-overview {
+  margin: 0 0 8px;
+  padding: 14px;
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--bg));
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+}
+.route-overview-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+.route-day-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+.route-day {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.route-day-sep {
+  display: none;
+  list-style: none;
+  flex: 0 0 auto;
+  align-self: center;
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.55;
+  padding: 0 2px;
+  user-select: none;
+}
+.route-day-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+  background: var(--accent-soft);
+}
+.route-day-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.route-day-badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 2;
+  width: auto;
+  min-width: 0;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 92%, #000);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+html[data-theme="c"] .route-day-badge { color: #12141A; }
+.route-day-body {
+  min-width: 0;
+  padding: 12px 12px 14px;
+}
+.route-day-body h4 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 700;
+}
+.route-day-meta {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--hairline);
+}
+.route-day-body ul {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.route-day-body li { margin: 3px 0; }
+@media (min-width: 720px) {
+  .route-day-track {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+  }
+  .route-day {
+    flex: 1;
+    min-width: 0;
+  }
+  .route-day-sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+  }
+  .route-day-media { height: 120px; }
+}
+
+/* Prep cluster — right after itinerary */
+.prep-cluster {
+  margin: 8px auto 28px;
+  max-width: 1040px;
+  padding: 0 16px;
+}
+.prep-cluster > .section {
+  margin: 0 0 14px;
+  padding: 0;
+  max-width: none;
+}
+.prep-cluster > .section:last-child { margin-bottom: 0; }
+@media print {
+  .prep-cluster { margin: 8px 0 !important; padding: 0 !important; }
+  .prep-cluster > .section { margin-bottom: 8px !important; }
+}
+
+/* Media */
+.media-figure {
+  margin: 8px 0 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--accent-soft);
+  border: 1px solid var(--hairline);
+}
+.media-figure + .media-figure { margin-top: 4px; }
+.media-figure img {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+.media-figure figcaption {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 6px 8px;
+  line-height: 1.4;
+}
+.media-figure figcaption a { color: var(--accent); font-weight: 600; text-decoration: none; }
+
+/* Day */
+.day-card {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.day-header {
+  background: var(--day-head);
+  border-left: 4px solid var(--accent);
+  padding: 16px 22px;
+}
+.day-header h3 { font-size: 17px; font-weight: 700; color: var(--text); }
+.day-weather {
+  padding: 10px 22px;
+  border-bottom: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--accent-soft) 18%, var(--surface));
+  font-size: 13px;
+  line-height: 1.5;
+}
+.day-weather-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: baseline;
+}
+.dw-temp { font-weight: 700; color: var(--accent); font-size: 15px; }
+.dw-cond { font-weight: 600; color: var(--text); }
+.dw-precip { color: var(--muted); font-size: 12px; }
+.day-weather-wear { margin: 6px 0 0; color: var(--text); }
+.day-weather-note { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+.day-body { padding: 22px; }
+.day-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.day-rail-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 280px);
+  gap: 14px 20px;
+  align-items: start;
+}
+.day-rail-main { min-width: 0; }
+.day-sidebar {
+  width: auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.day-rail-meta .day-sidebar {
+  position: sticky;
+  top: 12px;
+}
+.spot-side {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.spot-side--empty {
+  min-height: 0;
+  pointer-events: none;
+}
+.spot-side .spot-tips,
+.spot-side .spot-play,
+.spot-side .photo-fold {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.spot-side .spot-tips { line-height: 1.8; }
+.spot-side .spot-tips,
+.spot-side .spot-play {
+  padding: 14px 14px;
+}
+.spot-side .photo-fold {
+  padding: 0;
+  overflow: hidden;
+  border: 1px dashed var(--hairline);
+  border-left: 3px solid color-mix(in srgb, var(--tag-photo-fg) 55%, var(--hairline));
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--surface) 90%, var(--tag-photo-bg));
+}
+.spot-side .photo-fold > summary { padding: 10px 12px; }
+.spot-side .photo-fold .photo-body { padding: 0 12px 10px; font-size: 12px; }
+.day-rail-rain {
+  margin: 0 0 8px;
+}
+.day-rail-rain .rain-alt { margin: 0; }
+.day-timeline { flex: 1; min-width: 0; } /* legacy */
+
+.tl-item {
+  position: relative;
+  padding-left: 28px;
+  padding-bottom: 22px;
+  border-left: 2px solid var(--accent-soft);
+  margin-left: 5px;
+}
+.tl-item:last-child { border-left-color: transparent; padding-bottom: 0; }
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -6px; top: 4px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+}
+.tl-time { font-size: 13px; line-height: 1.35; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.tl-spot-name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+/* 右栏注意/时长/出片与景点名对齐（下移过时段行） */
+.day-rail-row.tl-pair > .spot-side:not(.spot-side--empty) {
+  margin-top: calc(13px * 1.35 + 4px);
+}
+
+.nav-block {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 6px 0 8px;
+  padding: 8px 10px;
+  background: color-mix(in srgb, var(--accent-soft) 45%, var(--surface));
+  border-radius: 4px;
+  border: 1px dashed var(--hairline);
+}
+.nav-block a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.nav-block a:hover { text-decoration: underline; }
+.ticket-line {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  background: color-mix(in srgb, var(--accent-soft) 30%, var(--surface));
+  border-radius: 4px;
+  border: 1px solid var(--hairline);
+}
+.ticket-line strong { color: var(--text); font-weight: 600; }
+.ticket-line a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.ticket-line a:hover { text-decoration: underline; }
+.ticket-line .ticket-caveat { display: block; margin-top: 4px; font-size: 11px; opacity: 0.9; }
+.spot-row { display: contents; } /* legacy nested; prefer day-rail-row */
+.spot-main { min-width: 0; }
+.spot-tips {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin: 6px 0 8px;
+  padding: 14px 14px;
+  background: color-mix(in srgb, var(--surface) 86%, var(--tag-book-bg));
+  border-radius: 4px;
+  border-left: 3px solid color-mix(in srgb, var(--accent-2) 75%, var(--tag-book-fg));
+}
+.spot-tips strong { color: var(--text); font-weight: 600; }
+.spot-tips a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.spot-tips a:hover { text-decoration: underline; }
+.spot-tips .tip-src { display: block; margin-top: 10px; font-size: 11px; opacity: 0.9; }
+.spot-play {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 6px 0 8px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--surface) 94%, var(--accent-soft));
+  border-radius: 4px;
+  border: 1px solid var(--hairline);
+}
+.spot-play strong { color: var(--text); font-weight: 600; }
+.spot-play a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.spot-play a:hover { text-decoration: underline; }
+.spot-play li { margin: 2px 0 2px 1.1em; }
+.spot-play .play-src { display: block; margin-top: 6px; font-size: 11px; opacity: 0.95; }
+.photo-fold {
+  margin: 6px 0 10px;
+  border: 1px dashed var(--hairline);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface) 90%, var(--tag-photo-bg));
+  overflow: hidden;
+}
+.photo-fold > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  user-select: none;
+}
+.photo-fold > summary::-webkit-details-marker { display: none; }
+.photo-fold > summary::after {
+  content: "展开";
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.photo-fold[open] > summary::after { content: "收起"; }
+.photo-fold .photo-body {
+  padding: 0 10px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.rain-alt {
+  margin: 6px 0 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--tag-free-bg) 50%, var(--surface));
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.rain-alt strong { color: var(--text); }
+.rain-alt a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.photo-fold .photo-body a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.photo-fold .photo-body a:hover { text-decoration: underline; }
+.source-line {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 4px 0 8px;
+  line-height: 1.5;
+}
+.source-line a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.source-line a:hover { text-decoration: underline; }
+.source-line a + a,
+.tip-src a + a,
+.play-src a + a { margin-left: 8px; }
+.src-more {
+  display: inline;
+  margin-left: 6px;
+  font-weight: 400;
+}
+.src-more > summary {
+  display: inline;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  list-style: none;
+}
+.src-more > summary::-webkit-details-marker { display: none; }
+.src-more > summary::before { content: "· "; }
+.src-more > span {
+  display: none;
+}
+.src-more[open] > span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.roadbook {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  background: transparent;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+.roadbook strong { color: var(--accent); }
+
+.tl-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag-recommend { background: var(--tag-rec-bg); color: var(--tag-rec-fg); }
+.tag-free { background: var(--tag-free-bg); color: var(--tag-free-fg); }
+.tag-booking { background: var(--tag-book-bg); color: var(--tag-book-fg); }
+.tag-photo { background: var(--tag-photo-bg); color: var(--tag-photo-fg); }
+.tag-ticket { background: var(--accent-soft); color: var(--accent); }
+.tl-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.sidebar-box {
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 0;
+}
+.sidebar-box h4 { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.sidebar-box li {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  list-style: disc;
+  margin-left: 16px;
+  line-height: 1.5;
+}
+.sidebar-box .tip-more {
+  margin-top: 6px;
+  border: none;
+  background: transparent;
+}
+.sidebar-box .tip-more > summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  user-select: none;
+}
+.sidebar-box .tip-more > summary::-webkit-details-marker { display: none; }
+.sidebar-box .tip-more > summary::after { content: " · 展开"; }
+.sidebar-box .tip-more[open] > summary::after { content: " · 收起"; }
+.sidebar-box .tip-more ul { margin-top: 6px; }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.info-card {
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+}
+.info-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+.info-card p, .info-card li { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.info-card ul { padding-left: 16px; }
+.info-card li { margin-bottom: 4px; list-style: disc; }
+
+.ticket-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ticket-table th {
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 2px solid var(--hairline);
+  color: var(--accent);
+  font-weight: 600;
+}
+.ticket-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--muted);
+}
+
+.budget-card {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.budget-header {
+  background: var(--budget-head);
+  padding: 16px 22px;
+  color: #fff;
+}
+html[data-theme="c"] .budget-header { color: #12141A; }
+.budget-header h3 { font-size: 17px; font-weight: 700; }
+.budget-header .budget-meta { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+.budget-body { padding: 22px; }
+.budget-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 18px; }
+.budget-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--accent-soft) 40%, var(--surface));
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 2px solid var(--hairline);
+  font-size: 13px;
+}
+.budget-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text);
+}
+.budget-table tbody td:last-child { color: var(--muted); font-size: 12px; }
+.budget-totals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.budget-level { border-radius: 6px; padding: 14px; text-align: center; }
+.budget-level .level-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.budget-level .level-price { font-size: 22px; font-weight: 800; }
+.budget-level .level-note { font-size: 11px; margin-top: 4px; opacity: 0.85; }
+.budget-economy { background: var(--econ-bg); color: var(--econ-fg); }
+.budget-comfort { background: var(--comf-bg); color: var(--comf-fg); }
+.budget-luxury { background: var(--lux-bg); color: var(--lux-fg); }
+.saving-tips {
+  background: color-mix(in srgb, var(--accent-soft) 50%, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.saving-tips h4 { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.saving-tips li {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  list-style: disc;
+  margin-left: 16px;
+  line-height: 1.5;
+}
+.budget-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  padding: 12px;
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  border-radius: 4px;
+}
+
+.check-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.check-card {
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--hairline);
+}
+.check-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+.todo-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: -8px 0 14px;
+  line-height: 1.45;
+}
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.todo-item input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+}
+.todo-item input:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.todo-item input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
+.todo-item.is-done span {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.todo-progress {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.footer {
+  text-align: center;
+  padding: 32px 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer .img-disclaimer {
+  margin-top: 10px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 11px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+.footer .img-disclaimer code {
+  font-size: 10px;
+  padding: 0 4px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--accent-soft) 50%, var(--surface));
+}
+
+/* Collapsible guide refs (end of page) */
+.refs-fold {
+  margin: 8px 0 0;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.refs-fold > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+}
+.refs-fold > summary::-webkit-details-marker { display: none; }
+.refs-fold > summary::after {
+  content: "展开";
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.refs-fold[open] > summary::after { content: "收起"; }
+.refs-fold > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.refs-note {
+  margin: 0;
+  padding: 0 18px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.refs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 18px 16px;
+  border-top: 1px solid var(--hairline);
+}
+.refs-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--hairline);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.refs-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.refs-list a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all;
+}
+.refs-list a:hover { text-decoration: underline; }
+.refs-list .refs-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 40px 20px 28px; }
+  .hero h1 { font-size: 22px; }
+  .hero-stats { gap: 16px; }
+  .hero-stat .value { font-size: 15px; }
+  .day-body { padding: 16px; }
+  .day-rail-row { grid-template-columns: 1fr; }
+  .day-rail-meta .day-sidebar { position: static; }
+  .spot-side--empty { display: none; }
+  .day-rail-row.tl-pair > .spot-side:not(.spot-side--empty) { margin-top: 0; }
+  .day-rail-row.tl-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    margin-left: 5px;
+    padding-left: 28px;
+    padding-bottom: 22px;
+    border-left: 2px solid var(--accent-soft);
+  }
+  .day-rail-row.tl-pair:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .day-rail-row.tl-pair::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--surface);
+    z-index: 1;
+  }
+  .day-rail-row.tl-pair > .tl-item {
+    display: contents;
+  }
+  .day-rail-row.tl-pair > .tl-item::before { content: none; }
+  .day-rail-row.tl-pair > .tl-item > * { order: 4; }
+  .day-rail-row.tl-pair > .tl-item > .tl-time { order: 1; }
+  .day-rail-row.tl-pair > .tl-item > .tl-spot-name { order: 2; }
+  .day-rail-row.tl-pair > .spot-side:not(.spot-side--empty) { order: 3; }
+  .day-sidebar { width: 100%; }
+  .media-figure img { max-height: 160px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .check-grid { grid-template-columns: 1fr; }
+  .route-cards { grid-template-columns: repeat(2, 1fr); }
+  .budget-totals { grid-template-columns: 1fr; }
+}
+
+@media print {
+  @page { size: A4; margin: 10mm 12mm; }
+  .theme-bar,
+  .float-dock,
+  .guide-drawer-backdrop,
+  .guide-drawer-close,
+  .screen-only { display: none !important; }
+  .day-section.is-day-off { display: block !important; }
+  .guide-drawer {
+    position: static !important;
+    transform: none !important;
+    visibility: visible !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    display: block !important;
+    page-break-inside: avoid;
+  }
+  .guide-drawer-head {
+    border: none !important;
+    padding: 0 0 6px !important;
+  }
+  .guide-drawer-title {
+    font-size: 14px !important;
+    border-left: 3px solid var(--accent);
+    padding-left: 8px;
+  }
+  .guide-drawer-body { padding: 0 !important; overflow: visible !important; }
+  .day-rail-row {
+    display: grid !important;
+    grid-template-columns: 1fr 0.38fr !important;
+    gap: 8px !important;
+  }
+  .spot-side { position: static !important; }
+  .spot-side--empty { display: none !important; }
+  html[data-theme="c"] {
+    --bg: #fff;
+    --surface: #fff;
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #8B6914;
+    --accent-2: #A89070;
+    --accent-soft: #F0E8DC;
+    --hero-grad: linear-gradient(135deg, #3D3228, #5C5043);
+    --day-head: #F5F0E8;
+    --budget-head: linear-gradient(135deg, #8B6914, #6B4E1B);
+    --hairline: #ddd;
+  }
+  html, body {
+    background: #fff !important;
+    background-image: none !important;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #1a1a1a;
+  }
+  .hero {
+    padding: 20px 18px 16px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .hero h1 { font-size: 20px !important; margin: 6px 0 !important; }
+  .hero .subtitle { font-size: 11px !important; margin: 4px 0 !important; }
+  .hero-badge { font-size: 10px !important; padding: 2px 8px !important; }
+  .hero-stats { gap: 10px !important; margin-top: 10px !important; }
+  .hero-stat .value { font-size: 13px !important; }
+  .hero-stat .label { font-size: 10px !important; }
+  .section { padding: 12px 0 !important; }
+  .section-title { font-size: 15px !important; margin: 0 0 8px !important; }
+  .route-overview { padding: 8px !important; margin-bottom: 8px !important; }
+  .route-overview-note { font-size: 9px !important; margin-bottom: 8px !important; }
+  .route-day-track { gap: 8px !important; }
+  .route-day { box-shadow: none !important; }
+  .route-day-sep { display: none !important; }
+  .route-day-media { height: 72px !important; }
+  .route-day-badge { height: 22px !important; font-size: 10px !important; left: 6px !important; top: 6px !important; padding: 0 8px !important; }
+  .route-day-body { padding: 8px 8px 10px !important; }
+  .route-day-body h4 { font-size: 12px !important; }
+  .route-day-meta { font-size: 10px !important; margin-bottom: 4px !important; padding-bottom: 4px !important; }
+  .route-day-body ul { font-size: 10px !important; }
+  .media-figure { margin: 4px 0 6px !important; }
+  .media-figure img { max-height: 120px !important; }
+  .media-figure figcaption { font-size: 9px !important; padding: 4px 6px !important; }
+  .day-card, .info-card, .check-card, .budget-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+    margin-bottom: 10px !important;
+  }
+  .day-header { padding: 8px 12px !important; }
+  .day-header h3 { font-size: 13px !important; margin: 0 !important; }
+  .day-weather { padding: 6px 12px !important; font-size: 10px !important; }
+  .dw-temp { font-size: 12px !important; }
+  .day-weather-wear, .day-weather-note { font-size: 9px !important; margin-top: 2px !important; }
+  .day-body { padding: 8px 12px !important; gap: 10px !important; }
+  .roadbook { font-size: 10px !important; padding: 6px 8px !important; margin-bottom: 8px !important; }
+  .tl-item { padding: 6px 0 !important; }
+  .tl-time { font-size: 10px !important; }
+  .tl-spot-name { font-size: 12px !important; margin: 2px 0 !important; }
+  .tl-desc { font-size: 10px !important; margin: 2px 0 !important; }
+  .nav-block {
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    margin: 3px 0 4px !important;
+  }
+  .ticket-line {
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    margin: 0 0 4px !important;
+  }
+  .ticket-line .ticket-caveat { font-size: 8px !important; margin-top: 2px !important; }
+  .spot-tips {
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    margin: 3px 0 4px !important;
+  }
+  .spot-tips .tip-src { font-size: 8px !important; margin-top: 2px !important; }
+  .spot-play {
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    margin: 3px 0 4px !important;
+  }
+  .spot-play .play-src { font-size: 8px !important; }
+  .photo-fold { margin: 3px 0 6px !important; }
+  .photo-fold > summary { padding: 4px 6px !important; font-size: 10px !important; }
+  .photo-fold .photo-body { padding: 0 6px 6px !important; font-size: 9px !important; }
+  .photo-fold[open] > summary::after,
+  .photo-fold > summary::after { content: none !important; }
+  .rain-alt { font-size: 9px !important; padding: 4px 6px !important; margin: 3px 0 6px !important; }
+  .source-line { font-size: 9px !important; margin: 2px 0 4px !important; }
+  .src-more > summary { display: none !important; }
+  .src-more > span { display: block !important; }
+  .refs-fold { break-inside: avoid; border-color: #ccc !important; }
+  .refs-fold > summary { padding: 8px 12px !important; font-size: 13px !important; }
+  .refs-fold > summary::after { content: none !important; }
+  .refs-note { font-size: 9px !important; padding: 0 12px 6px !important; }
+  .refs-list { padding: 0 12px 10px !important; }
+  .refs-list li { font-size: 10px !important; padding: 6px 0 !important; }
+  .tl-tags .tag { font-size: 9px !important; padding: 1px 6px !important; }
+  .day-sidebar .sidebar-box { padding: 8px !important; margin-bottom: 8px !important; }
+  .day-sidebar h4 { font-size: 11px !important; margin: 0 0 4px !important; }
+  .day-sidebar li { font-size: 10px !important; }
+  .info-grid, .check-grid { gap: 8px !important; }
+  .info-card, .check-card { padding: 8px 10px !important; }
+  .info-card h4, .check-card h4 { font-size: 12px !important; margin: 0 0 6px !important; }
+  .info-card li, .todo-item { font-size: 10px !important; }
+  .todo-item input { width: 14px !important; height: 14px !important; }
+  .ticket-table { font-size: 10px !important; }
+  .ticket-table th, .ticket-table td { padding: 4px 6px !important; }
+  .budget-header { padding: 10px 12px !important; }
+  .budget-card .budget-body { padding: 8px 12px !important; }
+  .budget-totals { gap: 8px !important; }
+  .budget-level { padding: 8px !important; }
+  .level-name { font-size: 11px !important; }
+  .level-price { font-size: 14px !important; }
+  .level-note, .saving-tips, .budget-disclaimer { font-size: 10px !important; }
+  .saving-tips { padding: 8px !important; }
+  .footer { padding: 12px 8px !important; font-size: 9px !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="guide-drawer-backdrop" data-drawer-backdrop hidden></div>
+<div class="float-dock" id="float-dock">
+  <div class="float-theme-panel" id="float-theme-panel" role="group" aria-label="配色方案">
+    <button type="button" class="theme-btn" data-theme-set="a" aria-pressed="true">A 山野旅行</button>
+    <button type="button" class="theme-btn" data-theme-set="b" aria-pressed="false">B 海岸公路</button>
+    <button type="button" class="theme-btn" data-theme-set="c" aria-pressed="false">C 城市夜游</button>
+  </div>
+  <div class="float-dock-main" id="float-dock-body">
+    <button type="button" class="float-dock-toggle" data-dock-toggle aria-expanded="false" aria-controls="float-dock-actions">工具</button>
+    <div class="float-dock-actions" id="float-dock-actions">
+      <button type="button" class="float-theme-toggle" data-theme-menu aria-expanded="false" aria-controls="float-theme-panel">配色</button>
+      <button type="button" class="theme-btn-dock" data-open-drawer="drawer-todos" aria-expanded="false" aria-controls="drawer-todos">待办</button>
+      <button type="button" class="theme-btn-dock" data-open-drawer="drawer-budget" aria-expanded="false" aria-controls="drawer-budget">预算</button>
+      <button type="button" class="theme-btn-pdf" data-print-pdf>导出 PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">2026 国庆 · 2人电车自驾 · 4天3晚</span>
+    <p class="subtitle" style="margin-bottom:12px;opacity:0.9;font-size:13px;">
+      侧重：喀斯特山水 · 选点：评论核验 · 人流：适中 · 出发：南宁 · 10/2 进城接柳州篇 · 适宜：情侣慢游 · 电车续航约 500 km · 单段目标 ≤350 km
+    </p>
+    <h1>桂西北电车四日 · 三门海到柳州</h1>
+    <p class="subtitle">南宁中午出发，经凤山三门海、天峨蓝刀鱼、南丹洞天，10/2 从罗城清莲山庄进柳州市区，接 <a href="/g/liuzhou" style="color:inherit;">柳州螺香三日</a>。国庆船票/接驳宜提前买；D2–D3 雷雨风险高，文内已写雨备。</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="value">9.29–10.2</span>
+        <span class="label">出行日期</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">≈700 km</span>
+        <span class="label">四日总里程（估）</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">4 段主题</span>
+        <span class="label">三门海 / 蓝刀鱼+洞天 / 罗城 / 进城接柳</span>
+      </div>
+      <div class="hero-stat">
+        <span class="value">≤350 km</span>
+        <span class="label">单段续航目标</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">路线总览</h2>
+  <div class="route-overview">
+    <p class="route-overview-note">按日示意，非精确导航；停靠细节、导航与来源见下方日程。</p>
+    <ol class="route-day-track">
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Karst_peaks_near_Yangshuo.jpg?width=640" alt="桂西北喀斯特" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day1</span>
+        </div>
+        <div class="route-day-body">
+          <h4>南宁进城 · 三门海</h4>
+          <p class="route-day-meta">9/29 · 南宁中午出发 → 凤山三门海 → 住维也纳凤山店（县城）</p>
+          <ul>
+            <li>导航「三门海景区东门」；船票国庆务必线上先买</li>
+            <li>可选免费爬后山俯瞰天窗</li>
+            <li>住县城，距景区约 1h 车程</li>
+            <li>酒店未必有桩 → 出发前满电或县城公共桩</li>
+          </ul>
+        </div>
+      </li>
+      <li class="route-day-sep" aria-hidden="true">›</li>
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Li_River_scenery.jpg?width=640" alt="红水河风光" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day2</span>
+        </div>
+        <div class="route-day-body">
+          <h4>蓝刀鱼 + 洞天</h4>
+          <p class="route-day-meta">9/30 · 天峨红水河蓝刀鱼 → 南丹瑶望天下/洞天盛境 · 有雨备</p>
+          <ul>
+            <li>蓝刀鱼：天峨段，非南丹；观赏免费</li>
+            <li>16 点后上游放水勿下水；雨天不建议桨板</li>
+            <li>洞天约 3.5 km 步行，带薄外套</li>
+            <li>住朵努酒店（有充电桩）</li>
+          </ul>
+        </div>
+      </li>
+      <li class="route-day-sep" aria-hidden="true">›</li>
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/Guilin_Karst_Mountain.jpg?width=640" alt="河池山水" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day3</span>
+        </div>
+        <div class="route-day-body">
+          <h4>南丹 → 罗城清莲</h4>
+          <p class="route-day-meta">10/1 · 河池方向自驾 → 罗城清莲山庄（临成龙湖）· 有雨备</p>
+          <ul>
+            <li>携程搜「清莲」；山庄有慢充（偏贵）</li>
+            <li>为 10/2 进城留电量；单段仍 ≤350 km</li>
+            <li>雷雨则缩户外，山庄休整为主</li>
+          </ul>
+        </div>
+      </li>
+      <li class="route-day-sep" aria-hidden="true">›</li>
+      <li class="route-day">
+        <div class="route-day-media">
+          <img class="route-day-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Guantang_Bridge_in_Liuzhou,_Guangxi.jpg?width=640" alt="柳州进城" loading="lazy" decoding="async" width="400" height="120">
+          <span class="route-day-badge">Day4</span>
+        </div>
+        <div class="route-day-body">
+          <h4>罗城 → 柳州接篇</h4>
+          <p class="route-day-meta">10/2 · 清莲山庄 → 柳州市区 · 接 /g/liuzhou</p>
+          <ul>
+            <li>约 103 km / 2h；降水减弱转多云</li>
+            <li>进城后按柳州篇吃玩（该篇 10/1 罗城出发，本篇 10/2 进城对齐）</li>
+            <li>续航充裕，中途不必专门补电</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<nav class="day-switch screen-only" data-day-switch aria-label="切换日程"></nav>
+
+<div class="section day-section" data-day="1" id="day-1">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day 1 · 9月29日 · 主题：南宁 → 三门海</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">南宁 25–33°C · 凤山 23–32°C</span>
+        <span class="dw-cond">闷热 → 山区毛毛雨</span>
+        <span class="dw-precip">降水概率约 30% · 凤山预估约 1.8mm</span>
+      </div>
+      <p class="day-weather-wear">穿衣：短袖透气 + 薄外套（洞内凉）；防滑鞋；折叠伞随身。出发地偏闷，进凤山略凉湿。</p>
+      <p class="day-weather-note">预报截至生成日，出行前再核 · 数据：Open-Meteo</p>
+    </div>
+    <div class="day-body">
+    <div class="day-rail">
+      <div class="day-rail-row day-rail-meta">
+        <div class="day-rail-main">
+        <div class="roadbook">
+          <strong>当日路书</strong>：南宁（中午）→ 三门海景区东门 → 游船/后山 → 凤山县城维也纳酒店<br>
+          段间：自驾约 280–300 km / 3.5–4.5h（国庆留缓冲）· 景区→县城约 1h · 单段 &lt;350 km
+        </div>
+        </div>
+        <aside class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>天窗地下河，晴天水更蓝</li>
+            <li>后山免费俯瞰（可选）</li>
+            <li>首晚住县城，明早再进景区也来得及</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li>08:30–17:30 开放；17:00 停入园，16:00 停售船票</li>
+            <li>国庆船票<strong>务必提前线上买</strong>，现场排队可数小时</li>
+            <li>维也纳凤山店公开资料未必有桩 → 满电出发或县城公共桩</li>
+            <li>洞内防滑鞋 + 薄外套</li>
+          </ul>
+        </div>
+      </aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">12:00 - 16:30</div>
+          <div class="tl-spot-name">南宁 → 三门海景区东门</div>
+          <div class="nav-block">
+            导航搜：三门海景区东门<br>
+            地址：河池市凤山县三门海景区（东门入园）<br>
+            找点：务必搜「东门」；别误导航到旧入口 · <a href="https://uri.amap.com/search?keyword=%E4%B8%89%E9%97%A8%E6%B5%B7%E6%99%AF%E5%8C%BA%E4%B8%9C%E9%97%A8" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-recommend">自驾约 280–300 km</span><span class="tag tag-ticket">单段 ≤350 km</span></div>
+          <div class="tl-desc">南宁中午满电出发，经 G75 等进凤山。国庆首日高速易堵，到得晚则改「今天只办入住、明早再进洞」——别硬赶 16:00 停售船票。</div>
+        </div>
+        <aside class="spot-side spot-side--empty" aria-hidden="true"></aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">视到达 · 16:00 前购船</div>
+          <div class="tl-spot-name">三门海 · 游船 + 可选后山</div>
+          <div class="nav-block">
+            导航搜：三门海景区东门<br>
+            地址：河池市凤山县 · 三门海天窗群<br>
+            找点：东门停车后步行至码头 · <a href="https://uri.amap.com/search?keyword=%E4%B8%89%E9%97%A8%E6%B5%B7%E6%99%AF%E5%8C%BA%E4%B8%9C%E9%97%A8" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="ticket-line">
+            <strong>门票/预约</strong>：景区大门免票 · 游船约 ¥98/人（以出行时为准）<br>
+            购票：<a href="https://you.ctrip.com/sight/fengshan2022/131888.html" target="_blank" rel="noopener">携程三门海</a>
+            · 国庆务必提前线上买船票
+            <span class="ticket-caveat">链接可能失效，下单前核对景区名与日期；16:00 停售船票，17:00 停入园。</span>
+          </div>
+          <div class="tl-tags"><span class="tag tag-free">大门免票</span><span class="tag tag-booking">船票宜预约</span><span class="tag tag-recommend">晴天水更蓝</span></div>
+          <div class="tl-desc">主线：乘游船穿天窗地下河。时间够且不想挤码头，可改爬后山免费俯瞰（洋芋小姐笔记路线）。毛毛雨可进洞，但台阶湿——穿防滑鞋。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/View_of_the_Leye_Fengshan_expedition_cave_entrance.jpg?width=960" alt="桂西北溶洞入口" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：桂西北溶洞氛围参考（非三门海实拍） · 图源：<a href="https://commons.wikimedia.org/wiki/File:View_of_the_Leye_Fengshan_expedition_cave_entrance.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/681893ae0000000022027fc4" target="_blank" rel="noopener" title="@洋芋小姐">小红书</a><details class="src-more"><summary>说明</summary><span>@洋芋小姐 · 后山俯瞰天窗</span></details></div>
+        </div>
+        <aside class="spot-side">
+          <div class="spot-tips">
+            <strong>游玩注意</strong>：国庆排队可数小时——评论区常见；船票先买。洞内凉，备薄外套；后山免费但台阶陡，雨天地滑慎行。
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/681893ae0000000022027fc4" target="_blank" rel="noopener" title="@洋芋小姐">小红书</a><details class="src-more"><summary>说明</summary><span>@洋芋小姐 · 后山路线</span></details></span>
+          </div>
+          <div class="spot-play">
+            <strong>建议时长</strong>：游船约 <strong>1–1.5h</strong>；含后山约 <strong>2.5–3.5h</strong>。<br>
+            <strong>重点区域</strong>：天窗水道主线；后山俯瞰为可选。<br>
+            <strong>避堵</strong>：线上下单船票；到得晚改次日早场。
+          </div>
+        </aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-spot-name">入住 · 维也纳酒店(广西河池凤山店)</div>
+          <div class="nav-block">
+            导航搜：维也纳酒店广西河池凤山店<br>
+            地址：凤山县西环路与观音路交叉口<br>
+            找点：县城中心，距景区约 1h 车程 · <a href="https://uri.amap.com/search?keyword=%E7%BB%B4%E4%B9%9F%E7%BA%B3%E9%85%92%E5%BA%97%E5%B9%BF%E8%A5%BF%E6%B2%B3%E6%B1%A0%E5%87%A4%E5%B1%B1%E5%BA%97" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-booking">已订</span><span class="tag tag-ticket">充电待核</span></div>
+          <div class="tl-desc">已订。公开资料未必有酒店桩——晚餐前后用县城公共快充/慢充补到 80%+，或明早出发前再补。</div>
+        </div>
+        <aside class="spot-side">
+          <div class="spot-tips">
+            <strong>充电</strong>：用车企 App 搜「凤山县 充电」；优先离酒店近的公共桩。若无桩，今晚不必强求满电，明日去天峨段程仍低于 350 km 上限。
+          </div>
+        </aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">视需要</div>
+          <div class="tl-spot-name">凤山县城公共充电</div>
+          <div class="nav-block">
+            导航搜：凤山县 汽车充电站<br>
+            地址：凤山县城 · 以小程序空位为准<br>
+            找点：维也纳酒店周边 3 km 内筛选 · <a href="https://uri.amap.com/search?keyword=%E5%87%A4%E5%B1%B1%E5%8E%BF%20%E5%85%85%E7%94%B5%E6%A1%A9" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-ticket">电车节点</span></div>
+          <div class="tl-desc">正式充电节点。错开 18:00–19:30 吃饭高峰；可先入住放行李，再开车去桩。</div>
+        </div>
+        <aside class="spot-side spot-side--empty" aria-hidden="true"></aside>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="section day-section" data-day="2" id="day-2">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day 2 · 9月30日 · 主题：蓝刀鱼 + 洞天盛境</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">天峨 / 南丹 22–28°C</span>
+        <span class="dw-cond">雷暴 · 强降水风险高</span>
+        <span class="dw-precip">天峨约 49mm、南丹约 36mm · 概率 60–76%</span>
+      </div>
+      <p class="day-weather-wear">穿衣：速干短袖 + 薄外套 + 雨衣；取消桨板。洞天洞内仍凉，带外套。</p>
+      <p class="day-weather-note">预报截至生成日，出行前再核 · 数据：Open-Meteo</p>
+    </div>
+    <div class="day-body">
+    <div class="day-rail">
+      <div class="day-rail-row day-rail-meta">
+        <div class="day-rail-main">
+        <div class="roadbook">
+          <strong>当日路书</strong>：凤山 → 天峨红水河（蓝刀鱼）→ 南丹瑶望天下/洞天盛境 → 朵努酒店<br>
+          段间：凤山→天峨约 120 km · 天峨→南丹约 80 km · 各段 &lt;350 km
+        </div>
+        </div>
+        <aside class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>蓝刀鱼风暴免费看（天峨段）</li>
+            <li>洞天步行约 3.5 km，洞内震撼</li>
+            <li>朵努酒店有桩，今晚补电</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li><strong>走下方雨备</strong>——雷暴日户外缩短</li>
+            <li>蓝刀鱼在<strong>天峨</strong>红水河，不是南丹</li>
+            <li>16:00 后上游放水，勿下水</li>
+            <li>洞天政策多变，票种出行前再核</li>
+            <li>国庆接驳排队长——人多时导航「歌娅思谷」停车</li>
+          </ul>
+        </div>
+      </aside>
+      </div>
+      <div class="day-rail-rain">
+        <div class="rain-alt">
+          <strong>雨备替换（D2 雷暴风险）</strong>：蓝刀鱼改为<strong>岸边短时观赏</strong>（不下水、不桨板），馒头喂鱼即可；若雨势大，整段跳过天峨，直奔南丹洞天（洞内为主）或改<strong>南丹县城休整 + 朵努充电</strong>。洞天若接驳瘫痪：按评论区导航「歌娅思谷」停车步行进洞；仍不行则取消洞天，早入住朵努，把洞天挪到 D3 上午（需压缩罗城段）。桨板一律取消。
+        </div>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">08:30 - 11:30</div>
+          <div class="tl-spot-name">蓝刀鱼风暴 · 天峨红水河</div>
+          <div class="nav-block">
+            导航搜：94号灯塔(风暴角)<br>
+            地址：河池市天峨县 · 红水河沿岸（亦搜县城老码头/丘英集散）<br>
+            找点：94 号灯塔或「蓝刀鱼风暴」关键词 · <a href="https://uri.amap.com/search?keyword=94%E5%8F%B7%E7%81%AF%E5%A1%94%E9%A3%8E%E6%9A%9A%E8%A7%92" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="ticket-line">
+            <strong>门票/预约</strong>：观赏免费 · 桨板约 ¥80–120/人含救生衣（以出行时为准）<br>
+            购票：现场议价为主；雨天不建议桨板
+            <span class="ticket-caveat">链接可能失效，下单前核对；16:00 后上游放水勿下水。</span>
+          </div>
+          <div class="tl-tags"><span class="tag tag-free">观赏免费</span><span class="tag tag-recommend">天峨段</span></div>
+          <div class="tl-desc">鱼群聚食形成「风暴」景观。晴天上午水更清；今日有雷暴则只岸观、禁桨板。自备馒头喂鱼，穿救生衣（若下水）；严禁捕捞。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Li_River_scenery.jpg?width=960" alt="桂西北江河" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：桂西北江河氛围参考 · 图源：<a href="https://commons.wikimedia.org/wiki/File:Li_River_scenery.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/68b31abf000000001c034a09" target="_blank" rel="noopener" title="@土土的山川湖海">小红书</a><details class="src-more"><summary>说明</summary><span>@土土的山川湖海 · 蓝刀鱼全攻略</span></details></div>
+        </div>
+        <aside class="spot-side">
+          <div class="spot-tips">
+            <strong>游玩注意</strong>：导航可试「94号灯塔(风暴角)」或老码头；<strong>16:00 后勿下水</strong>。雨天水浑，评论区共识不建议桨板。
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/68b31abf000000001c034a09" target="_blank" rel="noopener" title="@土土的山川湖海">小红书</a><details class="src-more"><summary>说明</summary><span>@土土的山川湖海</span></details></span>
+          </div>
+          <div class="spot-play">
+            <strong>建议时长</strong>：岸观约 <strong>30–60 分</strong>；桨板（晴日）约 <strong>1–1.5h</strong>。<br>
+            <strong>避堵</strong>：上午到；雷雨天只岸观。
+          </div>
+        </aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">13:30 - 17:00</div>
+          <div class="tl-spot-name">瑶望天下 · 洞天盛境（南丹里湖乡）</div>
+          <div class="nav-block">
+            导航搜：瑶望天下<br>
+            地址：河池市南丹县里湖乡 · 洞天盛境<br>
+            找点：国庆人多可改搜「歌娅思谷」停车进洞 · <a href="https://uri.amap.com/search?keyword=%E7%91%9E%E6%9C%9B%E5%A4%A9%E4%B8%8B" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="ticket-line">
+            <strong>门票/预约</strong>：约 ¥99–110，或免首道+接驳 ¥35 等政策多变（以出行时为准）<br>
+            购票：出行前于美团/携程搜「瑶望天下」或「洞天盛境」核验
+            <span class="ticket-caveat">链接可能失效，下单前核对；09:00–17:00，约 16:30 停入。洞内约 3.5 km 步行。</span>
+          </div>
+          <div class="tl-tags"><span class="tag tag-booking">政策多变</span><span class="tag tag-recommend">洞内震撼</span></div>
+          <div class="tl-desc">地下河溶洞较长步行，节假日接驳常排长队。评论建议：人多时别死磕主停车场，改导航「歌娅思谷」。洞内凉，带外套；体验好坏高度依赖排队时长。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Karst_peaks_near_Yangshuo.jpg?width=960" alt="喀斯特峰林" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：桂西北喀斯特峰林氛围 · 图源：<a href="https://commons.wikimedia.org/wiki/File:Karst_peaks_near_Yangshuo.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <div class="source-line"><a href="https://www.xiaohongshu.com/explore/66fd4c87000000002a036ea4" target="_blank" rel="noopener" title="@懒懒小羊">小红书</a><details class="src-more"><summary>说明</summary><span>@懒懒小羊 · 避雷与接驳建议；打开笔记看评论</span></details></div>
+        </div>
+        <aside class="spot-side">
+          <div class="spot-tips">
+            <strong>游玩注意</strong>：国庆体验易差在排队而非景色——<a href="https://www.xiaohongshu.com/explore/66fd4c87000000002a036ea4" target="_blank" rel="noopener">打开笔记看评论</a>。雷暴日优先洞内；接驳久则缩短停留。
+            <span class="tip-src"><a href="https://www.xiaohongshu.com/explore/66fd4c87000000002a036ea4" target="_blank" rel="noopener" title="@懒懒小羊">小红书</a><details class="src-more"><summary>说明</summary><span>评论区「歌娅思谷」停车</span></details></span>
+          </div>
+          <div class="spot-play">
+            <strong>建议时长</strong>：洞内步行约 <strong>2–3h</strong>（含接驳等待则更长）。<br>
+            <strong>避堵</strong>：早到；接驳长时改歌娅思谷停车。
+          </div>
+        </aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-spot-name">入住 · 南丹朵努酒店(幸福城店) + 充电</div>
+          <div class="nav-block">
+            导航搜：朵努酒店南丹幸福城店<br>
+            地址：南丹县宾滨河路 13 号<br>
+            找点：幸福城商圈 · 酒店有充电桩 · <a href="https://uri.amap.com/search?keyword=%E6%9C%B5%E5%8A%AA%E9%85%92%E5%BA%97%E5%8D%97%E4%B8%B9%E5%B9%B8%E7%A6%8F%E5%9F%8E%E5%BA%97" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-booking">已订</span><span class="tag tag-recommend">有桩</span></div>
+          <div class="tl-desc">已订。到店后优先占充电车位补至 80%+，为 D3 去罗城留余量。晚餐可附近简餐，错开桩占用与饭点。</div>
+        </div>
+        <aside class="spot-side">
+          <div class="spot-tips">
+            <strong>充电</strong>：朵努有桩——今晚主补电节点。出行前用 App 再核桩型与是否需预约车位。
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="section day-section" data-day="3" id="day-3">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day 3 · 10月1日 · 主题：南丹 → 罗城清莲</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">20–23°C</span>
+        <span class="dw-cond">阵雨 / 雷雨</span>
+        <span class="dw-precip">降水概率偏高</span>
+      </div>
+      <p class="day-weather-wear">穿衣：长袖或短袖+外套；雨衣比伞实用。山区路滑，驾驶留车距。</p>
+      <p class="day-weather-note">预报截至生成日，出行前再核 · 数据：Open-Meteo</p>
+    </div>
+    <div class="day-body">
+    <div class="day-rail">
+      <div class="day-rail-row day-rail-meta">
+        <div class="day-rail-main">
+        <div class="roadbook">
+          <strong>当日路书</strong>：朵努酒店 → 河池/南丹方向自驾 → 罗城清莲山庄（临成龙湖）<br>
+          段间：南丹→罗城约 100–130 km / 2–2.5h · 单段 &lt;350 km · 慢充过夜
+        </div>
+        </div>
+        <aside class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>清莲临成龙湖，环境静</li>
+            <li>为明日进城柳州留好电量</li>
+            <li>山庄慢充，当晚补满</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li><strong>走下方雨备</strong></li>
+            <li>携程名「清莲」= 清莲山庄</li>
+            <li>慢充偏贵，但明日仅 103 km 进城</li>
+            <li>柳州篇原写 10/1 罗城出发——本篇 10/2 进城，两篇衔接见 D4</li>
+          </ul>
+        </div>
+      </aside>
+      </div>
+      <div class="day-rail-rain">
+        <div class="rain-alt">
+          <strong>雨备替换（D3 阵雨/雷雨）</strong>：取消成龙湖环湖徒步/户外拍照。主线改为<strong>慢开直达清莲山庄</strong>——午前出发、中途服务区短休，下午到庄休整。可在南丹或河池县城简餐，不另排景点。若路况差，提前联系山庄确认道路通行。
+        </div>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">09:00 - 12:00</div>
+          <div class="tl-spot-name">南丹 → 罗城（自驾）</div>
+          <div class="nav-block">
+            导航搜：河池罗城清莲山庄<br>
+            地址：河池市罗城仫佬族自治县 · 临成龙湖<br>
+            找点：携程搜「清莲」；导航「清莲山庄」 · <a href="https://uri.amap.com/search?keyword=%E7%BD%97%E5%9F%8E%E6%B8%85%E8%8E%B2%E5%B1%B1%E5%BA%84" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-recommend">约 100–130 km</span></div>
+          <div class="tl-desc">雨路降速。电量从朵努满电出发，本段无需中途专充。到庄先办入住，车停慢充位。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Guilin_Karst_Mountain.jpg?width=960" alt="河池喀斯特" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：桂西北喀斯特山水（路途氛围） · 图源：<a href="https://commons.wikimedia.org/wiki/File:Guilin_Karst_Mountain.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+        </div>
+        <aside class="spot-side spot-side--empty" aria-hidden="true"></aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">下午 - 夜</div>
+          <div class="tl-spot-name">罗城清莲山庄 · 休整 + 慢充</div>
+          <div class="nav-block">
+            导航搜：清莲山庄<br>
+            地址：罗城仫佬族自治县 · 成龙湖附近<br>
+            找点：山庄前台办入住；慢充位咨询前台 · <a href="https://uri.amap.com/search?keyword=%E6%B8%85%E8%8E%B2%E5%B1%B1%E5%BA%84" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-booking">已订</span><span class="tag tag-ticket">慢充</span></div>
+          <div class="tl-desc">已订。雷雨日在庄内休息、早晚餐。慢充电价偏贵，但明日进城仅约 103 km，今晚充够即可。晴日可在湖边短走，不强求。</div>
+        </div>
+        <aside class="spot-side">
+          <div class="spot-tips">
+            <strong>充电</strong>：清莲有慢充——当晚主补电。明早 10/2 进城前确认电量 ≥70% 即可（103 km 余量充足）。
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="section day-section" data-day="4" id="day-4">
+  <div class="day-card">
+    <div class="day-header">
+      <h3>Day 4 · 10月2日 · 主题：罗城 → 柳州接篇</h3>
+    </div>
+    <div class="day-weather">
+      <div class="day-weather-row">
+        <span class="dw-temp">18–22°C</span>
+        <span class="dw-cond">转多云</span>
+        <span class="dw-precip">降水减弱</span>
+      </div>
+      <p class="day-weather-wear">穿衣：薄外套 + 长袖；体感偏凉。进城后按柳州篇市区活动备透气鞋。</p>
+      <p class="day-weather-note">预报截至生成日，出行前再核 · 数据：Open-Meteo</p>
+    </div>
+    <div class="day-body">
+    <div class="day-rail">
+      <div class="day-rail-row day-rail-meta">
+        <div class="day-rail-main">
+        <div class="roadbook">
+          <strong>当日路书</strong>：清莲山庄 → 柳州市区 → 接 <a href="/g/liuzhou">柳州螺香三日</a>（该篇 Day1「进城开吃」）<br>
+          段间：约 103 km / 2h · 结束于柳州 · 不返罗城
+        </div>
+        </div>
+        <aside class="day-sidebar">
+        <div class="sidebar-box">
+          <h4>今日亮点</h4>
+          <ul>
+            <li>天气转好，进城路况相对稳</li>
+            <li>短程进柳州，续航无压力</li>
+            <li>无缝接螺蛳粉主线</li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h4>重要提醒</h4>
+          <ul>
+            <li>柳州篇写 10/1 罗城出发——<strong>本篇 10/2 进城</strong>后接市区吃玩</li>
+            <li>进城后按 liuzhou 篇订城中酒店、嗦粉</li>
+            <li>103 km 一般不必中途补电</li>
+          </ul>
+        </div>
+      </aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">08:30 - 11:00</div>
+          <div class="tl-spot-name">清莲山庄 → 柳州城中</div>
+          <div class="nav-block">
+            导航搜：柳州五星步行街<br>
+            地址：柳州市城中区 · 接 liuzhou 篇住宿圈<br>
+            找点：经汕昆等高速进城；国庆留堵车缓冲 · <a href="https://uri.amap.com/search?keyword=%E6%9F%B3%E5%B7%9E%E4%BA%94%E6%98%9F%E6%AD%A5%E8%A1%8C%E8%A1%97" target="_blank" rel="noopener">高德搜索</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-recommend">约 103 km / 2h</span></div>
+          <div class="tl-desc">满电或 70%+ 即可出发。到柳州后本四日篇结束——<strong>接下来按 <a href="/g/liuzhou">/g/liuzhou</a> 安排</strong>：入住、六品坊/聚宝、青云市场等（见柳州篇 Day1）。</div>
+          <figure class="media-figure">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Guantang_Bridge_in_Liuzhou,_Guangxi.jpg?width=960" alt="柳州官塘大桥" loading="lazy" decoding="async" width="800" height="450">
+            <figcaption>图：官塘大桥 / 柳州进城 · 图源：<a href="https://commons.wikimedia.org/wiki/File:The_Guantang_Bridge_in_Liuzhou,_Guangxi.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+        </div>
+        <aside class="spot-side spot-side--empty" aria-hidden="true"></aside>
+      </div>
+      <div class="day-rail-row tl-pair">
+        <div class="tl-item">
+          <div class="tl-time">11:00 起</div>
+          <div class="tl-spot-name">接柳州篇 · 进城开吃</div>
+          <div class="nav-block">
+            导航搜：六品坊螺蛳粉金鱼巷<br>
+            地址：柳州市城中区 · 详见 liuzhou 篇<br>
+            找点：先入住再放行李嗦粉 · <a href="/g/liuzhou">打开柳州攻略</a>
+          </div>
+          <div class="tl-tags"><span class="tag tag-recommend">续篇</span></div>
+          <div class="tl-desc">时间线对齐：liuzhou 篇若从 10/1 罗城出发，其 Day1 在 10/1；你 10/2 进城，接其「进城开吃」动线。城中酒店充电按柳州篇执行。</div>
+        </div>
+        <aside class="spot-side">
+          <div class="spot-tips">
+            <strong>衔接</strong>：两篇酒店若不同——10/2 在柳州现订/续订城中带桩酒店；充电节点见 liuzhou 篇「电车充电安排」。
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<div class="prep-cluster">
+<div class="section">
+  <h2 class="section-title">预约与行前准备</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>预约购票</h4>
+      <table class="ticket-table">
+        <thead>
+          <tr><th>景点</th><th>预约</th><th>参考价</th><th>购票链接</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>三门海游船</td>
+            <td>国庆强烈建议线上先买</td>
+            <td>大门免费；船约 ¥98/人</td>
+            <td><a href="https://you.ctrip.com/sight/fengshan2022/131888.html" target="_blank" rel="noopener">携程</a></td>
+          </tr>
+          <tr>
+            <td>蓝刀鱼（天峨）</td>
+            <td>观赏免费</td>
+            <td>免费；桨板 ¥80–120</td>
+            <td>现场；雨天勿桨板</td>
+          </tr>
+          <tr>
+            <td>瑶望天下/洞天盛境</td>
+            <td>政策多变，出行前核</td>
+            <td>约 ¥99–110 或接驳 ¥35 等</td>
+            <td>美团/携程搜景区名</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-card">
+      <h4>交通前往</h4>
+      <ul>
+        <li>出发：南宁（9/29 中午）</li>
+        <li>10/2 结束于柳州，接 <a href="/g/liuzhou">/g/liuzhou</a></li>
+        <li>2 人电车，续航 500 km，单段 ≤350 km</li>
+        <li>总里程约 700 km（估），含县道/省道</li>
+        <li>国庆高速易堵，日程已留缓冲</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>行前待办（可勾选）</h4>
+      <p class="todo-hint" style="margin:0 0 8px;">与右下角「待办」共用勾选；进度保存在本机。</p>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-boat"><span>三门海船票线上购买（国庆）</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-dongtian"><span>洞天盛境票种/接驳政策出行前再核</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-charge"><span>核对三晚充电：凤山公共桩 / 朵努 / 清莲慢充</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-weather"><span>出发前再核 Open-Meteo 四日预报</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="prep-liuzhou"><span>柳州篇城中酒店与接城时间（10/2）对齐</span></label>
+    </div>
+  </div>
+</div>
+<p class="dock-jump screen-only"><button type="button" class="dock-jump-btn" data-open-drawer="drawer-todos">打开出发前待办</button> · 打印页附全文</p>
+<aside class="guide-drawer" id="drawer-todos" data-todo-key="hechi-drive-travel-guide" hidden>
+  <div class="guide-drawer-head">
+    <h2 class="guide-drawer-title">出发前待办</h2>
+    <button type="button" class="guide-drawer-close" data-close-drawer aria-label="关闭">关闭</button>
+  </div>
+  <div class="guide-drawer-body">
+<p class="todo-hint">与上方行前准备共用勾选；进度保存在本机。打印/导出 PDF 时会带上勾选状态。</p>
+  <p class="todo-progress" data-todo-progress>已完成 0 / 0</p>
+  <div class="check-grid">
+    <div class="check-card">
+      <h4>注意事项</h4>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-rain"><span>D2–D3 雷雨：走日程雨备，取消桨板</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-fish-time"><span>蓝刀鱼 16:00 后勿下水；天峨段非南丹</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-queue"><span>三门海/洞天国庆排队——票先买、接驳备选歌娅思谷</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="notice-liuzhou"><span>10/2 进城后接 /g/liuzhou，勿按该篇 10/1 罗城出发重复走</span></label>
+    </div>
+    <div class="check-card">
+      <h4>携带清单</h4>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-id"><span>身份证、驾照</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-ev"><span>充电枪、车企 App / 高德查桩</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-shoes"><span>防滑鞋（洞/台阶）；洞内薄外套</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-rain"><span>雨衣 + 折叠伞（D2–D3 必备）</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-fish"><span>馒头（喂蓝刀鱼）；救生衣若计划桨板（晴日）</span></label>
+      <label class="todo-item"><input type="checkbox" data-todo-id="pack-snack"><span>路餐/零食——县道服务点少</span></label>
+    </div>
+  </div>
+
+  </div>
+</aside>
+
+</div>
+
+<div class="section">
+  <h2 class="section-title">适宜人群</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>比较适合</h4>
+      <ul>
+        <li>2 人情侣/朋友，爱喀斯特山水、能接受自驾</li>
+        <li>电车续航 ≥450 km，愿做充电规划</li>
+        <li>国庆仍愿进洞/看鱼，但能接受排队与雨备</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>需要留意 / 不太适合</h4>
+      <ul>
+        <li>完全不能步行 3 km 洞道者（洞天盛境）</li>
+        <li>雷雨天仍强需求桨板/户外的人</li>
+        <li>不愿线上抢票、不愿排队者（三门海/洞天国庆体验差）</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>内容侧重</h4>
+      <ul>
+        <li>山水喀斯特 + 电车跨县自驾</li>
+        <li>10/2 进城接柳州美食篇</li>
+        <li>评论核验选点；D2–D3 雨备已写</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">实用建议</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>住宿（已订）</h4>
+      <ul>
+        <li>D1 维也纳凤山店 · 西环路与观音路交叉口</li>
+        <li>D2 朵努酒店幸福城店 · 宾滨河路 13 号（有桩）</li>
+        <li>D3 罗城清莲山庄 · 临成龙湖（慢充）</li>
+        <li>D4 起接 liuzhou 篇城中酒店</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>游玩顺序 Tips</h4>
+      <ul>
+        <li>三门海：到得晚就次日早场，别硬赶 16:00 停售</li>
+        <li>蓝刀鱼：上午天峨；16:00 后禁下水</li>
+        <li>洞天：接驳长改「歌娅思谷」停车</li>
+        <li>雨天：洞内向；取消桨板与环湖</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>装备</h4>
+      <ul>
+        <li>防滑鞋 + 洞内薄外套</li>
+        <li>雨衣（D2–D3 主力）</li>
+        <li>馒头喂鱼；桨板需救生衣（晴日才考虑）</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>两篇衔接</h4>
+      <ul>
+        <li>本篇 10/2 中午前进柳州</li>
+        <li>liuzhou 篇 Day1「进城开吃」从 10/2 接</li>
+        <li>该篇原 10/1 罗城出发——时间线以本篇 10/2 为准</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <h2 class="section-title">电车充电安排</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>续航假设</h4>
+      <ul>
+        <li>表显/常用续航：约 500 km</li>
+        <li>规划系数：×0.7（10 月常规）</li>
+        <li>单段目标：≤ 350 km</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>段间充电节点</h4>
+      <ul>
+        <li>D1 南宁→凤山（≈300 km）：中途不必专充；晚宿凤山<strong>公共桩</strong>（维也纳未必有桩）</li>
+        <li>D2 凤山→天峨→南丹（各 &lt;150 km）：白天可不充；晚<strong>朵努酒店桩</strong></li>
+        <li>D3 南丹→罗城（≈120 km）：到<strong>清莲慢充</strong>过夜</li>
+        <li>D4 罗城→柳州（103 km）：一般无需中途补电；进城按 liuzhou 篇酒店桩</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>行前核验</h4>
+      <ul>
+        <li>凤山：县城公共快充/慢充空位</li>
+        <li>朵努：确认酒店桩可用</li>
+        <li>清莲：慢充偏贵，但 103 km 次日够用</li>
+        <li>桩位以出行前小程序为准</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<p class="dock-jump screen-only"><button type="button" class="dock-jump-btn" data-open-drawer="drawer-budget">打开预算预估</button> · 打印页附全文</p>
+<aside class="guide-drawer" id="drawer-budget" hidden>
+  <div class="guide-drawer-head">
+    <h2 class="guide-drawer-title">预算预估</h2>
+    <button type="button" class="guide-drawer-close" data-close-drawer aria-label="关闭">关闭</button>
+  </div>
+  <div class="guide-drawer-body">
+<div class="budget-card">
+    <div class="budget-header">
+      <h3>2人 · 4天3晚 · 费用预估</h3>
+      <div class="budget-meta">酒店三晚已订——下表<strong>不计房费</strong>，只估门票/电/餐/过路（2026-09 参考价）</div>
+    </div>
+    <div class="budget-body">
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>费用项目</th>
+            <th>单价参考</th>
+            <th>小计（2人）</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>酒店</td>
+            <td>—</td>
+            <td>已订不计入</td>
+            <td>维也纳/朵努/清莲</td>
+          </tr>
+          <tr>
+            <td>高速过路</td>
+            <td>分段计</td>
+            <td>¥150–280</td>
+            <td>南宁→凤山→天峨→南丹→罗城→柳州</td>
+          </tr>
+          <tr>
+            <td>电费</td>
+            <td>¥0.5–1.5/度</td>
+            <td>¥80–180</td>
+            <td>含清莲慢充偏贵；总里程约 700 km</td>
+          </tr>
+          <tr>
+            <td>景点/活动</td>
+            <td>见下</td>
+            <td>¥200–450</td>
+            <td>三门海船 ¥98×2；洞天 ¥99–110×2；桨板可选</td>
+          </tr>
+          <tr>
+            <td>餐饮</td>
+            <td>¥80–120/人/天</td>
+            <td>¥640–960</td>
+            <td>县道多简餐；不含柳州篇餐饮</td>
+          </tr>
+          <tr>
+            <td>其他</td>
+            <td>预留</td>
+            <td>¥100–200</td>
+            <td>停车/零食/应急</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="budget-totals">
+        <div class="budget-level budget-economy">
+          <div class="level-name">经济型</div>
+          <div class="level-price">≈ ¥1,200</div>
+          <div class="level-note">少桨板/洞天改免票政策日</div>
+        </div>
+        <div class="budget-level budget-comfort">
+          <div class="level-name">舒适型</div>
+          <div class="level-price">≈ ¥1,800</div>
+          <div class="level-note">含船票+洞天；推荐档（2人）</div>
+        </div>
+        <div class="budget-level budget-luxury">
+          <div class="level-name">豪华型</div>
+          <div class="level-price">≈ ¥2,400</div>
+          <div class="level-note">含桨板+较好餐饮</div>
+        </div>
+      </div>
+      <div class="saving-tips">
+        <h4>省钱小贴士</h4>
+        <ul>
+          <li>三门海大门免费——钱花在船票；线上买省排队时间</li>
+          <li>蓝刀鱼岸观免费；雷雨天本来就要取消桨板</li>
+          <li>洞天票种多变，下单前核是否含接驳</li>
+        </ul>
+      </div>
+      <div class="budget-disclaimer">以上为 2026 年 9 月规划参考价，国庆实际以出行时为准；不含已订房费及 10/2 起柳州篇花费。</div>
+    </div>
+  </div>
+
+  </div>
+</aside>
+
+
+
+
+<div class="section">
+  <h2 class="section-title">攻略参考地址</h2>
+  <details class="refs-fold">
+    <summary>灵感与参考链接（默认收起）</summary>
+    <p class="refs-note">仅汇总正文用过的攻略/笔记链接（去重）；高德导航、购票深链与配图图源不列入。</p>
+    <ol class="refs-list">
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/681893ae0000000022027fc4" target="_blank" rel="noopener">小红书 · @洋芋小姐</a>
+        <span class="refs-meta">三门海后山俯瞰天窗</span>
+      </li>
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/68b31abf000000001c034a09" target="_blank" rel="noopener">小红书 · @土土的山川湖海</a>
+        <span class="refs-meta">蓝刀鱼风暴全攻略</span>
+      </li>
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/66fd4c87000000002a036ea4" target="_blank" rel="noopener">小红书 · @懒懒小羊</a>
+        <span class="refs-meta">瑶望天下避雷 · 评论区接驳/歌娅思谷</span>
+      </li>
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/6a01f8fe000000003700c9aa" target="_blank" rel="noopener">小红书 · 检索笔记</a>
+        <span class="refs-meta">三门海/凤山相关</span>
+      </li>
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/6a6b717f000000003300b778" target="_blank" rel="noopener">小红书 · 检索笔记</a>
+        <span class="refs-meta">河池自驾相关</span>
+      </li>
+      <li>
+        <a href="https://www.xiaohongshu.com/explore/696119c4000000002202ee8b" target="_blank" rel="noopener">小红书 · 检索笔记</a>
+        <span class="refs-meta">洞天/南丹相关</span>
+      </li>
+    </ol>
+  </details>
+</div>
+
+<div class="footer">
+  <p>由 travel-guide 生成 · 2026-09-22</p>
+  <p>10/2 进城后接 <a href="/g/liuzhou">/g/liuzhou</a> 柳州螺香三日 · 数据来源于公开信息与小红书笔记 · 出行前请核实最新价格和政策 · 右下角可切换配色 / 待办 / 预算 / 导出 PDF</p>
+  <p class="img-disclaimer">配图非小红书原图，仅作氛围参考；灵感来自笔记链接。图源为 Wikimedia Commons 等公开授权。</p>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var dock = document.getElementById("float-dock");
+  var key = "hechi-drive-travel-guide-theme";
+  var backdrop = document.querySelector("[data-drawer-backdrop]");
+  var openDrawerId = null;
+
+  function apply(theme) {
+    if (theme !== "a" && theme !== "b" && theme !== "c") theme = "a";
+    root.setAttribute("data-theme", theme);
+    try { localStorage.setItem(key, theme); } catch (e) {}
+    document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-set") === theme ? "true" : "false");
+    });
+  }
+  function setTools(open) {
+    if (!dock) return;
+    dock.classList.toggle("is-tools-open", open);
+    document.querySelectorAll("[data-dock-toggle]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "收起" : "工具";
+    });
+    if (!open) setMenu(false);
+  }
+  function setMenu(open) {
+    if (!dock) return;
+    dock.classList.toggle("is-open", open);
+    document.querySelectorAll("[data-theme-menu]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  function closeDrawer() {
+    document.querySelectorAll(".guide-drawer.is-open").forEach(function (el) {
+      el.classList.remove("is-open");
+      el.setAttribute("hidden", "");
+    });
+    if (backdrop) {
+      backdrop.classList.remove("is-open");
+      backdrop.setAttribute("hidden", "");
+    }
+    document.body.classList.remove("drawer-open");
+    document.querySelectorAll("[data-open-drawer]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", "false");
+    });
+    openDrawerId = null;
+  }
+  function openDrawer(id) {
+    if (!id) return;
+    setTools(false);
+    if (openDrawerId && openDrawerId !== id) closeDrawer();
+    var panel = document.getElementById(id);
+    if (!panel) return;
+    panel.removeAttribute("hidden");
+    panel.classList.add("is-open");
+    if (backdrop) {
+      backdrop.removeAttribute("hidden");
+      backdrop.classList.add("is-open");
+    }
+    document.body.classList.add("drawer-open");
+    document.querySelectorAll("[data-open-drawer]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", btn.getAttribute("data-open-drawer") === id ? "true" : "false");
+    });
+    openDrawerId = id;
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(key); } catch (e) {}
+  apply(saved || "a");
+  document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      apply(btn.getAttribute("data-theme-set"));
+      setMenu(false);
+    });
+  });
+  document.querySelectorAll("[data-theme-menu]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (openDrawerId) closeDrawer();
+      setMenu(!(dock && dock.classList.contains("is-open")));
+    });
+  });
+  document.querySelectorAll("[data-dock-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setTools(!(dock && dock.classList.contains("is-tools-open")));
+    });
+  });
+  document.addEventListener("click", function (e) {
+    if (!dock || !dock.classList.contains("is-tools-open")) return;
+    if (dock.contains(e.target)) return;
+    setTools(false);
+  });
+  document.querySelectorAll("[data-print-pdf]").forEach(function (btn) {
+    btn.addEventListener("click", function () { window.print(); });
+  });
+  document.querySelectorAll("[data-open-drawer]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var id = btn.getAttribute("data-open-drawer");
+      if (openDrawerId === id) closeDrawer();
+      else openDrawer(id);
+    });
+  });
+  document.querySelectorAll("[data-close-drawer]").forEach(function (btn) {
+    btn.addEventListener("click", closeDrawer);
+  });
+  if (backdrop) backdrop.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      if (openDrawerId) closeDrawer();
+      else setTools(false);
+    }
+  });
+  document.addEventListener("click", function (e) {
+    if (!dock || dock.contains(e.target)) return;
+    if (e.target.closest && e.target.closest(".guide-drawer")) return;
+    setMenu(false);
+  });
+
+  (function initDayFilter() {
+    var nav = document.querySelector("[data-day-switch]");
+    var sections = Array.prototype.slice.call(document.querySelectorAll(".day-section"));
+    if (!nav || !sections.length) return;
+    var track = document.createElement("div");
+    track.className = "day-switch-track";
+    nav.appendChild(track);
+    function makeBtn(id, label, title) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-day-filter", id);
+      btn.textContent = label;
+      if (title) {
+        btn.title = title;
+        btn.setAttribute("aria-label", title);
+      }
+      track.appendChild(btn);
+      return btn;
+    }
+    var buttons = [makeBtn("all", "全部", "显示全部日程")];
+    sections.forEach(function (sec) {
+      var n = sec.getAttribute("data-day");
+      var heading = sec.querySelector(".day-header h3");
+      buttons.push(makeBtn(n, "D" + n, heading ? heading.textContent.replace(/\s+/g, " ").trim() : ("Day " + n)));
+    });
+    function apply(id) {
+      buttons.forEach(function (btn) {
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-day-filter") === id ? "true" : "false");
+      });
+      sections.forEach(function (sec) {
+        sec.classList.toggle("is-day-off", id !== "all" && sec.getAttribute("data-day") !== id);
+      });
+      if (id !== "all") {
+        var target = document.getElementById("day-" + id);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        apply(btn.getAttribute("data-day-filter"));
+      });
+    });
+    apply("all");
+  })();
+
+  (function initTodos() {
+    var host = document.querySelector("[data-todo-key]") || document.getElementById("drawer-todos");
+    var storageKey = "travel-guide-todos:" + ((host && host.getAttribute("data-todo-key")) || location.pathname || "default");
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"][data-todo-id]'));
+    if (!boxes.length) return;
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(storageKey) || "{}") || {}; } catch (e) { state = {}; }
+    function syncLabel(box) {
+      var label = box.closest(".todo-item");
+      if (label) label.classList.toggle("is-done", box.checked);
+    }
+    function renderProgress() {
+      var done = boxes.filter(function (b) { return b.checked; }).length;
+      document.querySelectorAll("[data-todo-progress]").forEach(function (el) {
+        el.textContent = "已完成 " + done + " / " + boxes.length;
+      });
+    }
+    function persist() {
+      var next = {};
+      boxes.forEach(function (b) { next[b.getAttribute("data-todo-id")] = !!b.checked; });
+      try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch (e) {}
+      renderProgress();
+    }
+    boxes.forEach(function (box) {
+      var id = box.getAttribute("data-todo-id");
+      if (state[id]) box.checked = true;
+      syncLabel(box);
+      box.addEventListener("change", function () {
+        syncLabel(box);
+        persist();
+      });
+    });
+    renderProgress();
+  })();
+
+  (function initTipFold() {
+    var MAX = 3;
+    document.querySelectorAll(".sidebar-box").forEach(function (box) {
+      var title = box.querySelector("h4");
+      if (!title || title.textContent.replace(/\s/g, "") !== "重要提醒") return;
+      if (box.querySelector(".tip-more")) return;
+      var ul = box.querySelector(":scope > ul");
+      if (!ul) return;
+      var items = Array.prototype.slice.call(ul.querySelectorAll(":scope > li"));
+      if (items.length <= MAX) return;
+      var extra = items.slice(MAX);
+      var details = document.createElement("details");
+      details.className = "tip-more";
+      var summary = document.createElement("summary");
+      summary.textContent = "其余 " + extra.length + " 条";
+      var moreUl = document.createElement("ul");
+      extra.forEach(function (li) { moreUl.appendChild(li); });
+      details.appendChild(summary);
+      details.appendChild(moreUl);
+      ul.after(details);
+    });
+  })();
+
+  window.addEventListener("beforeprint", function () {
+    closeDrawer();
+    document.querySelectorAll("details.refs-fold, details.photo-fold, details.tip-more").forEach(function (el) {
+      el.dataset.wasOpen = el.open ? "1" : "0";
+      el.open = true;
+    });
+  });
+  window.addEventListener("afterprint", function () {
+    document.querySelectorAll("details.refs-fold, details.photo-fold, details.tip-more").forEach(function (el) {
+      if (el.dataset.wasOpen !== "1") el.open = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>
+
