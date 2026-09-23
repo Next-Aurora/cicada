@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import "styles/tailwind.css"
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.cicadar.cn"),
   title: {
     default: "逆蝉 · cicadar",
     template: "%s · 逆蝉",

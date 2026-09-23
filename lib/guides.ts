@@ -48,3 +48,26 @@ export function listGuides(): GuideMeta[] {
 export function guideExists(slug: string): boolean {
   return existsSync(join(guidesDir(), slug, "index.html"))
 }
+
+export function getGuide(slug: string): GuideMeta | null {
+  const dir = join(guidesDir(), slug)
+  if (!existsSync(join(dir, "index.html"))) return null
+
+  let meta: Partial<GuideMeta> = {}
+  const metaPath = join(dir, "meta.json")
+  if (existsSync(metaPath)) {
+    try {
+      meta = JSON.parse(readFileSync(metaPath, "utf8")) as Partial<GuideMeta>
+    } catch {
+      /* ignore bad meta */
+    }
+  }
+
+  return {
+    slug,
+    title: meta.title || slug,
+    destination: meta.destination,
+    dates: meta.dates,
+    summary: meta.summary,
+  }
+}
