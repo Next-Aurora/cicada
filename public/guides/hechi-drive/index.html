@@ -308,6 +308,7 @@ html[data-theme="c"] .theme-btn-pdf { color: #12141A; }
   color: var(--muted);
 }
 .dock-jump-btn {
+  display: inline-block;
   font: inherit;
   font-size: 13px;
   font-weight: 600;
@@ -318,6 +319,10 @@ html[data-theme="c"] .theme-btn-pdf { color: #12141A; }
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+.dock-jump-note {
+  color: var(--muted);
+  text-decoration: none;
 }
 .screen-only { display: block; }
 body.drawer-open { overflow: hidden; }
@@ -2037,7 +2042,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
     </div>
   </div>
 </div>
-<p class="dock-jump screen-only"><button type="button" class="dock-jump-btn" data-open-drawer="drawer-todos">打开出发前待办</button> · 打印页附全文</p>
+<p class="dock-jump screen-only"><button type="button" class="dock-jump-btn" data-open-drawer="drawer-todos">打开出发前待办</button> · <span class="dock-jump-note">打印页附全文</span></p>
 <aside class="guide-drawer" id="drawer-todos" data-todo-key="hechi-drive-travel-guide" hidden>
   <div class="guide-drawer-head">
     <h2 class="guide-drawer-title">出发前待办</h2>
@@ -2156,7 +2161,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
         <li>D1 南宁→凤山（≈300 km）：中途不必专充；晚宿凤山<strong>公共桩</strong>（维也纳未必有桩）</li>
         <li>D2 凤山→天峨→南丹（各 &lt;150 km）：白天可不充；晚<strong>朵努酒店桩</strong></li>
         <li>D3 南丹→罗城（≈120 km）：到<strong>清莲慢充</strong>过夜</li>
-        <li>D4 罗城→柳州（103 km）：一般无需中途补电；进城按 liuzhou 篇酒店桩</li>
+        <li>D4 罗城→柳州（103 km）：一般无需中途补电；进城按《柳州螺香三日》酒店桩</li>
       </ul>
     </div>
     <div class="info-card">
@@ -2175,7 +2180,7 @@ html[data-theme="c"] .todo-item input:checked::after { border-color: #12141A; }
 
 
 
-<p class="dock-jump screen-only"><button type="button" class="dock-jump-btn" data-open-drawer="drawer-budget">打开预算预估</button> · 打印页附全文</p>
+<p class="dock-jump screen-only"><button type="button" class="dock-jump-btn" data-open-drawer="drawer-budget">打开预算预估</button> · <span class="dock-jump-note">打印页附全文</span></p>
 <aside class="guide-drawer" id="drawer-budget" hidden>
   <div class="guide-drawer-head">
     <h2 class="guide-drawer-title">预算预估</h2>
