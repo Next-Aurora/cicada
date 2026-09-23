@@ -7,6 +7,7 @@ export type GuideMeta = {
   destination?: string
   dates?: string
   summary?: string
+  ogImage?: string
 }
 
 function guidesDir(): string {
@@ -39,6 +40,7 @@ export function listGuides(): GuideMeta[] {
       destination: meta.destination,
       dates: meta.dates,
       summary: meta.summary,
+      ogImage: meta.ogImage,
     })
   }
 
@@ -69,5 +71,6 @@ export function getGuide(slug: string): GuideMeta | null {
     destination: meta.destination,
     dates: meta.dates,
     summary: meta.summary,
+    ogImage: meta.ogImage,
   }
 }

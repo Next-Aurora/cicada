@@ -19,6 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     [guide.destination, guide.dates, guide.summary].filter(Boolean).join(" · ") ||
     "逆蝉旅行攻略"
 
+  const images = guide.ogImage ? [guide.ogImage] : undefined
+
   return {
     title: guide.title,
     description,
@@ -27,11 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       type: "article",
       locale: "zh_CN",
+      ...(images ? { images } : {}),
     },
     twitter: {
-      card: "summary",
+      card: images ? "summary_large_image" : "summary",
       title: guide.title,
       description,
+      ...(images ? { images } : {}),
     },
   }
 }
