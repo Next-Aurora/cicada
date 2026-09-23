@@ -318,7 +318,7 @@ description: >
    **落盘（cicada 站点）**：写入**本仓库**根目录 `guides/<slug>/index.html`，并写同目录 `meta.json`（`title` / `destination` / `dates` / `summary`）。工作区应为 Next-Aurora/cicada（如 `d:/dveloper/cicada`），**不要**再写入已停用的 `travel-skills`。`slug` 用目的地拼音或 ascii kebab（如 `liuzhou`）。页内悬浮条、章节、天气、待办、插图等同前（见下）。  
    **插图（攻略档默认做）**：  
    - **路线总览（视觉风格）**：只用一处 `.route-overview`。每日一张**独立卡片**（顶图 + **Day 徽章叠在图左上角** + 主题标题 + meta 虚线 + 3～4 要点）。桌面日与日之间用轻量 `›` 分隔符（`.route-day-sep`），**禁止**贯穿徽章的横线/竖线连接。手机竖排卡片、隐藏 `›`。跨城出发并入 Day1 meta。文案：「按日示意，非精确导航」。  
-   - **章节顺序**：路线总览 → 每日行程（每卡含 `.day-weather` + 路书；有雨则含雨备）→ **预约与行前准备 + 出发前待办（紧挨、包在 `.prep-cluster`）** → 适宜人群 → 实用建议 → 充电安排 → 预算 → **攻略参考地址（`<details class="refs-fold">` 默认收起）** → 页脚。  
+   - **章节顺序**：路线总览 → 每日行程（每卡含 `.day-weather` + 路书；有雨则含雨备）→ **预约与行前准备 + 出发前待办（紧挨、包在 `.prep-cluster`）** → 适宜人群 → 实用建议 → 充电安排 → 预算抽屉 → **攻略参考地址（`<details class="refs-fold">` 默认收起）** → 预算 `.dock-jump` 短链 → 页脚。  
    - **攻略参考地址**：去重汇总正文用过的小红书/公开攻略 URL；**不含**高德深链、OTA/官方购票深链与配图 Wikimedia 图源；无链接的「综合公开渠道」可不列入；打印前用 `beforeprint` 临时展开。  
    - **每日天气**：有日期则填预报或气候向；页内固定一句「出行前再核」；数据来源可写 Open-Meteo / 公开渠道。
    - **行前待办**：携带清单、注意事项、预约/行前准备做成可勾选 `.todo-item`（`data-todo-id`）；`#trip-todos` 设 `data-todo-key`；勾选写入 localStorage；展示「已完成 x / y」。  
