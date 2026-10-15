@@ -1,0 +1,49 @@
+---
+description: shadcn base-nova 组件与样式编写约定
+globs: app/**/*.{ts,tsx},components/**/*.{ts,tsx},styles/**/*.css,lib/utils.ts,components.json,package.json
+alwaysApply: false
+---
+
+# shadcn 组件约定
+
+## 添加与放置
+
+- CLI：`pnpm dlx shadcn@latest add button`
+- 路径：`components/ui/<name>.tsx`；类名合并：`@/lib/utils` 的 `cn`
+- 配置：`components.json`；CSS：`styles/tailwind.css`
+
+## 编写模式
+
+```tsx
+// ✅
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+
+<Button variant="default" size="lg" className={cn("mt-4", className)}>
+  确认
+</Button>
+
+<Button render={<Link href="/guides" />} nativeButton={false}>
+  查看攻略
+</Button>
+
+// ❌ boilerplate / Radix
+import { Button } from "components/Button/Button"
+import * as Tooltip from "@radix-ui/react-tooltip"
+```
+
+## 依赖纪律
+
+- 交互原语走 shadcn CLI → `@base-ui/react`，不要 `pnpm add @radix-ui/...`
+- 不要重新引入已删除的 `tailwind-merge` 直依赖（用 `cn`）；不要为解析 shadcn CSS 加回 `postcss-import`
+
+## 主题与 CSS
+
+- 入口：`styles/tailwind.css`（`tw-animate-css` + `shadcn/tailwind.css`）
+- 改品牌：cicada token 或 `:root` / `.dark` 映射，勿另起 palette
+- PostCSS：仅 `@tailwindcss/postcss`
+
+## 范围边界
+
+- `app/**`：React + shadcn
+- `guides/**`、`public/guides/**`：独立静态 HTML，勿强行改成 shadcn

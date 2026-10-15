@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import { getGuide, guideExists, listGuides } from "lib/guides"
+import { getGuide, guideExists, listGuides } from "@/lib/guides"
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -49,19 +49,19 @@ export default async function GuidePage({ params }: Props) {
   const label = guide.title
 
   return (
-    <div className="flex h-dvh flex-col bg-[var(--color-cicada-bg)]">
-      <header className="flex shrink-0 items-center gap-3 border-b border-[var(--color-cicada-hairline)] bg-[var(--color-cicada-surface)] px-4 py-2">
-        <Link href="/guides" className="text-sm font-semibold text-[var(--color-cicada-accent)] hover:underline">
+    <div className="bg-background flex h-dvh flex-col">
+      <header className="border-border bg-card flex shrink-0 items-center gap-3 border-b px-4 py-2">
+        <Link href="/guides" className="text-primary text-sm font-semibold hover:underline">
           ← 旅行攻略
         </Link>
-        <span className="min-w-0 flex-1 truncate text-sm text-[var(--color-cicada-muted)]" title={label}>
+        <span className="text-muted-foreground min-w-0 flex-1 truncate text-sm" title={label}>
           {label}
         </span>
         <a
           href={src}
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-auto shrink-0 text-sm text-[var(--color-cicada-muted)] hover:text-[var(--color-cicada-accent)]"
+          className="text-muted-foreground hover:text-primary ml-auto shrink-0 text-sm"
         >
           单独打开
         </a>

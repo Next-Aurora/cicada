@@ -1,0 +1,15 @@
+---
+description: 本仓库 UI 以 shadcn base-nova 为准；禁止 boilerplate 与新增 Radix
+alwaysApply: true
+---
+
+# UI 栈
+
+- **唯一 UI 体系**：shadcn **base-nova**（`components.json` → `style: base-nova`）。
+- **原语**：只用 `@base-ui/react`（经 `components/ui`）。**禁止新增** `@radix-ui/*` 依赖或 import。
+- **新组件**：`pnpm dlx shadcn@latest add <name>` → `components/ui/`；不要手写平行组件库。
+- **已移除、勿恢复**：`components/Button/`、`components/Tooltip/`、根目录 `lp-items.tsx`，以及直连的 `@radix-ui/*`。
+- **需要 Tooltip 等**：用 `pnpm dlx shadcn@latest add tooltip`（base-nova / Base UI），不要从 Radix 样板抄。
+- **工具与工程**：Storybook / Vitest / Playwright / sync-guides 可保留；它们不是 UI 组件来源。
+- **导入**：`@/components/ui/...`、`@/lib/utils`（`cn`）、`@/components/theme-provider`。
+- **样式**：语义 token（`bg-background`、`text-primary`、`border-border` 等）；品牌色已映射到这些变量（攻略静态 HTML 除外）。
