@@ -1,0 +1,22 @@
+---
+description: 仓库根目录保持精简；区分部署、版本发布与 OTel
+alwaysApply: true
+---
+
+# 项目布局
+
+根目录只放站点与必要工具配置。典型结构：
+
+- **产品**：`app/`、`components/`、`lib/`、`styles/`、`guides/`、`public/`、`scripts/`
+- **UI**：`components.json`、`components/ui/`、`hooks/`（shadcn 占位）
+- **质量**：`eslint.config.mjs`、`prettier.config.js`、`vitest.config.ts`
+- **版本发布**：`.releaserc`、`.github/workflows/release.yml`（semantic-release；**不**发 npm）
+- **部署**：Vercel（`vercel.json`）；与 semantic-release 互补，不是替代关系
+- **Agent**：`.cursor/rules/`、`.cursor/skills/travel-guide`
+- **文档**：`docs/`、`README.md`；路线图见 `docs/roadmap.md`
+
+**不要无故加回**：Storybook、Playwright/e2e、all-contributors、Renovate、`assets/` Blazity logo、`env.mjs` + bundle-analyzer（除非明确需要）。
+
+**OTel**：已列入 `docs/roadmap.md` 计划项；未落地前不要加 `instrumentation.ts` / `@vercel/otel`，需要时按该文档实现。
+
+包名保持 `cicada`；脚本以 `dev` / `build` / `sync-guides` / `test` / `lint` / `format` / `release` 为主。
