@@ -1,11 +1,13 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
 
 export function AuthMenu() {
+  const router = useRouter()
   const { data: session, isPending } = authClient.useSession()
 
   if (isPending) {
@@ -22,7 +24,10 @@ export function AuthMenu() {
           variant="ghost"
           size="sm"
           onClick={() => {
-            void authClient.signOut()
+            void (async () => {
+              await authClient.signOut()
+              router.refresh()
+            })()
           }}
         >
           退出
