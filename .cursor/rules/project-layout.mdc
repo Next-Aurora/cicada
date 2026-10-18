@@ -1,5 +1,5 @@
 ---
-description: 仓库根目录保持精简；区分部署、版本发布与 OTel
+description: 仓库根目录保持精简；区分部署、版本发布、Auth 与 OTel
 alwaysApply: true
 ---
 
@@ -9,14 +9,17 @@ alwaysApply: true
 
 - **产品**：`app/`、`components/`、`lib/`、`styles/`、`guides/`、`public/`、`scripts/`
 - **UI**：`components.json`、`components/ui/`、`hooks/`（shadcn 占位）
+- **Auth**：`lib/auth.ts`、`lib/auth-client.ts`、`lib/prisma.ts`、`prisma/`、`app/api/auth/[...all]/`、`app/login`、`app/register`
 - **质量**：`eslint.config.mjs`、`prettier.config.js`、`vitest.config.ts`
 - **版本发布**：`.releaserc`、`.github/workflows/release.yml`（semantic-release；**不**发 npm）
-- **部署**：Vercel（`vercel.json`）；与 semantic-release 互补，不是替代关系
+- **部署**：Vercel（`vercel.json`）；与 semantic-release 互补
 - **Agent**：`.cursor/rules/`、`.cursor/skills/travel-guide`
 - **文档**：`docs/`、`README.md`；路线图见 `docs/roadmap.md`
 
 **不要无故加回**：Storybook、Playwright/e2e、all-contributors、Renovate、`assets/` Blazity logo、`env.mjs` + bundle-analyzer（除非明确需要）。
 
-**OTel**：已列入 `docs/roadmap.md` 计划项；未落地前不要加 `instrumentation.ts` / `@vercel/otel`，需要时按该文档实现。
+**OTel**：已列入 `docs/roadmap.md`；未落地前不要加 `instrumentation.ts` / `@vercel/otel`。
 
-包名保持 `cicada`；脚本以 `dev` / `build` / `sync-guides` / `test` / `lint` / `format` / `release` 为主。
+**Auth**：公开页（`/`、`/guides`、`/g/*`）保持可匿名访问；鉴权用 Better Auth + Prisma(MySQL)，不要引入 NextAuth。
+
+包名保持 `cicada`；脚本以 `dev` / `build` / `sync-guides` / `test` / `lint` / `format` / `release` / `db:*` 为主。

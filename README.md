@@ -6,19 +6,32 @@
 - UI：shadcn **base-nova**（`components/ui`）
 - 生产：以 Vercel 项目 [cicada](https://vercel.com/wintersmilesb101s-projects/cicada) 绑定域名为准
 - 版本发布：`main` 上 [semantic-release](.github/workflows/release.yml)（Changelog + GitHub Release）；站点上线仍靠 Vercel
+- 账号：Better Auth + Prisma(MySQL)；公开攻略页无需登录
 
 ## 日常开发
 
 ```bash
 pnpm install
 pnpm sync-guides   # guides/ → public/guides/
+pnpm db:migrate    # 需先配置 .env 中的 DATABASE_URL
 pnpm dev
 ```
+
+复制 [`.env.example`](.env.example) 为 `.env` 并填写：
+
+| 变量 | 说明 |
+|------|------|
+| `DATABASE_URL` | MySQL 连接串 |
+| `BETTER_AUTH_SECRET` | ≥32 字符密钥（可用 `openssl rand -base64 32`） |
+| `BETTER_AUTH_URL` | 本地 `http://localhost:3000`，生产为站点 URL |
+| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | GitHub OAuth；回调 `{BETTER_AUTH_URL}/api/auth/callback/github` |
 
 | 路径 | 用途 |
 |------|------|
 | `app/` | Next App Router 站点壳 |
+| `app/login` · `app/register` | 登录 / 注册 |
 | `components/ui/` | shadcn 组件 |
+| `prisma/` | Better Auth 与评论/收藏预留表 |
 | `guides/<slug>/` | travel-guide Skill 落盘攻略 HTML |
 | `public/guides/` | 同步后的静态文件（需提交） |
 | `styles/` | 全局样式与主题 token |
@@ -29,7 +42,7 @@ pnpm dev
 
 - [旅行攻略](docs/travel-guides.md)
 - [Skills 与 MCP](docs/cursor-skills-mcp.md)
-- [路线图（含 OTel 计划）](docs/roadmap.md)
+- [路线图（Auth / 评论收藏 / OTel）](docs/roadmap.md)
 - [站点设计备忘](docs/superpowers/specs/2026-09-19-travel-guides-vercel-design.md)
 
 ## 生成攻略

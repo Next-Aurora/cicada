@@ -6,10 +6,25 @@
 |------|------|
 | **站点部署** | `git push` → Vercel 自动构建上线（日常「发布网站」） |
 | **版本发布流水线** | `main` 推送后 GitHub Actions 跑 [semantic-release](../.releaserc)：分析 Conventional Commits、更新 `CHANGELOG.md` / 版本号、创建 GitHub Release（**不**发 npm） |
+| **账号体系** | Better Auth + Prisma(MySQL)：邮箱密码与 GitHub 登录；公开攻略页无需登录 |
 
 提交信息请用 Conventional Commits（如 `feat:`、`fix:`、`docs:`），否则可能不会 bump 版本。
 
+Auth 环境变量见仓库根目录 [`.env.example`](../.env.example)。配置好 `DATABASE_URL` 后执行：
+
+```bash
+pnpm db:migrate
+```
+
 ## 计划中
+
+### 评论与收藏
+
+数据表 `comment` / `favorite` 已在 Prisma schema 中预留（按 `guideSlug` 关联攻略）。下一步：
+
+1. 登录用户可对 `/g/[slug]` 发表评论、收藏攻略
+2. 提供列表与删除（仅本人或站长）
+3. 不改动攻略静态 HTML 的生成流程
 
 ### OpenTelemetry（OTel）可观测性
 
