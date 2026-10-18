@@ -25,6 +25,7 @@ pnpm dev
 | `BETTER_AUTH_SECRET` | ≥32 字符密钥（可用 `openssl rand -base64 32`） |
 | `BETTER_AUTH_URL` | 本地 `http://localhost:3000`，生产为站点 URL |
 | `AUTH_TRUSTED_ORIGINS` | 可选，额外信任来源（逗号分隔） |
+| `AUTH_IDLE_TIMEOUT_MINUTES` | 无操作自动退出分钟数，默认 `10`（范围 1～1440） |
 | `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | GitHub OAuth；回调 `{BETTER_AUTH_URL}/api/auth/callback/github`；未配置时登录页不显示 GitHub 按钮 |
 
 | 路径 | 用途 |
