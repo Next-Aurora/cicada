@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
+import {
+  clearLastActivityTs,
+  openIdleChannel,
+  publishIdleMessage,
+} from "@/lib/auth-idle-client"
 
 export function AuthMenu() {
   const router = useRouter()
@@ -25,6 +30,10 @@ export function AuthMenu() {
           size="sm"
           onClick={() => {
             void (async () => {
+              const channel = openIdleChannel()
+              publishIdleMessage(channel, { type: "logout", reason: "manual" })
+              channel?.close()
+              clearLastActivityTs()
               await authClient.signOut()
               router.refresh()
             })()

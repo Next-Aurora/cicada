@@ -19,6 +19,7 @@ export function LoginForm({ githubEnabled }: LoginFormProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"))
+  const idleLoggedOut = searchParams.get("reason") === "idle"
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -64,6 +65,11 @@ export function LoginForm({ githubEnabled }: LoginFormProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
+        {idleLoggedOut ? (
+          <p className="bg-muted text-muted-foreground rounded-lg px-3 py-2 text-sm">
+            因长时间无操作已自动退出，请重新登录。
+          </p>
+        ) : null}
         <form className="flex flex-col gap-3" onSubmit={onSubmit}>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="email">邮箱</Label>

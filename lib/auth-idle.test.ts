@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest"
 
-import { getIdleTimeoutMinutes, getIdleTimeoutMs, getIdleTimeoutSeconds } from "./auth-idle"
+import { getIdleTimeoutMinutes, getIdleTimeoutMs, getIdleTimeoutSeconds, getIdleWarningMs } from "./auth-idle"
 
 describe("auth idle timeout", () => {
   afterEach(() => {
@@ -28,5 +28,11 @@ describe("auth idle timeout", () => {
 
     process.env.AUTH_IDLE_TIMEOUT_MINUTES = "abc"
     expect(getIdleTimeoutMinutes()).toBe(10)
+  })
+
+  it("computes warning window", () => {
+    expect(getIdleWarningMs(600_000)).toBe(60_000)
+    expect(getIdleWarningMs(60_000)).toBe(30_000)
+    expect(getIdleWarningMs(10_000)).toBe(10_000)
   })
 })

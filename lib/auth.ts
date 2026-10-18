@@ -2,10 +2,8 @@ import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
 
 import { getTrustedOrigins, isGitHubAuthEnabled } from "@/lib/auth-flags"
-import { getIdleTimeoutSeconds } from "@/lib/auth-idle"
+import { SESSION_EXPIRES_IN_SECONDS, SESSION_UPDATE_AGE_SECONDS } from "@/lib/auth-idle"
 import { prisma } from "@/lib/prisma"
-
-const idleTimeoutSeconds = getIdleTimeoutSeconds()
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -13,10 +11,9 @@ export const auth = betterAuth({
   }),
   trustedOrigins: getTrustedOrigins(),
   session: {
-    // Align server session lifetime with idle timeout; client guard signs out earlier on inactivity.
-    expiresIn: idleTimeoutSeconds,
-    // Refresh when less than half the idle window remains (requires a session request).
-    updateAge: Math.max(60, Math.floor(idleTimeoutSeconds / 2)),
+    // Long-lived server session; idle auto-logout is enforced in the client guard.
+    expiresIn: SESSION_EXPIRES_IN_SECONDS,
+    updateAge: SESSION_UPDATE_AGE_SECONDS,
   },
   emailAndPassword: {
     enabled: true,
