@@ -17,8 +17,11 @@
     "test:watch": "cross-env FORCE_COLOR=1 vitest",
     "release": "semantic-release",
     "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:push": "prisma db push",
+    "db:create": "node scripts/create-database.mjs",
+    "db:backup": "node scripts/backup-database.mjs",
+    "db:restore": "node scripts/restore-database.mjs",
+    "db:migrate": "node scripts/prepare-database.mjs && prisma migrate dev",
+    "db:push": "node scripts/prepare-database.mjs && prisma db push",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -59,6 +62,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "jsdom": "^26.1.0",
+    "mysql2": "^3.24.6",
     "postcss": "^8.5.8",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",

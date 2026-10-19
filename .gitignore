@@ -28,6 +28,9 @@ yarn-error.log*
 # local env / deploy
 .env*
 !.env.example
+
+# database dumps (user rows, session tokens, password hashes)
+/backups/
 .vercel
 /.npm-only-allow
 .pnpm-store/

@@ -10,7 +10,7 @@
 
 提交信息请用 Conventional Commits（如 `feat:`、`fix:`、`docs:`），否则可能不会 bump 版本。
 
-Auth 环境变量见仓库根目录 [`.env.example`](../.env.example)。配置好 `DATABASE_URL` 后执行：
+Auth 环境变量见仓库根目录 [`.env.example`](../.env.example)。配置好 `DATABASE_URL` 后执行（建库语句在 [`prisma/create-database.sql`](../prisma/create-database.sql)；库里已有表时会先把结构和数据导出到 `backups/`（只保留最近 10 份，该目录不提交））：
 
 ```bash
 pnpm db:migrate

@@ -13,7 +13,9 @@
 ```bash
 pnpm install
 pnpm sync-guides   # guides/ → public/guides/
-pnpm db:migrate    # 需先配置 .env 中的 DATABASE_URL
+pnpm db:migrate    # 已有表时先备份（backups/ 保留最近 10 份），再建库并执行迁移
+pnpm db:backup     # 导出结构与数据到 backups/<库名>-时间戳.sql
+pnpm db:restore -- backups/<file>.sql
 pnpm dev
 ```
 
@@ -34,6 +36,7 @@ pnpm dev
 | `app/login` · `app/register` | 登录 / 注册 |
 | `components/ui/` | shadcn 组件 |
 | `prisma/` | Better Auth 与评论/收藏预留表 |
+| `backups/` | `pnpm db:backup` 导出的 SQL（含账号数据，不提交，默认保留最近 10 份） |
 | `guides/<slug>/` | travel-guide Skill 落盘攻略 HTML |
 | `public/guides/` | 同步后的静态文件（需提交） |
 | `styles/` | 全局样式与主题 token |
