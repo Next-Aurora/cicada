@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="card">
+    <view class="title">登录逆蝉</view>
+    <view class="desc">
+      {{done ? "登录成功，请返回网页继续" : "正在使用微信授权登录…"}}
+    </view>
+    <view wx:if="{{loading && !done}}" class="hint">请稍候</view>
+    <view wx:if="{{message}}" class="message">{{message}}</view>
+  </view>
+</view>

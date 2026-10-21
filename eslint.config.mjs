@@ -13,6 +13,7 @@ const eslintIgnore = [
   "coverage/",
   "guides/",
   "public/guides/",
+  "wechat-miniprogram/",
   "*.min.js",
   "*.config.js",
   "*.d.ts",

@@ -3,6 +3,11 @@ export function isGitHubAuthEnabled() {
   return Boolean(process.env.GITHUB_CLIENT_ID?.trim() && process.env.GITHUB_CLIENT_SECRET?.trim())
 }
 
+/** In-WeChat H5 login that opens this site's mini program. Uses that mini program's openid. */
+export function isWeChatMiniAuthEnabled() {
+  return Boolean(process.env.WECHAT_MINI_APP_ID?.trim() && process.env.WECHAT_MINI_APP_SECRET?.trim())
+}
+
 export function getTrustedOrigins() {
   const origins = new Set<string>()
 

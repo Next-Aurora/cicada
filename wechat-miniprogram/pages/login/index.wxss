@@ -1,0 +1,43 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  box-sizing: border-box;
+  background: #f7f7f7;
+}
+
+.card {
+  width: 100%;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 48rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #111;
+}
+
+.desc {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.hint {
+  margin-top: 32rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.message {
+  margin-top: 24rpx;
+  font-size: 26rpx;
+  color: #b42318;
+  line-height: 1.5;
+}

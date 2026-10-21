@@ -6,7 +6,7 @@
 - UI：shadcn **base-nova**（`components/ui`）
 - 生产：以 Vercel 项目 [cicada](https://vercel.com/wintersmilesb101s-projects/cicada) 绑定域名为准
 - 版本发布：`main` 上 [semantic-release](.github/workflows/release.yml)（Changelog + GitHub Release）；站点上线仍靠 Vercel
-- 账号：Better Auth + Prisma(MySQL)；公开攻略页无需登录
+- 账号：Better Auth + Prisma(MySQL)；邮箱密码、可选 GitHub、可选微信内 H5 拉起小程序登录；公开攻略页无需登录
 
 ## 日常开发
 
@@ -29,6 +29,7 @@ pnpm dev
 | `AUTH_TRUSTED_ORIGINS` | 可选，额外信任来源（逗号分隔） |
 | `AUTH_IDLE_TIMEOUT_MINUTES` | 无操作自动退出分钟数，默认 `10`（范围 1～1440；客户端闲置检测，跨标签同步；到期前约 1 分钟提示） |
 | `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | GitHub OAuth；回调 `{BETTER_AUTH_URL}/api/auth/callback/github`；未配置时登录页不显示 GitHub 按钮 |
+| `WECHAT_MINI_APP_ID` / `WECHAT_MINI_APP_SECRET` | 微信内 H5 拉起小程序登录；可验证邮箱密码后绑定同一账号；未配置时不显示微信按钮；见 `wechat-miniprogram/README.md` |
 
 | 路径 | 用途 |
 |------|------|
@@ -36,6 +37,7 @@ pnpm dev
 | `app/login` · `app/register` | 登录 / 注册 |
 | `components/ui/` | shadcn 组件 |
 | `prisma/` | Better Auth 与评论/收藏预留表 |
+| `wechat-miniprogram/` | 微信登录小程序源码（需单独上传） |
 | `backups/` | `pnpm db:backup` 导出的 SQL（含账号数据，不提交，默认保留最近 10 份） |
 | `guides/<slug>/` | travel-guide Skill 落盘攻略 HTML |
 | `public/guides/` | 同步后的静态文件（需提交） |

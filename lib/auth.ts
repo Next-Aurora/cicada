@@ -1,9 +1,10 @@
 import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
 
-import { getTrustedOrigins, isGitHubAuthEnabled } from "@/lib/auth-flags"
+import { getTrustedOrigins, isGitHubAuthEnabled, isWeChatMiniAuthEnabled } from "@/lib/auth-flags"
 import { SESSION_EXPIRES_IN_SECONDS, SESSION_UPDATE_AGE_SECONDS } from "@/lib/auth-idle"
 import { prisma } from "@/lib/prisma"
+import { wechatMiniPlugin } from "@/lib/wechat-mini-plugin"
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -28,4 +29,5 @@ export const auth = betterAuth({
         }
       : {}),
   },
+  plugins: [...(isWeChatMiniAuthEnabled() ? [wechatMiniPlugin()] : [])],
 })
