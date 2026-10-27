@@ -98,6 +98,10 @@ curl -s -o /dev/null -w "%{http_code}" \
   "<PORTAINER_HOST>/api/system/status"
 ```
 
+### 推送报 `unknown manifest class for application/vnd.oci.empty.v1+json`
+
+ACR 个人版不接受 BuildKit 默认附带的 OCI attestation。workflow 已设 `provenance: false` / `sbom: false`；本地构建请加同样参数。
+
 ### 镜像拉取失败
 
 确认服务器能拉阿里云个人版仓库，并在 Portainer 配好 Registry 凭据。

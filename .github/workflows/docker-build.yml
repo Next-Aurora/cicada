@@ -129,6 +129,9 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.custom_tag.outputs.uri || steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # ACR 个人版不支持 BuildKit 默认的 OCI attestation（vnd.oci.empty.v1+json）
+          provenance: false
+          sbom: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
