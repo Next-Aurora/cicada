@@ -1,3 +1,14 @@
+# [1.1.0](https://github.com/Next-Aurora/cicada/compare/v1.0.0...v1.1.0) (2026-10-27)
+
+
+### Features
+
+* add backup support ([b527b18](https://github.com/Next-Aurora/cicada/commit/b527b185879c81e780299f91352df9d9ea746c5f))
+* add basic docker img ([f2d43f2](https://github.com/Next-Aurora/cicada/commit/f2d43f228b0be8eac4c0329abfc54a18c0e04daa))
+* add site identity ([e5c7129](https://github.com/Next-Aurora/cicada/commit/e5c71299a6fbbfc85ae26e97bc27ad8864295a09))
+* add wx login ([184ecc3](https://github.com/Next-Aurora/cicada/commit/184ecc3c38a7beda8a98ed2228c3ed668ca03b3b))
+* adjust site style ([6acc45a](https://github.com/Next-Aurora/cicada/commit/6acc45a3eb82efd50e4b808681ab6a6365fac200))
+
 # 1.0.0 (2026-10-18)
 
 
