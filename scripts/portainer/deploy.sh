@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # 用 Docker Compose 部署 Portainer CE。重复执行是安全的，数据卷会保留。
 #
-# 用法（与 scripts/portainer/compose.yaml 放在一起）:
-#   sudo bash deploy-portainer.sh
+# 用法（本目录含 compose.yaml）:
+#   sudo bash scripts/portainer/deploy.sh
 # 指定镜像（可选）:
-#   sudo PORTAINER_IMAGE=portainer/portainer-ce:lts bash deploy-portainer.sh
+#   sudo PORTAINER_IMAGE=portainer/portainer-ce:lts bash scripts/portainer/deploy.sh
 
 set -euo pipefail
 
@@ -14,7 +14,7 @@ if [[ "${EUID}" -ne 0 ]]; then
 fi
 
 if ! docker info >/dev/null 2>&1; then
-  echo "Docker 不可用。请先运行 install-docker.sh，并确认 docker 服务已启动。" >&2
+  echo "Docker 不可用。请先运行 scripts/docker/install.sh，并确认 docker 服务已启动。" >&2
   exit 1
 fi
 
@@ -24,12 +24,9 @@ if ! docker compose version >/dev/null 2>&1; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [[ -f "${SCRIPT_DIR}/portainer/compose.yaml" ]]; then
-  COMPOSE_SRC="${SCRIPT_DIR}/portainer/compose.yaml"
-elif [[ -f "${SCRIPT_DIR}/compose.yaml" ]]; then
-  COMPOSE_SRC="${SCRIPT_DIR}/compose.yaml"
-else
-  echo "找不到 compose.yaml。请把 scripts/portainer/compose.yaml 和本脚本一起拷到服务器。" >&2
+COMPOSE_SRC="${SCRIPT_DIR}/compose.yaml"
+if [[ ! -f "${COMPOSE_SRC}" ]]; then
+  echo "找不到 ${COMPOSE_SRC}。请把整个 scripts/portainer/ 目录拷到服务器。" >&2
   exit 1
 fi
 
@@ -96,7 +93,7 @@ echo
 echo "直连地址: https://${ip}:9443"
 echo "浏览器会提示证书不受信任。这是 Portainer 自带的自签证书，首次访问选择继续即可。"
 echo "经 Nginx 访问时，把上游设为 127.0.0.1:9000，例如:"
-echo "  sudo bash install-nginx.sh --server-name 域名或公网IP --upstream 127.0.0.1:9000"
+echo "  sudo bash scripts/nginx/install.sh --server-name 域名或公网IP --upstream 127.0.0.1:9000"
 echo "腾讯云安全组需要放行实际对外的端口（直连 9443，或 Nginx 的 80）。"
 if [[ -n "${token_line}" ]]; then
   echo "首次设置口令（日志中的 setup_token）:"

@@ -80,7 +80,7 @@ pnpm db:migrate
 Nginx 反代本机 3000 示例：
 
 ```bash
-sudo bash install-nginx.sh --server-name 你的域名 --upstream 127.0.0.1:3000
+sudo bash scripts/nginx/install.sh --server-name 你的域名 --upstream 127.0.0.1:3000
 ```
 
 ## 故障排查

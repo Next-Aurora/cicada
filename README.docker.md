@@ -5,8 +5,8 @@
 ## 前置
 
 - Docker 20.10+、Compose v2
-- 服务器上已部署 MySQL（可用 `scripts/deploy-mysql.sh`）
-- 可选：Nginx、Portainer（见 `scripts/`）
+- 服务器上已部署 MySQL（可用 `scripts/mysql/deploy.sh`）
+- 可选：Nginx、Portainer（见 `scripts/nginx/`、`scripts/portainer/`）
 
 ## 本地构建并运行
 

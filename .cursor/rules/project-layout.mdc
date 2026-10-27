@@ -7,7 +7,7 @@ alwaysApply: true
 
 根目录只放站点与必要工具配置。典型结构：
 
-- **产品**：`app/`、`components/`、`lib/`、`styles/`、`guides/`、`public/`、`scripts/`
+- **产品**：`app/`、`components/`、`lib/`、`styles/`、`guides/`、`public/`、`scripts/`（站点工具在根；自建部署按 `scripts/{docker,nginx,mysql,redis,portainer}/`）
 - **UI**：`components.json`、`components/ui/`、`hooks/`（shadcn 占位）
 - **Auth**：`lib/auth.ts`、`lib/auth-client.ts`、`lib/prisma.ts`、`prisma/`、`app/api/auth/[...all]/`、`app/login`、`app/register`
 - **质量**：`eslint.config.mjs`、`prettier.config.js`、`vitest.config.ts`

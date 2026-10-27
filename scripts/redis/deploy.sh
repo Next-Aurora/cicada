@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # 用 Docker Compose 部署 Redis 7。重复执行是安全的，数据卷与密码会保留。
 #
-# 用法（与 scripts/redis/compose.yaml 放在一起）:
-#   sudo bash deploy-redis.sh
+# 用法（本目录含 compose.yaml）:
+#   sudo bash scripts/redis/deploy.sh
 # 可选环境变量:
 #   REDIS_IMAGE=redis:7-alpine
 
@@ -14,7 +14,7 @@ if [[ "${EUID}" -ne 0 ]]; then
 fi
 
 if ! docker info >/dev/null 2>&1; then
-  echo "Docker 不可用。请先运行 install-docker.sh，并确认 docker 服务已启动。" >&2
+  echo "Docker 不可用。请先运行 scripts/docker/install.sh，并确认 docker 服务已启动。" >&2
   exit 1
 fi
 
@@ -24,12 +24,9 @@ if ! docker compose version >/dev/null 2>&1; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [[ -f "${SCRIPT_DIR}/redis/compose.yaml" ]]; then
-  COMPOSE_SRC="${SCRIPT_DIR}/redis/compose.yaml"
-elif [[ -f "${SCRIPT_DIR}/compose.yaml" ]]; then
-  COMPOSE_SRC="${SCRIPT_DIR}/compose.yaml"
-else
-  echo "找不到 compose.yaml。请把 scripts/redis/compose.yaml 和本脚本一起拷到服务器。" >&2
+COMPOSE_SRC="${SCRIPT_DIR}/compose.yaml"
+if [[ ! -f "${COMPOSE_SRC}" ]]; then
+  echo "找不到 ${COMPOSE_SRC}。请把整个 scripts/redis/ 目录拷到服务器。" >&2
   exit 1
 fi
 

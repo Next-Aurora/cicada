@@ -2,22 +2,22 @@
 # 在 Ubuntu 上安装并配置 Nginx。重复执行是安全的。
 #
 # 只安装，并写好基础配置（隐藏版本号、压缩、默认站点）:
-#   sudo bash install-nginx.sh
+#   sudo bash scripts/nginx/install.sh
 #
 # 增加一个反代站点（可多次执行，按域名覆盖）:
-#   sudo bash install-nginx.sh --server-name example.com --upstream 127.0.0.1:3000
+#   sudo bash scripts/nginx/install.sh --server-name example.com --upstream 127.0.0.1:3000
 #
 # 增加一个静态站点:
-#   sudo bash install-nginx.sh --server-name example.com --root /var/www/example.com
+#   sudo bash scripts/nginx/install.sh --server-name example.com --root /var/www/example.com
 
 set -euo pipefail
 
 usage() {
   cat <<'EOF'
 用法:
-  sudo bash install-nginx.sh
-  sudo bash install-nginx.sh --server-name 域名 --upstream 127.0.0.1:端口
-  sudo bash install-nginx.sh --server-name 域名 --root /var/www/域名
+  sudo bash scripts/nginx/install.sh
+  sudo bash scripts/nginx/install.sh --server-name 域名 --upstream 127.0.0.1:端口
+  sudo bash scripts/nginx/install.sh --server-name 域名 --root /var/www/域名
 
 --upstream 与 --root 只能二选一。不带参数时只安装并写入基础配置。
 EOF
@@ -124,7 +124,7 @@ fi
 
 # 放在 conf.d，随主配置的 http 块加载。不要再写 gzip on，发行版主配置里已经有。
 cat > /etc/nginx/conf.d/00-base.conf <<EOF
-# 由 install-nginx.sh 写入，重复执行会覆盖。
+# 由 scripts/nginx/install.sh 写入，重复执行会覆盖。
 ${server_tokens_line}
 client_max_body_size 20m;
 
@@ -148,7 +148,7 @@ map \$http_upgrade \$connection_upgrade {
 EOF
 
 cat > /etc/nginx/sites-available/default <<'EOF'
-# 由 install-nginx.sh 写入，重复执行会覆盖。
+# 由 scripts/nginx/install.sh 写入，重复执行会覆盖。
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -191,7 +191,7 @@ if [[ -n "${SERVER_NAME}" ]]; then
   site_file="/etc/nginx/sites-available/${SERVER_NAME}.conf"
   if [[ -n "${UPSTREAM}" ]]; then
     cat > "${site_file}" <<EOF
-# 由 install-nginx.sh 写入，重复执行会覆盖。
+# 由 scripts/nginx/install.sh 写入，重复执行会覆盖。
 server {
     listen 80;
     listen [::]:80;
@@ -229,7 +229,7 @@ EOF
 EOF
     fi
     cat > "${site_file}" <<EOF
-# 由 install-nginx.sh 写入，重复执行会覆盖。
+# 由 scripts/nginx/install.sh 写入，重复执行会覆盖。
 server {
     listen 80;
     listen [::]:80;

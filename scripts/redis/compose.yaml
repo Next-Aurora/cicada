@@ -1,4 +1,4 @@
-# 由 deploy-redis.sh 部署。重复执行会覆盖 /opt/redis/compose.yaml，但不会改 .env 与数据卷。
+# 由 scripts/redis/deploy.sh 部署。重复执行会覆盖 /opt/redis/compose.yaml，但不会改 .env 与数据卷。
 # 只监听本机 6379，外网默认进不来。
 
 services:

@@ -32,8 +32,8 @@ Thumbs.db
 agent-transcripts
 wechat-miniprogram
 docs
-scripts/install-*.sh
-scripts/deploy-*.sh
+scripts/docker
+scripts/nginx
 scripts/mysql
 scripts/redis
 scripts/portainer

@@ -3,9 +3,9 @@
 # 已在 Ubuntu 26.04 (resolute) 上验证。重复执行是安全的。
 #
 # 用法:
-#   sudo bash install-docker.sh
+#   sudo bash scripts/docker/install.sh
 # 指定镜像（可选，须包含 /docker-ce 这一层）:
-#   sudo DOCKER_MIRROR=https://mirrors.cloud.tencent.com/docker-ce bash install-docker.sh
+#   sudo DOCKER_MIRROR=https://mirrors.cloud.tencent.com/docker-ce bash scripts/docker/install.sh
 
 set -euo pipefail
 

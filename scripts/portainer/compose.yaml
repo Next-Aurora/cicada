@@ -1,4 +1,4 @@
-# 由 deploy-portainer.sh 部署。重复执行会覆盖 /opt/portainer/compose.yaml。
+# 由 scripts/portainer/deploy.sh 部署。重复执行会覆盖 /opt/portainer/compose.yaml。
 # 9443 是直连用的 HTTPS。走 Nginx 时用本机 9000，不要把 Nginx 转到 9443。
 # 需要 Edge Agent 时，在 ports 下取消 8000 那一行的注释。
 
