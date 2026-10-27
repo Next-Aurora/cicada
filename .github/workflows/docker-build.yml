@@ -62,7 +62,11 @@ jobs:
         run: |
           registry="${{ env.ALIYUN_REGISTRY }}"
           if [ -z "$registry" ] || [ "$registry" = "localhost:5000" ]; then
-            echo "未配置阿里云镜像仓库：请在 Settings → Secrets and variables → Actions → Variables 设置 ALIYUN_REGISTRY（如 crpi-xxxx.cn-chengdu.personal.cr.aliyuncs.com），并配置 Secrets ALIYUN_ACCESS_KEY_ID / ALIYUN_ACCESS_KEY_SECRET。" >&2
+            echo "未配置阿里云镜像仓库：请在 Settings → Secrets and variables → Actions → Variables 设置 ALIYUN_REGISTRY（公网域名，如 crpi-xxxx.cn-chengdu.personal.cr.aliyuncs.com），并配置 Secrets ALIYUN_ACCESS_KEY_ID / ALIYUN_ACCESS_KEY_SECRET。" >&2
+            exit 1
+          fi
+          if [[ "$registry" == *"-vpc."* ]] || [[ "$registry" == registry-vpc.* ]]; then
+            echo "ALIYUN_REGISTRY=${registry} 是 VPC 内网域名，GitHub Actions 无法访问。请改为公网地址（去掉 -vpc，或使用个人版 crpi-xxxx.*.personal.cr.aliyuncs.com）。" >&2
             exit 1
           fi
 
@@ -113,8 +117,9 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.ALIYUN_REGISTRY }}
-          username: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          password: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          # ACR 固定密码登录：用户名=镜像仓库登录名，密码=访问凭证里设置的 Registry 密码（不是 AccessKey）
+          username: ${{ secrets.ALIYUN_REGISTRY_USERNAME || secrets.ALIYUN_ACCESS_KEY_ID }}
+          password: ${{ secrets.ALIYUN_REGISTRY_PASSWORD || secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
       - name: Build and push image
         uses: docker/build-push-action@v5

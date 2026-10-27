@@ -17,7 +17,7 @@ describe("sql dump helpers", () => {
     expect(sqlLiteral(undefined)).toBe("NULL")
     expect(sqlLiteral("a';b")).toBe("'a\\';b'")
     expect(sqlLiteral(Buffer.from([0, 255]))).toBe("X'00ff'")
-    expect(sqlLiteral(1n)).toBe("1")
+    expect(sqlLiteral(BigInt(1))).toBe("1")
   })
 
   it("keeps semicolons and quotes inside strings as one statement", () => {

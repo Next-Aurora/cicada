@@ -16,18 +16,21 @@
 
 | Variable | 说明 |
 |----------|------|
-| `ALIYUN_REGISTRY` | 阿里云个人版域名，如 `crpi-xxxx.cn-chengdu.personal.cr.aliyuncs.com` |
+| `ALIYUN_REGISTRY` | 阿里云**公网**仓库域名。个人版如 `crpi-xxxx.cn-chengdu.personal.cr.aliyuncs.com`；企业版公网如 `registry.cn-chengdu.aliyuncs.com`。**不要**用 `registry-vpc.*`（仅 VPC 内网，GitHub Actions 连不上） |
 | `ALIYUN_NAMESPACE` | 命名空间；未设时默认 `cicada` |
 
 ### Secrets
 
 | Secret | 说明 |
 |--------|------|
-| `ALIYUN_ACCESS_KEY_ID` | 推送镜像用 |
-| `ALIYUN_ACCESS_KEY_SECRET` | 推送镜像用 |
+| `ALIYUN_REGISTRY_USERNAME` | ACR **镜像仓库登录名**（控制台 → 访问凭证页可见；主账号一般是阿里云登录名，不是纯数字 UID） |
+| `ALIYUN_REGISTRY_PASSWORD` | ACR **Registry 固定密码**（同一页「设置固定密码」；**不是**阿里云登录密码，也**不是** AccessKey Secret） |
+| `ALIYUN_ACCESS_KEY_ID` / `ALIYUN_ACCESS_KEY_SECRET` | 兼容旧名；未设上面两个时会回退用它们（仍须填成登录名/固定密码，不要填 AccessKey） |
 | `PORTAINER_HOST` | Portainer **基地址**，见下方格式 |
 | `PORTAINER_ACCESS_TOKEN` | Portainer Access Token（建议专用 CI 用户） |
 | `MAIL_*` | 可选邮件通知，见 workflow |
+
+登录失败报 `unauthorized: authentication required` 时，到成都地域的 ACR 控制台打开「访问凭证」，按页面上的 `docker login` 命令核对用户名，并确认已设置固定密码。
 
 **`PORTAINER_HOST` 格式**：
 
