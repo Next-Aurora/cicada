@@ -9,7 +9,7 @@ export default function LoginPage() {
   const wechatMiniEnabled = isWeChatMiniAuthEnabled()
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col items-center justify-center px-6 py-16">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 py-16">
       <Suspense fallback={<div className="text-muted-foreground text-sm">加载中…</div>}>
         <LoginForm githubEnabled={githubEnabled} wechatMiniEnabled={wechatMiniEnabled} />
       </Suspense>

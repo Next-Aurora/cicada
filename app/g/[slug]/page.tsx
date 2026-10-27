@@ -49,7 +49,7 @@ export default async function GuidePage({ params }: Props) {
   const label = guide.title
 
   return (
-    <div className="bg-background flex h-dvh flex-col">
+    <div className="bg-background flex min-h-0 flex-1 flex-col">
       <header className="border-border bg-card flex shrink-0 items-center gap-3 border-b px-4 py-2">
         <Link href="/guides" className="text-primary text-sm font-semibold hover:underline">
           ← 旅行攻略

@@ -31,7 +31,7 @@ const entries = [
 
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col justify-center px-6 py-16 sm:px-8">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center px-6 py-16 sm:px-8">
       <header className="animate-[fade-up_0.7s_ease-out_both]">
         <h1 className="font-heading text-primary text-[clamp(3.25rem,14vw,5.75rem)] leading-none font-bold tracking-tight">
           逆蝉
