@@ -5,13 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-cicada-bg: #e7ebe6;
-  --color-cicada-surface: #f5f7f4;
-  --color-cicada-text: #1f2a24;
-  --color-cicada-muted: #5a6b60;
-  --color-cicada-accent: #3d6b4f;
-  --color-cicada-accent-soft: #d5e3d9;
-  --color-cicada-hairline: rgba(31, 42, 36, 0.12);
+  --color-cicada-bg: #f7f7f7;
+  --color-cicada-surface: #ffffff;
+  --color-cicada-text: #141414;
+  --color-cicada-muted: #6b6b6b;
+  --color-cicada-accent: #1c6b4a;
+  --color-cicada-accent-soft: #f2f2f2;
+  --color-cicada-hairline: rgba(20, 20, 20, 0.1);
   --font-cicada-display: "Songti SC", "Noto Serif SC", "STSong", serif;
   --font-cicada-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 }
@@ -68,7 +68,7 @@
   --popover: var(--color-cicada-surface);
   --popover-foreground: var(--color-cicada-text);
   --primary: var(--color-cicada-accent);
-  --primary-foreground: #f5f7f4;
+  --primary-foreground: #ffffff;
   --secondary: var(--color-cicada-accent-soft);
   --secondary-foreground: var(--color-cicada-text);
   --muted: var(--color-cicada-accent-soft);
@@ -80,15 +80,15 @@
   --input: var(--color-cicada-hairline);
   --ring: color-mix(in srgb, var(--color-cicada-accent) 55%, white);
   --chart-1: var(--color-cicada-accent);
-  --chart-2: #5a7a66;
-  --chart-3: #7a907f;
-  --chart-4: #a89070;
-  --chart-5: #c4b49a;
+  --chart-2: #3d3d3d;
+  --chart-3: #6b6b6b;
+  --chart-4: #a3a3a3;
+  --chart-5: #d4d4d4;
   --radius: 0.625rem;
   --sidebar: var(--color-cicada-surface);
   --sidebar-foreground: var(--color-cicada-text);
   --sidebar-primary: var(--color-cicada-accent);
-  --sidebar-primary-foreground: #f5f7f4;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: var(--color-cicada-accent-soft);
   --sidebar-accent-foreground: var(--color-cicada-text);
   --sidebar-border: var(--color-cicada-hairline);
@@ -96,37 +96,37 @@
 }
 
 .dark {
-  --background: #152019;
-  --foreground: #e7ebe6;
-  --card: #1c2920;
-  --card-foreground: #e7ebe6;
-  --popover: #1c2920;
-  --popover-foreground: #e7ebe6;
-  --primary: #8fb89a;
-  --primary-foreground: #152019;
-  --secondary: #243328;
-  --secondary-foreground: #e7ebe6;
-  --muted: #243328;
-  --muted-foreground: #a3b5a9;
-  --accent: #243328;
-  --accent-foreground: #e7ebe6;
+  --background: #0f0f0f;
+  --foreground: #f3f3f2;
+  --card: #171717;
+  --card-foreground: #f3f3f2;
+  --popover: #171717;
+  --popover-foreground: #f3f3f2;
+  --primary: #8fbfa3;
+  --primary-foreground: #0f0f0f;
+  --secondary: #222221;
+  --secondary-foreground: #f3f3f2;
+  --muted: #222221;
+  --muted-foreground: #a3a3a1;
+  --accent: #222221;
+  --accent-foreground: #f3f3f2;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: rgba(231, 235, 230, 0.12);
-  --input: rgba(231, 235, 230, 0.15);
-  --ring: #8fb89a;
-  --chart-1: #8fb89a;
-  --chart-2: #6f9a7d;
-  --chart-3: #a89070;
-  --chart-4: #c4b49a;
-  --chart-5: #5a7a66;
-  --sidebar: #1c2920;
-  --sidebar-foreground: #e7ebe6;
-  --sidebar-primary: #8fb89a;
-  --sidebar-primary-foreground: #152019;
-  --sidebar-accent: #243328;
-  --sidebar-accent-foreground: #e7ebe6;
-  --sidebar-border: rgba(231, 235, 230, 0.12);
-  --sidebar-ring: #8fb89a;
+  --border: rgba(243, 243, 242, 0.1);
+  --input: rgba(243, 243, 242, 0.14);
+  --ring: #8fbfa3;
+  --chart-1: #8fbfa3;
+  --chart-2: #6b6b6b;
+  --chart-3: #a3a3a1;
+  --chart-4: #d4d4d2;
+  --chart-5: #3d3d3c;
+  --sidebar: #171717;
+  --sidebar-foreground: #f3f3f2;
+  --sidebar-primary: #8fbfa3;
+  --sidebar-primary-foreground: #0f0f0f;
+  --sidebar-accent: #222221;
+  --sidebar-accent-foreground: #f3f3f2;
+  --sidebar-border: rgba(243, 243, 242, 0.1);
+  --sidebar-ring: #8fbfa3;
 }
 
 @layer base {
@@ -154,16 +154,6 @@
   body {
     min-height: 100vh;
     @apply bg-background text-foreground antialiased;
-    background-image:
-      radial-gradient(ellipse 120% 80% at 10% -10%, rgba(61, 107, 79, 0.12), transparent 50%),
-      radial-gradient(ellipse 80% 60% at 100% 0%, rgba(168, 144, 112, 0.1), transparent 45%);
-    background-attachment: fixed;
-  }
-
-  .dark body {
-    background-image:
-      radial-gradient(ellipse 120% 80% at 10% -10%, rgba(143, 184, 154, 0.08), transparent 50%),
-      radial-gradient(ellipse 80% 60% at 100% 0%, rgba(168, 144, 112, 0.06), transparent 45%);
   }
 
   a {
