@@ -1,0 +1,50 @@
+# 统一 Stack：Portainer CI 与本地 docker compose 共用
+# 镜像与密钥不写死在文件里：部署时用 Portainer 栈变量或 shell 传入
+# - IMAGE_URI：完整镜像地址（CI 注入）
+# - DATABASE_URL / BETTER_AUTH_* 等：运行时注入（见 .env.docker）
+services:
+  web:
+    image: ${IMAGE_URI}
+    container_name: cicada
+    ports:
+      - "${WEB_PORT:-127.0.0.1:3000}:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - DATABASE_URL=${DATABASE_URL}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
+      - AUTH_TRUSTED_ORIGINS=${AUTH_TRUSTED_ORIGINS:-}
+      - AUTH_IDLE_TIMEOUT_MINUTES=${AUTH_IDLE_TIMEOUT_MINUTES:-10}
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID:-}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET:-}
+      - WECHAT_MINI_APP_ID=${WECHAT_MINI_APP_ID:-}
+      - WECHAT_MINI_APP_SECRET=${WECHAT_MINI_APP_SECRET:-}
+      - WECHAT_MINI_ENV_VERSION=${WECHAT_MINI_ENV_VERSION:-}
+      - WECHAT_MINI_LOGIN_PATH=${WECHAT_MINI_LOGIN_PATH:-}
+    networks:
+      - cicada-network
+    restart: unless-stopped
+    deploy:
+      update_config:
+        order: start-first
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://127.0.0.1:3000/api/health',(r)=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  cicada-network:
+    name: cicada-network
+    driver: bridge
+    external: false

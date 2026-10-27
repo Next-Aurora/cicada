@@ -28,6 +28,7 @@ yarn-error.log*
 # local env / deploy
 .env*
 !.env.example
+!.env.docker
 
 # database dumps (user rows, session tokens, password hashes)
 /backups/

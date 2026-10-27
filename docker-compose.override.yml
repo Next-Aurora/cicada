@@ -1,0 +1,5 @@
+# 本地 docker compose 使用：为 IMAGE_URI 提供默认
+# Portainer CI 仅使用 docker-compose.yml，不读取此 override
+services:
+  web:
+    image: ${IMAGE_URI:-cicada:local}

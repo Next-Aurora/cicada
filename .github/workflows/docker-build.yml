@@ -1,0 +1,239 @@
+name: Build and Push Docker Image
+
+# 与 semantic-release 产出的 v* tag 对齐：tag 推送后构建镜像并更新 Portainer Stack
+on:
+  push:
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "部署目标环境（auto=默认 production，develop/staging/production=指定）"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - develop
+          - staging
+          - production
+      stack_suffix:
+        description: "Stack 名称后缀（如 -develop；留空则按 environment 推断）"
+        required: false
+        default: ""
+      mail_to:
+        description: "构建后邮件通知对象（留空则用 Secrets MAIL_TO）"
+        required: false
+        default: ""
+      tag:
+        description: "镜像 tag（留空则自动生成）"
+        required: false
+        default: ""
+
+env:
+  # 在仓库 Variables 中配置 ALIYUN_REGISTRY / ALIYUN_NAMESPACE（推送前必填 ALIYUN_REGISTRY）
+  ALIYUN_REGISTRY: ${{ vars.ALIYUN_REGISTRY != '' && vars.ALIYUN_REGISTRY || 'localhost:5000' }}
+  ALIYUN_NAMESPACE: ${{ vars.ALIYUN_NAMESPACE != '' && vars.ALIYUN_NAMESPACE || 'cicada' }}
+  IMAGE_NAME: cicada
+
+jobs:
+  build:
+    name: Build Web Image
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_uri: ${{ steps.deploy_image.outputs.uri }}
+      portainer_deployed: ${{ steps.set_portainer_result.outputs.deployed }}
+      stack_name: ${{ steps.deploy_env.outputs.stack_name }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || (github.event_name == 'pull_request' && github.event.pull_request.head.sha) || github.ref }}
+
+      - name: Require Aliyun registry variables
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ -z "${{ env.ALIYUN_REGISTRY }}" ]; then
+            echo "请在仓库 Settings → Variables 配置 ALIYUN_REGISTRY（阿里云个人版域名）。" >&2
+            exit 1
+          fi
+
+      - name: Resolve image version
+        id: resolve_version
+        run: |
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            TAG="${{ github.event.inputs.tag }}"; echo "tag=${TAG#v}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref_type }}" = "tag" ]; then
+            TAG="${{ github.ref_name }}"; echo "tag=${TAG#v}" >> $GITHUB_OUTPUT
+          else
+            BRANCH="${{ github.ref_name }}"
+            SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+            RUN="${{ github.run_number }}"
+            echo "tag=${BRANCH}-${SHA}-${RUN}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set primary image URI
+        id: primary_image
+        run: |
+          echo "uri=${{ env.ALIYUN_REGISTRY }}/${{ env.ALIYUN_NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ steps.resolve_version.outputs.tag }}" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.ALIYUN_REGISTRY }}/${{ env.ALIYUN_NAMESPACE }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.resolve_version.outputs.tag }},enable=${{ github.event_name != 'pull_request' }}
+            type=sha,prefix={{branch}}-,length=4,suffix=-${{ github.run_number }},enable=${{ github.event_name != 'pull_request' && github.ref_type == 'branch' }}
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+
+      - name: Set custom tag (when input provided)
+        id: custom_tag
+        run: |
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            echo "uri=${{ steps.primary_image.outputs.uri }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Log in to Aliyun Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.ALIYUN_REGISTRY }}
+          username: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          password: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.custom_tag.outputs.uri || steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Set deploy image URI
+        if: github.event_name != 'pull_request'
+        id: deploy_image
+        run: echo "uri=${{ steps.primary_image.outputs.uri }}" >> $GITHUB_OUTPUT
+
+      - name: Set deploy environment
+        if: github.event_name != 'pull_request'
+        id: deploy_env
+        run: |
+          ENV_INPUT="${{ github.event.inputs.environment || 'auto' }}"
+          SUFFIX_INPUT="${{ github.event.inputs.stack_suffix || '' }}"
+          if [ "$ENV_INPUT" = "auto" ] || [ -z "$ENV_INPUT" ]; then
+            DEPLOY_ENV=production
+          else
+            DEPLOY_ENV=$ENV_INPUT
+          fi
+          if [ -n "$SUFFIX_INPUT" ]; then
+            STACK_SUFFIX="$SUFFIX_INPUT"
+          elif [ "$DEPLOY_ENV" = "develop" ]; then
+            STACK_SUFFIX="-develop"
+          elif [ "$DEPLOY_ENV" = "staging" ]; then
+            STACK_SUFFIX="-staging"
+          else
+            STACK_SUFFIX=""
+          fi
+          echo "deploy_env=$DEPLOY_ENV" >> $GITHUB_OUTPUT
+          echo "stack_suffix=$STACK_SUFFIX" >> $GITHUB_OUTPUT
+          echo "stack_name=cicada${STACK_SUFFIX}" >> $GITHUB_OUTPUT
+
+      - name: Wait for registry propagation
+        if: github.event_name != 'pull_request'
+        run: sleep 10
+
+      - name: Deploy stack to Portainer
+        if: github.event_name != 'pull_request'
+        id: portainer_deploy
+        uses: cssnr/portainer-stack-deploy-action@v1
+        with:
+          url: ${{ secrets.PORTAINER_HOST }}
+          token: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
+          name: ${{ steps.deploy_env.outputs.stack_name }}
+          file: docker-compose.yml
+          type: file
+          standalone: true
+          merge_env: true
+          env_data: |
+            IMAGE_URI: ${{ steps.deploy_image.outputs.uri }}
+
+      - name: Set Portainer deploy result
+        if: github.event_name != 'pull_request'
+        id: set_portainer_result
+        run: echo "deployed=true" >> $GITHUB_OUTPUT
+
+  notify:
+    name: 邮件通知
+    runs-on: ubuntu-24.04
+    needs: [build]
+    if: github.event_name != 'pull_request' && always() && (needs.build.result == 'success' || needs.build.result == 'failure')
+    steps:
+      - name: 检查是否已配置邮件参数
+        id: check_mail
+        run: |
+          if [ -n "$MAIL_SMTP_SERVER" ] && [ -n "$MAIL_SMTP_PORT" ] && [ -n "$MAIL_USERNAME" ] && [ -n "$MAIL_PASSWORD" ] && [ -n "$MAIL_FROM" ] && [ -n "$MAIL_TO" ]; then
+            echo "send=true" >> $GITHUB_OUTPUT
+          else
+            echo "send=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          MAIL_SMTP_SERVER: ${{ secrets.MAIL_SMTP_SERVER }}
+          MAIL_SMTP_PORT: ${{ secrets.MAIL_SMTP_PORT }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ github.event.inputs.mail_to || secrets.MAIL_TO }}
+
+      - name: Set short SHA
+        id: short_sha
+        run: echo "sha=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: 发送构建结果邮件
+        if: steps.check_mail.outputs.send == 'true'
+        uses: dawidd6/action-send-mail@v3
+        continue-on-error: true
+        with:
+          server_address: ${{ secrets.MAIL_SMTP_SERVER }}
+          server_port: ${{ secrets.MAIL_SMTP_PORT }}
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: |
+            [cicada] Docker 构建 ${{ needs.build.result == 'success' && '成功' || '失败' }}
+            - ${{ github.ref_name }} | ${{ github.event_name }}
+          to: ${{ github.event.inputs.mail_to || secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_FROM }}
+          html_body: |
+            <!DOCTYPE html>
+            <html>
+            <head><meta charset="utf-8"></head>
+            <body style="font-family:sans-serif;font-size:14px;max-width:560px;margin:0 auto;padding:20px;">
+            <div style="padding:16px 20px;background:${{ needs.build.result == 'success' && '#d4edda' || '#f8d7da' }};border-radius:8px;">
+            cicada · Docker 构建 ${{ needs.build.result == 'success' && '成功' || '失败' }}
+            </div>
+            <p>仓库：${{ github.repository }}</p>
+            <p>分支 / Tag：${{ github.ref_name }}</p>
+            <p>提交：<code>${{ steps.short_sha.outputs.sha }}</code></p>
+            <p>镜像：${{ needs.build.outputs.image_uri || '未推送' }}</p>
+            <p>Portainer：${{ needs.build.outputs.portainer_deployed == 'true' && format('已更新 Stack {0}', needs.build.outputs.stack_name || 'cicada') || '未执行或失败' }}</p>
+            <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">查看运行详情</a></p>
+            </body>
+            </html>

@@ -6,6 +6,7 @@
 |------|------|
 | **站点部署** | `git push` → Vercel 自动构建上线（日常「发布网站」） |
 | **版本发布流水线** | `main` 推送后 GitHub Actions 跑 [semantic-release](../.releaserc)：分析 Conventional Commits、更新 `CHANGELOG.md` / 版本号、创建 GitHub Release（**不**发 npm） |
+| **自建 Docker / Portainer** | `Dockerfile` + `docker-compose.yml`；`v*` tag 触发 [docker-build.yml](../.github/workflows/docker-build.yml) 推镜像并更新 Portainer Stack（与 Vercel 并行，见 [README.docker.md](../README.docker.md)） |
 | **账号体系** | Better Auth + Prisma(MySQL)：邮箱密码、可选 GitHub、可选微信内 H5 拉起小程序登录（openid）；公开攻略页无需登录 |
 
 提交信息请用 Conventional Commits（如 `feat:`、`fix:`、`docs:`），否则可能不会 bump 版本。

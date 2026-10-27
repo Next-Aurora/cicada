@@ -12,7 +12,7 @@ alwaysApply: true
 - **Auth**：`lib/auth.ts`、`lib/auth-client.ts`、`lib/prisma.ts`、`prisma/`、`app/api/auth/[...all]/`、`app/login`、`app/register`
 - **质量**：`eslint.config.mjs`、`prettier.config.js`、`vitest.config.ts`
 - **版本发布**：`.releaserc`、`.github/workflows/release.yml`（semantic-release；**不**发 npm）
-- **部署**：Vercel（`vercel.json`）；与 semantic-release 互补
+- **部署**：Vercel（`vercel.json`）；可选自建 Docker/Portainer（`Dockerfile`、`docker-compose.yml`、`.github/workflows/docker-build.yml`，说明见 `README.docker.md`）
 - **Agent**：`.cursor/rules/`、`.cursor/skills/travel-guide`
 - **文档**：`docs/`、`README.md`；路线图见 `docs/roadmap.md`
 
