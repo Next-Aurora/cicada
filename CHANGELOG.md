@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Next-Aurora/cicada/compare/v1.1.0...v1.1.1) (2026-10-27)
+
+
+### Bug Fixes
+
+* unblock docker build typecheck and clarify ACR login ([693a4c6](https://github.com/Next-Aurora/cicada/commit/693a4c66960a4ecc7e4b0027f6d8d8bc8b257974))
+
 # [1.1.0](https://github.com/Next-Aurora/cicada/compare/v1.0.0...v1.1.0) (2026-10-27)
 
 
