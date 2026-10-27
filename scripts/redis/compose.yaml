@@ -1,0 +1,32 @@
+# 由 deploy-redis.sh 部署。重复执行会覆盖 /opt/redis/compose.yaml，但不会改 .env 与数据卷。
+# 只监听本机 6379，外网默认进不来。
+
+services:
+  redis:
+    container_name: redis
+    image: ${REDIS_IMAGE:-redis:7-alpine}
+    restart: unless-stopped
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --requirepass
+      - ${REDIS_PASSWORD}
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+volumes:
+  redis_data:
+    name: redis_data
+
+networks:
+  default:
+    name: redis_network

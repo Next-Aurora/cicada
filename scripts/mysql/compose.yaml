@@ -1,0 +1,34 @@
+# 由 deploy-mysql.sh 部署。重复执行会覆盖 /opt/mysql/compose.yaml，但不会改 .env 与数据卷。
+# 只监听本机 3306，外网默认进不来。
+
+services:
+  mysql:
+    container_name: mysql
+    image: ${MYSQL_IMAGE:-mysql:8.4}
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-cicada}
+      MYSQL_USER: ${MYSQL_USER:-cicada}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+volumes:
+  mysql_data:
+    name: mysql_data
+
+networks:
+  default:
+    name: mysql_network

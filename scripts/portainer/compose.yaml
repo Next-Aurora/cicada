@@ -1,0 +1,27 @@
+# 由 deploy-portainer.sh 部署。重复执行会覆盖 /opt/portainer/compose.yaml。
+# 9443 是直连用的 HTTPS。走 Nginx 时用本机 9000，不要把 Nginx 转到 9443。
+# 需要 Edge Agent 时，在 ports 下取消 8000 那一行的注释。
+
+services:
+  portainer:
+    container_name: portainer
+    image: ${PORTAINER_IMAGE:-portainer/portainer-ce:lts}
+    restart: unless-stopped
+    # 当前 LTS 镜像不支持 --trusted-proxies；反代 HTTP 只需要 --http-enabled。
+    command:
+      - --http-enabled
+    ports:
+      - "9443:9443"
+      - "127.0.0.1:9000:9000"
+      # - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:
+    name: portainer_data
+
+networks:
+  default:
+    name: portainer_network
