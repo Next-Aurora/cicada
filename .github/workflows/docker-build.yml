@@ -35,9 +35,9 @@ on:
 
 env:
   # 在仓库 Variables 中配置 ALIYUN_REGISTRY / ALIYUN_NAMESPACE（推送前必填 ALIYUN_REGISTRY）
-  ALIYUN_REGISTRY: ${{ vars.ALIYUN_REGISTRY != '' && vars.ALIYUN_REGISTRY || 'localhost:5000' }}
+  ALIYUN_REGISTRY: ${{ vars.ALIYUN_REGISTRY }}
   ALIYUN_NAMESPACE: ${{ vars.ALIYUN_NAMESPACE != '' && vars.ALIYUN_NAMESPACE || 'cicada' }}
-  IMAGE_NAME: cicada
+  IMAGE_NAME: cicadar-ui
 
 jobs:
   build:
@@ -60,8 +60,9 @@ jobs:
       - name: Require Aliyun registry variables
         if: github.event_name != 'pull_request'
         run: |
-          if [ -z "${{ env.ALIYUN_REGISTRY }}" ]; then
-            echo "请在仓库 Settings → Variables 配置 ALIYUN_REGISTRY（阿里云个人版域名）。" >&2
+          registry="${{ env.ALIYUN_REGISTRY }}"
+          if [ -z "$registry" ] || [ "$registry" = "localhost:5000" ]; then
+            echo "未配置阿里云镜像仓库：请在 Settings → Secrets and variables → Actions → Variables 设置 ALIYUN_REGISTRY（如 crpi-xxxx.cn-chengdu.personal.cr.aliyuncs.com），并配置 Secrets ALIYUN_ACCESS_KEY_ID / ALIYUN_ACCESS_KEY_SECRET。" >&2
             exit 1
           fi
 

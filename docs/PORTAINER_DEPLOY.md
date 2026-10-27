@@ -38,7 +38,7 @@ GitHub 托管 Runner 只能访问公网。Portainer 若仅内网可达，需公�
 
 ## 镜像与 Stack
 
-- 镜像：`{ALIYUN_REGISTRY}/{ALIYUN_NAMESPACE}/cicada:{version}`（tag 去掉前缀 `v`）
+- 镜像：`{ALIYUN_REGISTRY}/{ALIYUN_NAMESPACE}/cicadar-ui:{version}`（tag 去掉前缀 `v`）
 - Stack 文件：根目录 [`docker-compose.yml`](../docker-compose.yml)，`image: ${IMAGE_URI}`
 - CI 只提交该文件，并通过 `env_data` 传 `IMAGE_URI`；**不**读取 `docker-compose.override.yml`
 - 本地开发用 override 默认 `cicada:local`
