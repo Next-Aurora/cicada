@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/Next-Aurora/cicada/compare/v1.4.0...v1.4.1) (2026-10-28)
+
+
+### Bug Fixes
+
+* keyboard error ([6e07b55](https://github.com/Next-Aurora/cicada/commit/6e07b5577790dc105151518361aaf5f9ef8d7689))
+
 # [1.4.0](https://github.com/Next-Aurora/cicada/compare/v1.3.0...v1.4.0) (2026-10-28)
 
 
