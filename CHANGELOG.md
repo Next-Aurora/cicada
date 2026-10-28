@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/Next-Aurora/cicada/compare/v1.1.1...v1.2.0) (2026-10-28)
+
+
+### Features
+
+* adjust site style ([fd21e3e](https://github.com/Next-Aurora/cicada/commit/fd21e3eb3b4de65854d5f95425c70db88a3933bb))
+* update site slogan ([3fc14b4](https://github.com/Next-Aurora/cicada/commit/3fc14b47cd88586d50474e0b3c2d92096d09a3a2))
+
 ## [1.1.1](https://github.com/Next-Aurora/cicada/compare/v1.1.0...v1.1.1) (2026-10-27)
 
 
