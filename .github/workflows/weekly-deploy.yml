@@ -84,3 +84,4 @@ jobs:
     uses: ./.github/workflows/docker-build.yml
     with:
       environment: production
+      image_tag_prefix: weekly
