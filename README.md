@@ -6,7 +6,7 @@
 - UI：shadcn **base-nova**（`components/ui`）
 - 生产：以 Vercel 项目 [cicada](https://vercel.com/wintersmilesb101s-projects/cicada) 绑定域名为准
 - 版本发布：`main` 上 [semantic-release](.github/workflows/release.yml)（Changelog + GitHub Release）；站点上线仍靠 Vercel
-- 自建部署（可选）：Docker 镜像 + 阿里云仓库 + Portainer Stack，见 [README.docker.md](README.docker.md)、[docs/PORTAINER_DEPLOY.md](docs/PORTAINER_DEPLOY.md)
+- 自建部署（可选）：Docker 镜像 + 阿里云仓库 + Portainer Stack，见 [README.docker.md](README.docker.md)、[docs/PORTAINER_DEPLOY.md](docs/PORTAINER_DEPLOY.md)；Nginx / HTTPS 见 [scripts/nginx/README.md](scripts/nginx/README.md)
 - 账号：Better Auth + Prisma(MySQL)；邮箱密码、可选 GitHub、可选微信内 H5 拉起小程序登录；公开攻略页无需登录
 
 ## 日常开发

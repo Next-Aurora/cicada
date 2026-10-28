@@ -16,7 +16,7 @@
 | 目录 | 入口 | 说明 |
 |------|------|------|
 | `docker/` | `install.sh` | 安装 Docker Engine（腾讯云镜像） |
-| `nginx/` | `install.sh` | 安装并配置 Nginx |
+| `nginx/` | `install.sh`、`enable-https-wildcard.sh`、`enable-https.sh`、`cicadar.conf` | 安装 Nginx；**泛域名** / 多域名 HTTPS；主站反代。详见 [nginx/README.md](./nginx/README.md) |
 | `mysql/` | `deploy.sh` + `compose.yaml` | MySQL 8 |
 | `redis/` | `deploy.sh` + `compose.yaml` | Redis 7 |
 | `portainer/` | `deploy.sh` + `compose.yaml` | Portainer CE |
@@ -28,7 +28,12 @@ sudo bash scripts/docker/install.sh
 sudo bash scripts/mysql/deploy.sh
 sudo bash scripts/redis/deploy.sh
 sudo bash scripts/portainer/deploy.sh
-sudo bash scripts/nginx/install.sh --server-name example.com --upstream 127.0.0.1:3000
+sudo bash scripts/nginx/install.sh
+sudo cp scripts/nginx/cicadar.conf /etc/nginx/sites-available/cicadar.conf
+sudo ln -sfn /etc/nginx/sites-available/cicadar.conf /etc/nginx/sites-enabled/cicadar.conf
+sudo nginx -t && sudo systemctl reload nginx
+# 泛域名证书（推荐）：先配置 /etc/cicadar/dns-credentials.env；大陆加 --china
+sudo bash scripts/nginx/enable-https-wildcard.sh --email you@example.com --china
 ```
 
-应用本体的 Docker / Portainer CI 见仓库根目录 `Dockerfile`、`docker-compose.yml`、`README.docker.md`。
+Nginx / HTTPS（含泛域名）见 **[nginx/README.md](./nginx/README.md)**。应用本体的 Docker / Portainer CI 见仓库根目录 `Dockerfile`、`docker-compose.yml`、`README.docker.md`。

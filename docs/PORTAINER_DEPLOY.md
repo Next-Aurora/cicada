@@ -80,11 +80,25 @@ pnpm db:migrate
 3. 填写环境变量（至少 `IMAGE_URI`、`DATABASE_URL`、`BETTER_AUTH_SECRET`、`BETTER_AUTH_URL`）
 4. Deploy；之后由 CI 更新镜像
 
-Nginx 反代本机 3000 示例：
+### Nginx 反代与 HTTPS
+
+完整步骤见 **[scripts/nginx/README.md](../scripts/nginx/README.md)**。摘要（**推荐泛域名**）：
 
 ```bash
-sudo bash scripts/nginx/install.sh --server-name 你的域名 --upstream 127.0.0.1:3000
+sudo bash scripts/nginx/install.sh
+sudo cp scripts/nginx/cicadar.conf /etc/nginx/sites-available/cicadar.conf
+sudo ln -sfn /etc/nginx/sites-available/cicadar.conf /etc/nginx/sites-enabled/cicadar.conf
+sudo nginx -t && sudo systemctl reload nginx
+# DNS API 凭据 → /etc/cicadar/dns-credentials.env（见 dns-credentials.env.example）
+# 大陆加 --china；须保证域名 NS 已指向该解析商
+sudo bash scripts/nginx/enable-https-wildcard.sh --email you@example.com --china
+# 取消站点 conf 中 HTTPS 注释：include /etc/nginx/snippets/ssl-cicadar.cn.conf;
 ```
+
+- 反代模板：[`cicadar.conf`](../scripts/nginx/cicadar.conf)；证书覆盖 `cicadar.cn` + `*.cicadar.cn`，acme.sh 自动续期
+- 凭据 / `--china` / TXT NXDOMAIN 排查：见 [`scripts/nginx/README.md`](../scripts/nginx/README.md)
+- 无 DNS API 时可用备选 [`enable-https.sh`](../scripts/nginx/enable-https.sh)（HTTP-01，须每个域名已有公网解析）
+- 其他通用反代：`sudo bash scripts/nginx/install.sh --server-name 你的域名 --upstream 127.0.0.1:3000`
 
 ## 故障排查
 
@@ -113,4 +127,5 @@ ACR 个人版不接受 BuildKit 默认附带的 OCI attestation。workflow 已�
 ## 相关文档
 
 - [README.docker.md](../README.docker.md)
+- [scripts/nginx/README.md](../scripts/nginx/README.md)（反代 + HTTPS）
 - [路线图](./roadmap.md)

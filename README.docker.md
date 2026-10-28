@@ -6,7 +6,7 @@
 
 - Docker 20.10+、Compose v2
 - 服务器上已部署 MySQL（可用 `scripts/mysql/deploy.sh`）
-- 可选：Nginx、Portainer（见 `scripts/nginx/`、`scripts/portainer/`）
+- 可选：Nginx、Portainer（见 [`scripts/nginx/README.md`](./scripts/nginx/README.md)、`scripts/portainer/`）
 
 ## 本地构建并运行
 
@@ -30,7 +30,23 @@ curl -fsS http://127.0.0.1:3000/api/health
 
 - **运行时**注入 `DATABASE_URL`、`BETTER_AUTH_*`（不是构建期 `NEXT_PUBLIC_*`）
 - 宿主机 MySQL：`DATABASE_URL=...@host.docker.internal:3306/cicada`
-- 默认端口绑定 `127.0.0.1:3000`，前面用 Nginx 反代
+- 默认端口绑定 `127.0.0.1:3000`，前面用 Nginx 反代（配置见 `scripts/nginx/cicadar.conf`）
+- 对外 HTTPS：推荐泛域名 `scripts/nginx/enable-https-wildcard.sh`（步骤见 [scripts/nginx/README.md](./scripts/nginx/README.md)）
+
+### Nginx 反代与 HTTPS（摘要）
+
+```bash
+sudo bash scripts/nginx/install.sh
+sudo cp scripts/nginx/cicadar.conf /etc/nginx/sites-available/cicadar.conf
+sudo ln -sfn /etc/nginx/sites-available/cicadar.conf /etc/nginx/sites-enabled/cicadar.conf
+sudo nginx -t && sudo systemctl reload nginx
+# 凭据：/etc/cicadar/dns-credentials.env（见 dns-credentials.env.example）
+# 大陆加 --china；TXT NXDOMAIN 见 scripts/nginx/README.md 故障排查
+sudo bash scripts/nginx/enable-https-wildcard.sh --email you@example.com --china
+# 然后取消 cicadar.conf 中 HTTPS server 注释并 reload
+```
+
+泛证书覆盖 `cicadar.cn` + `*.cicadar.cn`，自动续期；子域共用 `/etc/nginx/snippets/ssl-cicadar.cn.conf`。
 
 ## 常用命令
 
