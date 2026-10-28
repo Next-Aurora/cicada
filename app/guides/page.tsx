@@ -5,7 +5,7 @@ import { listGuides } from "@/lib/guides"
 
 export const metadata: Metadata = {
   title: "旅行攻略",
-  description: "逆蝉 · 旅行攻略列表",
+  description: "凌风蝉 · 旅行攻略列表",
 }
 
 export default function GuidesPage() {
@@ -15,7 +15,7 @@ export default function GuidesPage() {
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-12 sm:px-8 sm:py-16">
       <header className="mb-10">
         <Link href="/" className="text-primary text-sm font-semibold hover:underline">
-          ← 逆蝉
+          ← 凌风蝉
         </Link>
         <h1 className="font-heading text-foreground mt-4 text-3xl font-bold tracking-tight sm:text-4xl">旅行攻略</h1>
         <p className="text-muted-foreground mt-3 max-w-xl text-base leading-relaxed">

@@ -214,11 +214,11 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
     ? "微信登录成功。请绑定登录方式后继续，后续将支持手机号。"
     : showWeChat
       ? githubEnabled
-        ? "使用微信、邮箱密码或 GitHub 登录逆蝉"
-        : "使用微信或邮箱密码登录逆蝉"
+        ? "使用微信、邮箱密码或 GitHub 登录凌风蝉"
+        : "使用微信或邮箱密码登录凌风蝉"
       : githubEnabled
-        ? "使用邮箱密码或 GitHub 登录逆蝉"
-        : "使用邮箱密码登录逆蝉"
+        ? "使用邮箱密码或 GitHub 登录凌风蝉"
+        : "使用邮箱密码登录凌风蝉"
 
   if (requireBindIdentity) {
     return (

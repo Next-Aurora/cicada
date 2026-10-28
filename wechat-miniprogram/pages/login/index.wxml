@@ -1,6 +1,6 @@
 <view class="page">
   <view class="card">
-    <view class="title">登录逆蝉</view>
+    <view class="title">登录凌风蝉</view>
     <view class="desc">
       {{done ? "登录成功，请返回网页继续" : "正在使用微信授权登录…"}}
     </view>

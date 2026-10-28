@@ -4,8 +4,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: { absolute: "逆蝉 · cicadar" },
-  description: "逆蝉（cicadar）— 个人站点：旅行攻略、博客与小工具。",
+  title: { absolute: "凌风蝉 · cicadar" },
+  description: "凌风蝉（cicadar）— 个人站点：旅行攻略、博客与小工具。",
 }
 
 const entries = [
@@ -34,7 +34,7 @@ export default function HomePage() {
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center px-6 py-16 sm:px-8">
       <header className="animate-[fade-up_0.7s_ease-out_both]">
         <h1 className="font-heading text-foreground text-[clamp(3.25rem,14vw,5.75rem)] leading-none font-bold tracking-tight">
-          逆蝉
+          凌风蝉
         </h1>
         <p className="text-muted-foreground mt-3 text-lg tracking-[0.2em] sm:text-xl">cicadar</p>
         <p className="text-foreground mt-6 max-w-md text-base leading-relaxed sm:text-lg">

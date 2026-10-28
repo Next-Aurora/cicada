@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const description =
     [guide.destination, guide.dates, guide.summary].filter(Boolean).join(" · ") ||
-    "逆蝉旅行攻略"
+    "凌风蝉旅行攻略"
 
   const images = guide.ogImage ? [guide.ogImage] : undefined
 
