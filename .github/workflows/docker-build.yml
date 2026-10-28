@@ -2,6 +2,13 @@ name: Build and Push Docker Image
 
 # 与 semantic-release 产出的 v* tag 对齐：tag 推送后构建镜像并更新 Portainer Stack
 on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "部署目标环境（同 workflow_dispatch）"
+        required: false
+        type: string
+        default: auto
   push:
     tags:
       - "v*"
@@ -144,7 +151,7 @@ jobs:
         if: github.event_name != 'pull_request'
         id: deploy_env
         run: |
-          ENV_INPUT="${{ github.event.inputs.environment || 'auto' }}"
+          ENV_INPUT="${{ inputs.environment || github.event.inputs.environment || 'auto' }}"
           SUFFIX_INPUT="${{ github.event.inputs.stack_suffix || '' }}"
           if [ "$ENV_INPUT" = "auto" ] || [ -z "$ENV_INPUT" ]; then
             DEPLOY_ENV=production

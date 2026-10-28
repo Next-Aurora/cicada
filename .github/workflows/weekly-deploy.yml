@@ -1,0 +1,86 @@
+# 每周定时构建并部署自建栈（Portainer），仅当 main 自上次成功 weekly 以来有新提交时执行。
+# 时间：北京时间 周一 00:00（周日 24:00）= UTC 周日 16:00。
+# Vercel 仍随 push main 自动部署；本 workflow 面向 Docker + Portainer 通道。
+name: Weekly Deploy
+
+on:
+  schedule:
+    - cron: "0 16 * * 0"
+  workflow_dispatch:
+
+concurrency:
+  group: weekly-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  check-changes:
+    name: 检查 main 是否有新提交
+    runs-on: ubuntu-24.04
+    outputs:
+      should_deploy: ${{ steps.changes.outputs.should_deploy }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 对比上次 weekly 成功运行的提交
+        id: changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          head_sha="$(git rev-parse HEAD)"
+          last="$(
+            gh run list \
+              --repo "${{ github.repository }}" \
+              --workflow=weekly-deploy.yml \
+              --branch=main \
+              --status=success \
+              --limit=1 \
+              --json headSha \
+              --jq '.[0].headSha // empty' 2>/dev/null || true
+          )"
+
+          if [ -z "$last" ]; then
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            echo "尚无 weekly 成功记录，将执行部署（提交 ${head_sha:0:7}）"
+            exit 0
+          fi
+
+          if [ "$last" = "$head_sha" ]; then
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+            echo "main 与上次 weekly 部署提交相同（${head_sha:0:7}），跳过"
+            exit 0
+          fi
+
+          if git merge-base --is-ancestor "$last" "$head_sha" 2>/dev/null; then
+            count="$(git rev-list --count "${last}..${head_sha}")"
+            if [ "$count" -gt 0 ]; then
+              echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+              echo "自上次 weekly 以来 ${count} 个新提交，将部署 ${head_sha:0:7}"
+            else
+              echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+              echo "无新提交，跳过"
+            fi
+          else
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            echo "无法以线性历史对比 ${last:0:7}，为安全起见仍执行部署"
+          fi
+
+  deploy:
+    name: 构建镜像并更新 Portainer
+    needs: check-changes
+    if: needs.check-changes.outputs.should_deploy == 'true'
+    permissions:
+      contents: read
+      packages: write
+    secrets: inherit
+    uses: ./.github/workflows/docker-build.yml
+    with:
+      environment: production
