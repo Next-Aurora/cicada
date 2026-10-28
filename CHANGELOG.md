@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/Next-Aurora/cicada/compare/v1.2.0...v1.3.0) (2026-10-28)
+
+
+### Features
+
+* add icon of site ([13187ea](https://github.com/Next-Aurora/cicada/commit/13187ea81b445bcab16fc51dfa48479635602939))
+* refine home layout with site header and entry cards ([98a516d](https://github.com/Next-Aurora/cicada/commit/98a516d3d0321257c696db48cbd9a5859a838622))
+
 # [1.2.0](https://github.com/Next-Aurora/cicada/compare/v1.1.1...v1.2.0) (2026-10-28)
 
 
