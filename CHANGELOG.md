@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/Next-Aurora/cicada/compare/v1.3.0...v1.4.0) (2026-10-28)
+
+
+### Features
+
+* update some style ([9b26d41](https://github.com/Next-Aurora/cicada/commit/9b26d41d785fc25c241383185eb9ff22808b82b0))
+
 # [1.3.0](https://github.com/Next-Aurora/cicada/compare/v1.2.0...v1.3.0) (2026-10-28)
 
 

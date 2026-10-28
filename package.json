@@ -1,6 +1,6 @@
 {
   "name": "cicada",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "sync-guides": "node scripts/sync-guides.mjs",
