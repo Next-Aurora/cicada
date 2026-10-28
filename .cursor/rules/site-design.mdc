@@ -9,7 +9,7 @@ alwaysApply: true
 
 ## 品牌与文案
 
-- 中文名 **凌风蝉**，工程/域名 **cicadar**；顶栏 `SiteBrand` 为唯一常驻品牌展示。
+- 中文名 **凌风蝉**，工程/域名 **cicadar**；顶栏 `SiteBrand` 为唯一常驻品牌展示（`inline-flex items-center`；主副标均 `leading-none`；中文渐变主标 + 副标 `cicadar`：`uppercase`、`text-xs sm:text-[13px]`、`font-medium`、`tracking-wider`，副标默认与主标同 flex 居中 + `leading-none`；微调时用 `sm:top-px` 下移，**勿** `负 top`（易偏上）；**不要** 过大 letter-spacing 如 `tracking-[0.28em]`）。
 - **勿重复品牌**：已有顶栏时，页面内不要再放「凌风蝉 · cicadar」胶囊或第二套 logo 标题。
 - **渐变字只用于顶栏品牌**（`components/site-brand.tsx`）；**不要** `bg-clip-text` 渐变标题。
 - 避免「个人站点」「轻快的个人站点」等旧表述。
@@ -29,6 +29,7 @@ alwaysApply: true
 ## 全局壳层
 
 - `SiteChrome`：`PageAtmosphere` 固定渐变光斑 + 半透明 sticky 顶栏 + 页脚备案。
+- 顶栏内边距宜 **偏紧**：`pb-2`，`pt-[max(0.5rem,env(safe-area-inset-top))]`（勿 `py-3` 以上叠过大 safe-area 下限）。
 - `/g/*` 攻略阅读页隐藏顶栏；其余公开页保留顶栏与氛围背景。
 - 语义色：`styles/tailwind.css` 将 teal 品牌映射到 `primary`；优先 `bg-background`、`text-foreground`、`text-muted-foreground`、`border-border`、`text-primary`。
 
