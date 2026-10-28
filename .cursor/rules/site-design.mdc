@@ -1,0 +1,75 @@
+---
+description: 凌风蝉站点视觉与文案约定（Next 壳层、首页、认证、顶栏）
+alwaysApply: true
+---
+
+# 站点设计风格
+
+面向 `app/`、`components/`（攻略静态 HTML `guides/` 除外）。与 `ui-stack.mdc`（shadcn base-nova）配合使用。
+
+## 品牌与文案
+
+- 中文名 **凌风蝉**，工程/域名 **cicadar**；顶栏 `SiteBrand` 为唯一常驻品牌展示。
+- **勿重复品牌**：已有顶栏时，页面内不要再放「凌风蝉 · cicadar」胶囊或第二套 logo 标题。
+- **渐变字只用于顶栏品牌**（`components/site-brand.tsx`）；**不要** `bg-clip-text` 渐变标题。
+- 避免「个人站点」「轻快的个人站点」等旧表述。
+
+### 标题字重与颜色（已定稿）
+
+| 场景 | 类名要点 |
+|------|----------|
+| 顶栏品牌 | 渐变字，仅 `SiteBrand` |
+| 首页主标语（有 eyebrow 时） | `text-foreground text-2xl font-semibold sm:text-3xl` |
+| 登录/注册页 `<h1>`（无 eyebrow） | `font-heading text-foreground/80 text-2xl font-medium leading-snug tracking-tight sm:text-3xl`（`AuthPageShell`） |
+| 认证流卡片内小标题（如「完善账号」） | `text-foreground/80 text-lg font-medium` |
+| 页级说明、副文案 | `text-muted-foreground`，`text-sm sm:text-base`，`leading-relaxed` |
+
+无 eyebrow 的页不要用满黑 `text-foreground` + `font-semibold` 做大标题；需要强调时用 primary 胶囊 eyebrow 或顶栏品牌，而不是把 `<h1>` 涂成渐变或加粗到纯黑。
+
+## 全局壳层
+
+- `SiteChrome`：`PageAtmosphere` 固定渐变光斑 + 半透明 sticky 顶栏 + 页脚备案。
+- `/g/*` 攻略阅读页隐藏顶栏；其余公开页保留顶栏与氛围背景。
+- 语义色：`styles/tailwind.css` 将 teal 品牌映射到 `primary`；优先 `bg-background`、`text-foreground`、`text-muted-foreground`、`border-border`、`text-primary`。
+
+## 首页与内容页节奏
+
+- 主内容常 **垂直居中**（`flex-1 justify-center`），`max-w-6xl` 容器、`px-6 sm:px-8 lg:px-10`。
+- 区块入场：`animate-[fade-up_0.7s_ease-out_both]`（可带 stagger delay）。
+- **Eyebrow 胶囊**（`bg-primary/10 text-primary rounded-full` + 小圆点）：只表达 **栏目/主题**（如「旅行 · 记录 · 小工具」），不承载品牌名。
+- 主标语样式见上表「首页主标语」；副文案 `text-muted-foreground`。
+- 主 CTA：`Button` + `rounded-full`，高度约 `h-10`。
+
+## 卡片（入口、表单）
+
+- 可点击入口卡：`border-0 bg-card shadow-md ring-1 ring-primary/20`；顶条 **1px 装饰渐变** `from-primary to-sky-500`（装饰线，不是标题渐变）。
+- 角标/icon 方块：`rounded-xl`、`bg-primary/12 text-primary`；勿大块 emoji、勿过花整卡渐变。
+- 未开放项：虚线边框 `border-dashed`、`bg-muted/45`、「即将开放」小胶囊。
+
+## 顶栏认证
+
+- `AuthMenu` 未登录：**一组胶囊**（`rounded-full` 浅底 + `ring-foreground/10`），登录 ghost、注册白底 `text-primary`；勿 ghost + outline 混用。
+- 已登录：昵称 truncate + ghost「退出」。
+
+## 登录 / 注册
+
+- 布局：`AuthPageShell`（居中、`animate-[fade-up_0.7s_ease-out_both]`、**无品牌 eyebrow**、`<h1>` 用上表认证页标题类名 + `description` +「← 返回首页」）；表单在 `AuthCard`（与入口卡同顶条 + ring）。
+- **勿重复「凌风蝉」**：顶栏已展示品牌，shell 内不要再加品牌胶囊或第二套 logo。
+- 输入：`authFieldClass`（`h-10 rounded-xl`）；主按钮 `authPrimaryButtonClass`（全宽 `rounded-full`）；GitHub 等 `authSecondaryButtonClass`；分隔用 `AuthDivider`。
+- 页级说明写在 shell 的 `description`；卡片内 `CardDescription` 只写登录方式相关短句，避免再写品牌名。
+
+## 禁止 / 慎用
+
+- 不要恢复已删的平行 UI 库；不要为站点壳层新增 Radix（见 `ui-stack.mdc`）。
+- 不要为「好看」堆叠全屏强渐变、大面积渐变标题、或 Storybook 式 demo 布局。
+- Favicon：沿用 `app/icon.jpg` 等位图；勿随意上复杂 SVG 心形/写实蝉 unless 用户明确要求。
+
+## 参考文件
+
+| 用途 | 路径 |
+|------|------|
+| 氛围 | `components/page-atmosphere.tsx` |
+| 顶栏 | `components/site-header.tsx`, `site-brand.tsx`, `auth-menu.tsx` |
+| 首页 | `app/page.tsx` |
+| 认证壳 | `components/auth-page-shell.tsx`, `auth-card.tsx` |
+| Token | `styles/tailwind.css` |

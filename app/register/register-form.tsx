@@ -4,8 +4,15 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
+import {
+  AuthCard,
+  AuthDivider,
+  authFieldClass,
+  authPrimaryButtonClass,
+  authSecondaryButtonClass,
+} from "@/components/auth-card"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, CardDescription, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { authClient } from "@/lib/auth-client"
@@ -54,10 +61,13 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>注册</CardTitle>
-        <CardDescription>创建账号，后续可用于评论与收藏</CardDescription>
+    <AuthCard>
+      <CardHeader className="gap-2 pt-1">
+        <CardDescription className="text-sm leading-relaxed">
+          {githubEnabled
+            ? "填写以下信息即可完成注册；也可在下方使用 GitHub。"
+            : "填写以下信息即可完成注册。"}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <form className="flex flex-col gap-3" onSubmit={onSubmit}>
@@ -67,6 +77,7 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
               id="name"
               autoComplete="name"
               required
+              className={authFieldClass}
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -78,6 +89,7 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
               type="email"
               autoComplete="email"
               required
+              className={authFieldClass}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -90,36 +102,38 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
               autoComplete="new-password"
               required
               minLength={8}
+              className={authFieldClass}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           {error ? <p className="text-destructive text-sm">{error}</p> : null}
-          <Button type="submit" disabled={pending} className="mt-1">
+          <Button type="submit" disabled={pending} className={authPrimaryButtonClass}>
             {pending ? "注册中…" : "注册"}
           </Button>
         </form>
 
         {githubEnabled ? (
           <>
-            <div className="text-muted-foreground flex items-center gap-3 text-xs">
-              <span className="bg-border h-px flex-1" />
-              或
-              <span className="bg-border h-px flex-1" />
-            </div>
-            <Button type="button" variant="outline" onClick={() => void onGitHub()}>
+            <AuthDivider />
+            <Button
+              type="button"
+              variant="outline"
+              className={authSecondaryButtonClass}
+              onClick={() => void onGitHub()}
+            >
               使用 GitHub 注册/登录
             </Button>
           </>
         ) : null}
 
-        <p className="text-muted-foreground text-center text-sm">
+        <p className="text-muted-foreground border-border/60 border-t pt-4 text-center text-sm">
           已有账号？{" "}
-          <Link href="/login" className="text-primary underline-offset-4 hover:underline">
+          <Link href="/login" className="text-primary font-medium underline-offset-4 hover:underline">
             登录
           </Link>
         </p>
       </CardContent>
-    </Card>
+    </AuthCard>
   )
 }

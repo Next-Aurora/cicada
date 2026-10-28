@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
+import { cn } from "@/lib/utils"
 import {
   clearLastActivityTs,
   openIdleChannel,
@@ -46,11 +47,26 @@ export function AuthMenu() {
   }
 
   return (
-    <div className="flex items-center gap-1">
-      <Button render={<Link href="/login" />} nativeButton={false} variant="ghost" size="sm">
+    <div className="bg-muted/50 flex items-center gap-0.5 rounded-full p-0.5 ring-1 ring-foreground/10">
+      <Button
+        render={<Link href="/login" />}
+        nativeButton={false}
+        variant="ghost"
+        size="sm"
+        className={cn("h-8 rounded-full px-3.5 text-sm font-medium", "hover:bg-background/80")}
+      >
         登录
       </Button>
-      <Button render={<Link href="/register" />} nativeButton={false} variant="outline" size="sm">
+      <Button
+        render={<Link href="/register" />}
+        nativeButton={false}
+        variant="ghost"
+        size="sm"
+        className={cn(
+          "h-8 rounded-full px-3.5 text-sm font-medium",
+          "bg-background text-primary shadow-sm hover:bg-background"
+        )}
+      >
         注册
       </Button>
     </div>
