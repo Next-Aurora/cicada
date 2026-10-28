@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { listGuides } from "@/lib/guides"
+import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "旅行攻略",
@@ -12,39 +14,69 @@ export default function GuidesPage() {
   const guides = listGuides()
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-12 sm:px-8 sm:py-16">
-      <header className="mb-10">
-        <Link href="/" className="text-primary text-sm font-semibold hover:underline">
+    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-6 py-12 sm:px-8 sm:py-16">
+      <header className="animate-[fade-up_0.6s_ease-out_both] mb-10">
+        <Link
+          href="/"
+          className="text-primary hover:bg-primary/10 inline-flex items-center gap-1 rounded-full px-2 py-1 text-sm font-semibold transition"
+        >
           ← 凌风蝉
         </Link>
-        <h1 className="font-heading text-foreground mt-4 text-3xl font-bold tracking-tight sm:text-4xl">旅行攻略</h1>
+        <h1 className="font-heading text-foreground mt-5 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          旅行攻略
+        </h1>
         <p className="text-muted-foreground mt-3 max-w-xl text-base leading-relaxed">
-          由 travel-guide 生成的行程页。新攻略写入仓库 <code className="text-sm">guides/</code> 后同步上线。
+          由 travel-guide 生成的行程页。新攻略写入仓库{" "}
+          <code className="bg-muted rounded-md px-1.5 py-0.5 text-sm">guides/</code> 后同步上线。
         </p>
       </header>
 
       {guides.length === 0 ? (
-        <p className="border-border bg-card text-muted-foreground border px-4 py-6">
-          暂无攻略。添加 <code>guides/&lt;slug&gt;/index.html</code> 后执行 <code>pnpm sync-guides</code>。
-        </p>
+        <Card className="border-0 bg-card/80 ring-1 ring-foreground/10">
+          <CardHeader>
+            <CardTitle className="text-base">暂无攻略</CardTitle>
+            <CardDescription>
+              添加 <code>guides/&lt;slug&gt;/index.html</code> 后执行 <code>pnpm sync-guides</code>。
+            </CardDescription>
+          </CardHeader>
+        </Card>
       ) : (
-        <ul className="border-border flex flex-col gap-8 border-t pt-8">
-          {guides.map((g) => (
-            <li key={g.slug}>
-              <Link href={`/g/${g.slug}`} className="group block max-w-xl">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="text-foreground group-hover:text-primary text-xl font-semibold transition">
-                    {g.title}
-                    <span className="text-primary ml-2 transition group-hover:translate-x-1">→</span>
-                  </h2>
-                  {g.dates ? <span className="text-muted-foreground text-sm">{g.dates}</span> : null}
-                </div>
-                {(g.destination || g.summary) && (
-                  <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    {g.destination ? `${g.destination} · ` : ""}
-                    {g.summary || ""}
-                  </p>
-                )}
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {guides.map((g, index) => (
+            <li
+              key={g.slug}
+              className="animate-[fade-up_0.6s_ease-out_both]"
+              style={{ animationDelay: `${index * 0.06}s` }}
+            >
+              <Link href={`/g/${g.slug}`} className="group block h-full">
+                <Card
+                  className={cn(
+                    "h-full border-0 bg-card/85 py-5 shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition duration-300",
+                    "hover:-translate-y-0.5 hover:shadow-md hover:ring-primary/25"
+                  )}
+                >
+                  <CardHeader className="gap-2">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <CardTitle className="group-hover:text-primary pr-2 text-lg leading-snug transition">
+                        {g.title}
+                        <span className="text-primary ml-1 inline-block transition group-hover:translate-x-0.5">
+                          →
+                        </span>
+                      </CardTitle>
+                      {g.dates ? (
+                        <span className="bg-primary/10 text-primary shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium">
+                          {g.dates}
+                        </span>
+                      ) : null}
+                    </div>
+                    {(g.destination || g.summary) && (
+                      <CardDescription className="line-clamp-3 text-sm leading-relaxed">
+                        {g.destination ? `${g.destination} · ` : ""}
+                        {g.summary || ""}
+                      </CardDescription>
+                    )}
+                  </CardHeader>
+                </Card>
               </Link>
             </li>
           ))}
