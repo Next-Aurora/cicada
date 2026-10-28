@@ -14,15 +14,9 @@ export default function GuidesPage() {
   const guides = listGuides()
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-6 py-12 sm:px-8 sm:py-16">
-      <header className="animate-[fade-up_0.6s_ease-out_both] mb-10">
-        <Link
-          href="/"
-          className="text-primary hover:bg-primary/10 inline-flex items-center gap-1 rounded-full px-2 py-1 text-sm font-semibold transition"
-        >
-          ← 凌风蝉
-        </Link>
-        <h1 className="font-heading text-foreground mt-5 text-3xl font-extrabold tracking-tight sm:text-4xl">
+    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 py-10 sm:px-8 sm:py-14 lg:px-10">
+      <header className="animate-[fade-up_0.6s_ease-out_both] mb-10 max-w-3xl">
+        <h1 className="font-heading text-foreground text-3xl font-extrabold tracking-tight sm:text-4xl">
           旅行攻略
         </h1>
         <p className="text-muted-foreground mt-3 max-w-xl text-base leading-relaxed">

@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation"
 
-import { AuthMenu } from "@/components/auth-menu"
 import { IdleSessionGuard } from "@/components/idle-session-guard"
 import { PageAtmosphere } from "@/components/page-atmosphere"
+import { SiteHeader } from "@/components/site-header"
 
 type SiteChromeProps = {
   children: React.ReactNode
@@ -13,19 +13,13 @@ type SiteChromeProps = {
 
 export function SiteChrome({ children, idleTimeoutMs }: SiteChromeProps) {
   const pathname = usePathname()
-  const hideFloatingAuth = pathname.startsWith("/g/")
+  const hideSiteHeader = pathname.startsWith("/g/")
 
   return (
     <div className="flex min-h-dvh flex-col">
       <PageAtmosphere />
       <IdleSessionGuard timeoutMs={idleTimeoutMs} />
-      {hideFloatingAuth ? null : (
-        <div className="pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-end px-4 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
-          <div className="bg-card/75 pointer-events-auto rounded-full p-1 shadow-sm ring-1 ring-foreground/10 backdrop-blur-md">
-            <AuthMenu />
-          </div>
-        </div>
-      )}
+      {hideSiteHeader ? null : <SiteHeader />}
       <div className="flex min-h-0 flex-1 flex-col">{children}</div>
       <footer className="border-border shrink-0 border-t px-6 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-center">
         <a

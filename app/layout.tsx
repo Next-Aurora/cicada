@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: "凌风蝉 · cicadar",
     template: "%s · 凌风蝉",
   },
-  description: "凌风蝉（cicadar）— 个人站点：旅行攻略、博客与小工具。",
+  description: "凌风蝉（cicadar）— 旅行攻略、博客与小工具，持续更新。",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

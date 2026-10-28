@@ -1,6 +1,6 @@
 # 凌风蝉 · cicadar
 
-个人站点：**旅行攻略**、博客与小工具（后两者陆续开放）。
+**旅行攻略**、博客与小工具（后两者陆续开放）。
 
 - 仓库：[Next-Aurora/cicada](https://github.com/Next-Aurora/cicada)
 - UI：shadcn **base-nova**（`components/ui`）
