@@ -16,24 +16,18 @@ const entries = [
     title: "旅行攻略",
     desc: "可执行的行程页，持续更新",
     available: true,
-    emoji: "🗺️",
-    accent: "from-teal-500/15 to-sky-400/10",
   },
   {
     href: "#",
     title: "博客",
     desc: "随笔与记录 · 即将开放",
     available: false,
-    emoji: "✍️",
-    accent: "from-violet-500/10 to-fuchsia-400/10",
   },
   {
     href: "#",
     title: "小工具",
     desc: "日常好用的小能力 · 即将开放",
     available: false,
-    emoji: "🧰",
-    accent: "from-amber-500/15 to-orange-400/10",
   },
 ] as const
 
@@ -42,7 +36,7 @@ export default function HomePage() {
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center px-6 py-14 sm:px-8 sm:py-20">
       <header className="animate-[fade-up_0.7s_ease-out_both] text-center sm:text-left">
         <p className="bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide">
-          <span aria-hidden className="size-1.5 rounded-full bg-primary shadow-[0_0_8px_var(--primary)]" />
+          <span aria-hidden className="bg-primary size-1.5 rounded-full" />
           旅行 · 记录 · 小工具
         </p>
         <h1 className="font-heading mt-6 text-[clamp(2.75rem,12vw,4.5rem)] leading-[1.05] font-extrabold tracking-tight">
@@ -57,12 +51,7 @@ export default function HomePage() {
           轻快的个人站点：攻略已上线，博客和小工具会陆续长出来。
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-          <Button
-            render={<Link href="/guides" />}
-            nativeButton={false}
-            size="lg"
-            className="shadow-primary/25 h-10 rounded-full px-6 shadow-lg"
-          >
+          <Button render={<Link href="/guides" />} nativeButton={false} size="lg" className="h-10 rounded-full px-6">
             查看旅行攻略
           </Button>
           <Button
@@ -77,64 +66,44 @@ export default function HomePage() {
         </div>
       </header>
 
-      <nav
-        aria-label="站点入口"
-        className="animate-[fade-up_0.7s_ease-out_0.12s_both] mt-14 sm:mt-16"
-      >
-        <ul className="grid gap-4 sm:grid-cols-3">
-          {entries.map((item, index) => (
-            <li
-              key={item.title}
-              className="animate-[fade-up_0.65s_ease-out_both]"
-              style={{ animationDelay: `${0.08 * index + 0.15}s` }}
-            >
+      <nav aria-label="站点入口" className="animate-[fade-up_0.7s_ease-out_0.12s_both] mt-14 sm:mt-16">
+        <ul className="grid gap-3 sm:grid-cols-3">
+          {entries.map((item) => (
+            <li key={item.title}>
               {item.available ? (
                 <Link href={item.href} className="group block h-full">
                   <Card
                     className={cn(
-                      "h-full border-0 bg-card/80 py-5 shadow-sm ring-1 ring-foreground/10 backdrop-blur-sm transition duration-300",
-                      "hover:-translate-y-1 hover:shadow-md hover:ring-primary/30"
+                      "h-full border-border/80 bg-card/70 py-4 transition-colors",
+                      "hover:border-primary/35 hover:bg-card"
                     )}
                   >
-                    <CardHeader className="gap-3">
-                      <span
-                        aria-hidden
-                        className={cn(
-                          "flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br text-xl",
-                          item.accent
-                        )}
-                      >
-                        {item.emoji}
-                      </span>
-                      <CardTitle className="group-hover:text-primary flex items-center gap-1 text-lg transition">
+                    <CardHeader className="gap-2">
+                      <CardTitle className="group-hover:text-primary flex items-center gap-2 text-base font-semibold transition-colors">
+                        <span
+                          aria-hidden
+                          className="bg-primary/70 group-hover:bg-primary h-4 w-0.5 shrink-0 rounded-full"
+                        />
                         {item.title}
-                        <span className="text-primary inline-block transition group-hover:translate-x-0.5">
+                        <span className="text-primary ml-auto text-sm opacity-0 transition group-hover:opacity-100">
                           →
                         </span>
                       </CardTitle>
-                      <CardDescription className="text-sm leading-relaxed">{item.desc}</CardDescription>
+                      <CardDescription className="pl-2.5 text-sm leading-relaxed">{item.desc}</CardDescription>
                     </CardHeader>
                   </Card>
                 </Link>
               ) : (
-                <Card className="h-full border-0 bg-muted/40 py-5 opacity-90 ring-1 ring-foreground/5">
-                  <CardHeader className="gap-3">
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br text-xl grayscale",
-                        item.accent
-                      )}
-                    >
-                      {item.emoji}
-                    </span>
-                    <CardTitle className="text-muted-foreground flex items-center gap-2 text-lg">
+                <Card className="border-border/60 bg-muted/30 h-full py-4">
+                  <CardHeader className="gap-2">
+                    <CardTitle className="text-muted-foreground flex items-center gap-2 text-base font-semibold">
+                      <span aria-hidden className="bg-muted-foreground/30 h-4 w-0.5 shrink-0 rounded-full" />
                       {item.title}
-                      <span className="bg-muted-foreground/15 text-muted-foreground rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase">
+                      <span className="text-muted-foreground ml-auto text-[10px] font-medium tracking-wide">
                         即将开放
                       </span>
                     </CardTitle>
-                    <CardDescription>{item.desc}</CardDescription>
+                    <CardDescription className="pl-2.5">{item.desc}</CardDescription>
                   </CardHeader>
                 </Card>
               )}
