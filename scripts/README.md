@@ -17,7 +17,7 @@
 | 目录 | 入口 | 说明 |
 |------|------|------|
 | `docker/` | `install.sh` | 安装 Docker Engine（腾讯云镜像） |
-| `nginx/` | `install.sh`、`enable-https-wildcard.sh`、`enable-https.sh`、`cicadar.conf` | 安装 Nginx；**泛域名** / 多域名 HTTPS；主站反代。详见 [nginx/README.md](./nginx/README.md) |
+| `nginx/` | `install.sh`、`enable-https-wildcard.sh`、`enable-https.sh`、`cicadar.conf`、`cicadar-api.conf` | 安装 Nginx；**泛域名** / 多域名 HTTPS；主站与 API 反代。详见 [nginx/README.md](./nginx/README.md) |
 | `mysql/` | `deploy.sh` + `compose.yaml` | MySQL 8 |
 | `redis/` | `deploy.sh` + `compose.yaml` | Redis 7 |
 | `portainer/` | `deploy.sh` + `compose.yaml` | Portainer CE |

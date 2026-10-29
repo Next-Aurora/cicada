@@ -6,6 +6,7 @@ Ubuntu 上安装 Nginx、挂上 cicadar 站点，并用 Let's Encrypt 开 HTTPS�
 |------|------|
 | `install.sh` | 安装 Nginx、基础配置；可选 `--server-name` + `--upstream` / `--root` |
 | `cicadar.conf` | 生产反代模板：`cicadar.cn` / `www` → `127.0.0.1:3000` |
+| `cicadar-api.conf` | API 反代模板：`api.cicadar.cn` → `127.0.0.1:8080`（`/internal/` 直接 404） |
 | `enable-https-wildcard.sh` | **推荐**：`*.域名` + 根域 DNS-01 泛证书 + acme.sh 自动续期 |
 | `dns-credentials.env.example` | 泛证书用的 DNS API 凭据模板 |
 | `enable-https.sh` | 备选：按明确域名列表 HTTP-01（certbot，**不能**签通配符） |
@@ -83,6 +84,16 @@ sudo nginx -t && sudo systemctl reload nginx
 ```
 
 安全组放行 **80**（若仍用 HTTP-01 / 跳转）与 **443**。
+
+API 子域（`api.cicadar.cn` 解析到本机；泛证书已覆盖，不用重签）：
+
+```bash
+sudo cp scripts/nginx/cicadar-api.conf /etc/nginx/sites-available/cicadar-api.conf
+sudo ln -sfn /etc/nginx/sites-available/cicadar-api.conf /etc/nginx/sites-enabled/cicadar-api.conf
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+站点容器继续用 `http://host.docker.internal:8080` 调内部接口。公网这份配置对 `/internal/` 直接返回 404。证书就绪后，取消 `cicadar-api.conf` 里 HTTPS `server` 的注释。用 HTTP-01 而不是泛证书时，把 `api.cicadar.cn` 加进 `--domains`（该域名须已有公网解析）。
 
 ### 3. 签发泛证书（自动续期）
 

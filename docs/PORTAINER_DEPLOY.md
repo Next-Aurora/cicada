@@ -110,7 +110,7 @@ sudo bash scripts/nginx/enable-https-wildcard.sh --email you@example.com --china
 # 取消站点 conf 中 HTTPS 注释：include /etc/nginx/snippets/ssl-cicadar.cn.conf;
 ```
 
-- 反代模板：[`cicadar.conf`](../scripts/nginx/cicadar.conf)；证书覆盖 `cicadar.cn` + `*.cicadar.cn`，acme.sh 自动续期
+- 反代模板：[`cicadar.conf`](../scripts/nginx/cicadar.conf)（主站）、[`cicadar-api.conf`](../scripts/nginx/cicadar-api.conf)（`api.cicadar.cn` → `127.0.0.1:8080`）。证书覆盖 `cicadar.cn` + `*.cicadar.cn`，acme.sh 自动续期。API 公网入口对 `/internal/` 返回 404；站点容器仍用 `http://host.docker.internal:8080`
 - 凭据 / `--china` / TXT NXDOMAIN 排查：见 [`scripts/nginx/README.md`](../scripts/nginx/README.md)
 - 无 DNS API 时可用备选 [`enable-https.sh`](../scripts/nginx/enable-https.sh)（HTTP-01，须每个域名已有公网解析）
 - 其他通用反代：`sudo bash scripts/nginx/install.sh --server-name 你的域名 --upstream 127.0.0.1:3000`

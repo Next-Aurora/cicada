@@ -57,6 +57,20 @@ MySQL 用 `scripts/mysql/deploy.sh` 部署，只监听服务器的 `127.0.0.1:33
 
 改过 API 的 `docker-compose.yml` 后，在 Portainer 里重新部署 cicadar-api，`host.docker.internal` 才会生效。
 
+## API 的 Nginx
+
+公网入口是 [`scripts/nginx/cicadar-api.conf`](scripts/nginx/cicadar-api.conf)：`api.cicadar.cn` 反代到 `127.0.0.1:8080`。`/internal/` 在这份配置里直接 404。站点容器访问 API 仍用上一节的 `http://host.docker.internal:8080`。
+
+先把 `api.cicadar.cn` 解析到这台机器。泛证书已经覆盖 `*.cicadar.cn`，一般不用重签。在服务器上执行：
+
+```bash
+sudo cp scripts/nginx/cicadar-api.conf /etc/nginx/sites-available/cicadar-api.conf
+sudo ln -sfn /etc/nginx/sites-available/cicadar-api.conf /etc/nginx/sites-enabled/cicadar-api.conf
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+证书就绪后，取消该文件里 HTTPS `server` 的注释，再执行一次 `nginx -t` 并 reload。主站 Nginx 的完整步骤见 [scripts/nginx/README.md](scripts/nginx/README.md)。
+
 ## 从自己的电脑连这台库
 
 3306 保持只绑在服务器本机，不要改成对公网开放。日常用应用用户 `cicada`，不要用 root。密码在客户端里交互输入，不要写进命令行（会进 shell 历史）。
