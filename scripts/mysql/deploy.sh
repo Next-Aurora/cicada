@@ -113,7 +113,7 @@ docker compose --env-file "${ENV_FILE}" -f /opt/mysql/compose.yaml up -d
 echo "等待 MySQL 就绪..."
 for _ in $(seq 1 30); do
   if docker compose --env-file "${ENV_FILE}" -f /opt/mysql/compose.yaml exec -T mysql \
-    healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1; then
+    mysqladmin ping -h 127.0.0.1 -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" --silent >/dev/null 2>&1; then
     break
   fi
   sleep 2
