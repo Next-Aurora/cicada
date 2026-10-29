@@ -28,8 +28,8 @@ curl -fsS http://127.0.0.1:3000/api/health
 
 要点：
 
-- **运行时**注入 `DATABASE_URL`、`BETTER_AUTH_*`（不是构建期 `NEXT_PUBLIC_*`）
-- 宿主机 MySQL：`DATABASE_URL=...@host.docker.internal:3306/cicada`
+- **运行时**注入 `DATABASE_URL`、`CICADA_API_URL`、`CICADA_INTERNAL_TOKEN`、`BETTER_AUTH_*`（不是构建期 `NEXT_PUBLIC_*`）
+- 宿主机 MySQL 只监听 `127.0.0.1:3306`。容器里用 `host.docker.internal`。API 栈用 `CONNECTION_STRING=server=host.docker.internal;port=3306;database=cicada;user=cicada;password=...`，站点登录通过 API，不直连库。从自己电脑连接用 SSH 隧道，见 [README](./README.md)
 - 默认端口绑定 `127.0.0.1:3000`，前面用 Nginx 反代（配置见 `scripts/nginx/cicadar.conf`）
 - 对外 HTTPS：推荐泛域名 `scripts/nginx/enable-https-wildcard.sh`（步骤见 [scripts/nginx/README.md](./scripts/nginx/README.md)）
 

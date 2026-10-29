@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * One connection for the pre-migration step: dump existing tables, then create the database.
+ * Dump existing tables, then create the database.
+ * Table DDL lives in cicadar-api. This script is not wired to an npm script.
  */
 import mysql from "mysql2/promise"
 import { dirname, join } from "node:path"

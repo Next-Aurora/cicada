@@ -61,17 +61,31 @@ GitHub 托管 Runner 只能访问公网。Portainer 若仅内网可达，需公�
 
 | 变量 | 说明 |
 |------|------|
-| `DATABASE_URL` | MySQL。库在宿主机时用 `host.docker.internal`（compose 已加 `extra_hosts`） |
+| `DATABASE_URL` | 备份脚本用。容器内主机写 `host.docker.internal`，格式 `mysql://cicada:密码@host.docker.internal:3306/cicada`。登录不再直连 MySQL |
+| `CICADA_API_URL` | cicadar-api 地址。容器里访问宿主机用 `http://host.docker.internal:8080` |
+| `CICADA_INTERNAL_TOKEN` | 与 API 栈的 `INTERNAL_AUTH_TOKEN` 相同 |
 | `BETTER_AUTH_SECRET` | ≥32 字符 |
 | `BETTER_AUTH_URL` | 对外站点 URL |
 | `WEB_PORT` | 默认 `127.0.0.1:3000`，配合 Nginx 反代 |
 | 其余 | GitHub / 微信等可选，见 `.env.example` |
 
-首次上线前在宿主机对目标库执行迁移（容器内不自动 migrate）：
+**cicadar-api 栈**另配（MySQL 在宿主机、只监听 `127.0.0.1:3306` 时）：
+
+| 变量 | 值 |
+|------|-----|
+| `CONNECTION_STRING` | `server=host.docker.internal;port=3306;database=cicada;user=cicada;password=应用用户密码` |
+| `INTERNAL_AUTH_TOKEN` | 与站点 `CICADA_INTERNAL_TOKEN` 相同 |
+
+密码来自服务器 `/opt/mysql/.env` 的应用用户。从自己电脑连这台库用 SSH 隧道，见 [README](../README.md) 的「从自己的电脑连这台库」。建表步骤见同一篇的「建表」。
+
+首次上线前在能连上该 MySQL 的机器上建表（不需要 .NET，容器内也不自动 migrate）。SQL 在 cicadar-api：
 
 ```bash
-# 在能连上该 MySQL 的环境
-pnpm db:migrate
+# 空库。库要已存在，把「库名」换成实际库。
+mysql -h127.0.0.1 -u用户 -p 库名 < Persistence/Migrations/InitialAuthSchema.sql
+
+# 已经由 Prisma 建过表的库：不要执行上一份，改为
+mysql -h127.0.0.1 -u用户 -p 库名 < Persistence/Migrations/baseline-existing.sql
 ```
 
 ## 首次手建 Stack

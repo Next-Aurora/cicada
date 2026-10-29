@@ -20,6 +20,6 @@ alwaysApply: true
 
 **OTel**：已列入 `docs/roadmap.md`；未落地前不要加 `instrumentation.ts` / `@vercel/otel`。
 
-**Auth**：公开页（`/`、`/guides`、`/g/*`）保持可匿名访问；鉴权用 Better Auth + Prisma(MySQL)，不要引入 NextAuth。
+**Auth**：公开页（`/`、`/guides`、`/g/*`）保持可匿名访问；鉴权用 Better Auth，不要引入 NextAuth。MySQL 表结构与用户、会话、账号、验证码、微信票据的读写都在 `cicadar-api`（内部接口 `internal/auth-store`，两边共用 `InternalAuth:Token` / `CICADA_INTERNAL_TOKEN`）。本仓不要新增 Prisma 迁移，也不要再用 Prisma 读写这些表。
 
 包名保持 `cicada`；脚本以 `dev` / `build` / `sync-guides` / `test` / `lint` / `format` / `release` / `db:*` 为主。

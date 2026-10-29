@@ -7,7 +7,8 @@
 | 脚本 | 说明 |
 |------|------|
 | `sync-guides.mjs` | 同步 `guides/` → `public/guides/` |
-| `prepare-database.mjs` 等 `db:*` | MySQL 建库 / 备份 / 恢复（配合 Prisma） |
+| `db:create` / `db:backup` / `db:restore` | MySQL 建空库 / 备份 / 恢复。表结构在 cicadar-api |
+| `schema-owned-by-api.mjs` | `db:migrate` 与 `db:push` 的说明：不再从本仓建表 |
 
 ## 服务器部署（按组件分目录）
 

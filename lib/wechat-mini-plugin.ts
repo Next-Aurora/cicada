@@ -2,7 +2,7 @@ import { APIError, createAuthEndpoint, getSessionFromCtx } from "better-auth/api
 import { setSessionCookie } from "better-auth/cookies"
 
 import { isWeChatMiniAuthEnabled } from "@/lib/auth-flags"
-import { prisma } from "@/lib/prisma"
+import { AuthStoreError, authStore } from "@/lib/auth-store"
 import { readStringField, stringBody } from "@/lib/standard-schema"
 import { decideWechatUserBinding, isWechatPlaceholderEmail } from "@/lib/wechat-bind"
 import { isWechatIdentityMethod, isWechatIdentityMethodEnabled } from "@/lib/wechat-identity"
@@ -176,7 +176,7 @@ async function resolveBindTarget(input: {
   bindUserId: string | null
   openid: string
 }) {
-  const existing = await prisma.account.findUnique({
+  const existing = await authStore.account.findUnique({
     where: {
       providerId_accountId: { providerId: WECHAT_MINI_PROVIDER_ID, accountId: input.openid },
     },
@@ -185,12 +185,12 @@ async function resolveBindTarget(input: {
   let bindUserIsPlaceholderEmail = false
   let bindUserAlreadyHasOtherWechat = false
   if (input.bindUserId) {
-    const bindUser = await prisma.user.findUnique({ where: { id: input.bindUserId } })
+    const bindUser = await authStore.user.findUnique({ where: { id: input.bindUserId } })
     if (!bindUser) {
       throw APIError.fromStatus("BAD_REQUEST", { message: "要绑定的邮箱账号不存在" })
     }
     bindUserIsPlaceholderEmail = isWechatPlaceholderEmail(bindUser.email)
-    const otherWechat = await prisma.account.findFirst({
+    const otherWechat = await authStore.account.findFirst({
       where: {
         userId: input.bindUserId,
         providerId: WECHAT_MINI_PROVIDER_ID,
@@ -219,14 +219,14 @@ async function mergeWechatUserIntoEmailUser(input: {
   const { wechatUserId, emailUserId } = input
   if (wechatUserId === emailUserId) return
 
-  const wechatAccount = await prisma.account.findFirst({
+  const wechatAccount = await authStore.account.findFirst({
     where: { userId: wechatUserId, providerId: WECHAT_MINI_PROVIDER_ID },
   })
   if (!wechatAccount) {
     throw APIError.fromStatus("BAD_REQUEST", { message: "当前账号没有可绑定的微信" })
   }
 
-  const emailAlreadyHasOtherWechat = await prisma.account.findFirst({
+  const emailAlreadyHasOtherWechat = await authStore.account.findFirst({
     where: {
       userId: emailUserId,
       providerId: WECHAT_MINI_PROVIDER_ID,
@@ -237,56 +237,14 @@ async function mergeWechatUserIntoEmailUser(input: {
     throw APIError.fromStatus("BAD_REQUEST", { message: "该邮箱账号已绑定其他微信" })
   }
 
-  await prisma.$transaction(async (tx) => {
-    const emailFavoriteSlugs = (
-      await tx.favorite.findMany({
-        where: { userId: emailUserId },
-        select: { guideSlug: true },
-      })
-    ).map((item) => item.guideSlug)
-    if (emailFavoriteSlugs.length > 0) {
-      await tx.favorite.deleteMany({
-        where: { userId: wechatUserId, guideSlug: { in: emailFavoriteSlugs } },
-      })
+  try {
+    await authStore.mergeWechatUser(wechatUserId, emailUserId)
+  } catch (error) {
+    if (error instanceof AuthStoreError && error.status === 400) {
+      throw APIError.fromStatus("BAD_REQUEST", { message: error.message })
     }
-    await tx.favorite.updateMany({
-      where: { userId: wechatUserId },
-      data: { userId: emailUserId },
-    })
-    await tx.comment.updateMany({
-      where: { userId: wechatUserId },
-      data: { userId: emailUserId },
-    })
-    await tx.wechatLoginTicket.updateMany({
-      where: { userId: wechatUserId },
-      data: { userId: emailUserId },
-    })
-    await tx.wechatLoginTicket.updateMany({
-      where: { bindUserId: wechatUserId },
-      data: { bindUserId: emailUserId },
-    })
-
-    const existingOnEmail = await tx.account.findUnique({
-      where: {
-        providerId_accountId: {
-          providerId: WECHAT_MINI_PROVIDER_ID,
-          accountId: wechatAccount.accountId,
-        },
-      },
-    })
-    if (existingOnEmail && existingOnEmail.userId === emailUserId) {
-      await tx.account.delete({ where: { id: wechatAccount.id } })
-    } else {
-      await tx.account.update({
-        where: { id: wechatAccount.id },
-        data: { userId: emailUserId },
-      })
-    }
-
-    await tx.session.deleteMany({ where: { userId: wechatUserId } })
-    await tx.account.deleteMany({ where: { userId: wechatUserId } })
-    await tx.user.delete({ where: { id: wechatUserId } })
-  })
+    throw error
+  }
 }
 
 export function wechatMiniPlugin() {
@@ -316,12 +274,12 @@ export function wechatMiniPlugin() {
           const expiresAt = new Date(Date.now() + WECHAT_TICKET_TTL_SECONDS * 1000)
 
           if (Math.random() < 0.05) {
-            await prisma.wechatLoginTicket.deleteMany({
+            await authStore.wechatLoginTicket.deleteMany({
               where: { expiresAt: { lt: new Date(Date.now() - 24 * 60 * 60 * 1000) } },
             })
           }
 
-          await prisma.wechatLoginTicket.create({
+          await authStore.wechatLoginTicket.create({
             data: {
               id: ticket,
               nonceHash: hashWechatNonce(nonce),
@@ -335,7 +293,7 @@ export function wechatMiniPlugin() {
           try {
             openlink = await createMiniProgramScheme(ticket, { bindReady: Boolean(bindUserId) })
           } catch (error) {
-            await prisma.wechatLoginTicket.delete({ where: { id: ticket } }).catch(() => undefined)
+            await authStore.wechatLoginTicket.delete({ where: { id: ticket } }).catch(() => undefined)
             asApiError(error)
           }
 
@@ -364,7 +322,7 @@ export function wechatMiniPlugin() {
         async (ctx) => {
           assertEnabled()
           const { ticket, code } = ctx.body as CompleteBody
-          const row = await prisma.wechatLoginTicket.findUnique({ where: { id: ticket } })
+          const row = await authStore.wechatLoginTicket.findUnique({ where: { id: ticket } })
           if (!row || row.expiresAt.getTime() <= Date.now() || row.status === WECHAT_TICKET_CONSUMED) {
             throw APIError.fromStatus("BAD_REQUEST", { message: "登录已过期，请回到网页重新登录" })
           }
@@ -403,7 +361,7 @@ export function wechatMiniPlugin() {
               })
               userId = user.id
             } catch (error) {
-              const raced = await prisma.account.findUnique({
+              const raced = await authStore.account.findUnique({
                 where: {
                   providerId_accountId: { providerId: WECHAT_MINI_PROVIDER_ID, accountId: openid },
                 },
@@ -420,7 +378,7 @@ export function wechatMiniPlugin() {
             userId = decision.userId
           }
 
-          const updated = await prisma.wechatLoginTicket.updateMany({
+          const updated = await authStore.wechatLoginTicket.updateMany({
             where: { id: ticket, status: WECHAT_TICKET_PENDING, expiresAt: { gt: new Date() } },
             data: {
               status: WECHAT_TICKET_READY,
@@ -429,7 +387,7 @@ export function wechatMiniPlugin() {
             },
           })
           if (updated.count !== 1) {
-            const latest = await prisma.wechatLoginTicket.findUnique({ where: { id: ticket } })
+            const latest = await authStore.wechatLoginTicket.findUnique({ where: { id: ticket } })
             if (latest?.status !== WECHAT_TICKET_READY) {
               throw APIError.fromStatus("BAD_REQUEST", { message: "登录已过期，请回到网页重新登录" })
             }
@@ -457,7 +415,7 @@ export function wechatMiniPlugin() {
           }
 
           const { ticket } = ctx.body as TicketBody
-          const row = await prisma.wechatLoginTicket.findUnique({ where: { id: ticket } })
+          const row = await authStore.wechatLoginTicket.findUnique({ where: { id: ticket } })
           if (!row || row.nonceHash !== hashWechatNonce(nonce)) {
             return ctx.json({ status: "restart" as const })
           }
@@ -468,7 +426,7 @@ export function wechatMiniPlugin() {
             return ctx.json({ status: "pending" as const })
           }
 
-          const claimed = await prisma.wechatLoginTicket.updateMany({
+          const claimed = await authStore.wechatLoginTicket.updateMany({
             where: {
               id: row.id,
               nonceHash: row.nonceHash,

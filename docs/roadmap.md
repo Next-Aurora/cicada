@@ -7,21 +7,17 @@
 | **站点部署** | `git push` → Vercel 自动构建上线（日常「发布网站」） |
 | **版本发布流水线** | `main` 推送后 GitHub Actions 跑 [semantic-release](../.releaserc)：分析 Conventional Commits、更新 `CHANGELOG.md` / 版本号、创建 GitHub Release（**不**发 npm） |
 | **自建 Docker / Portainer** | `Dockerfile` + `docker-compose.yml`；`v*` tag 触发 [docker-build.yml](../.github/workflows/docker-build.yml) 推镜像并更新 Portainer Stack（与 Vercel 并行，见 [README.docker.md](../README.docker.md)） |
-| **账号体系** | Better Auth + Prisma(MySQL)：邮箱密码、可选 GitHub、可选微信内 H5 拉起小程序登录（openid）；公开攻略页无需登录 |
+| **账号体系** | Better Auth 发 Cookie；用户、会话、微信票据由 cicadar-api 读写。邮箱密码、可选 GitHub、可选微信内 H5 拉起小程序登录 |
 
 提交信息请用 Conventional Commits（如 `feat:`、`fix:`、`docs:`），否则可能不会 bump 版本。
 
-Auth 环境变量见仓库根目录 [`.env.example`](../.env.example)。配置好 `DATABASE_URL` 后执行（建库语句在 [`prisma/create-database.sql`](../prisma/create-database.sql)；库里已有表时会先把结构和数据导出到 `backups/`（只保留最近 10 份，该目录不提交））：
-
-```bash
-pnpm db:migrate
-```
+Auth 环境变量见仓库根目录 [`.env.example`](../.env.example)。表结构在 cicadar-api。服务器上用 MySQL 客户端执行该仓库的 `Persistence/Migrations/InitialAuthSchema.sql`（空库）或 `baseline-existing.sql`（已经由 Prisma 建过表），不需要安装 .NET。本仓 `pnpm db:create` 只创建空库（语句在 [`prisma/create-database.sql`](../prisma/create-database.sql)）。站点通过 `CICADA_API_URL` 调用 API 完成登录读写。
 
 ## 计划中
 
 ### 评论与收藏
 
-数据表 `comment` / `favorite` 已在 Prisma schema 中预留（按 `guideSlug` 关联攻略）。下一步：
+数据表 `comment` / `favorite` 已在 cicadar-api 的初始迁移里（按 `guideSlug` 关联攻略）。下一步：
 
 1. 登录用户可对 `/g/[slug]` 发表评论、收藏攻略
 2. 提供列表与删除（仅本人或站长）

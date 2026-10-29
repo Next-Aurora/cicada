@@ -1,3 +1,6 @@
+// 表结构归 cicadar-api 的 EF Core 迁移。登录读写也走该服务的 internal/auth-store。
+// 不要再执行 prisma migrate 或 prisma db push，也不要在站点里用 Prisma 读写这些表。
+
 generator client {
   provider = "prisma-client-js"
 }
