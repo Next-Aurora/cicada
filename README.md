@@ -91,13 +91,17 @@ ssh -L 3306:127.0.0.1:3306 用户@服务器
 
 ## 建表
 
-服务器不需要安装 .NET，API 启动时也不会自动建表。库要已经存在（`scripts/mysql/deploy.sh` 会建好 `cicada`）。SQL 在 cicadar-api 的 `Persistence/Migrations/`，在服务器上执行，密码交互输入：
+服务器不需要安装 .NET，API 启动时也不会自动建表。库要已经存在（`scripts/mysql/deploy.sh` 会建好 `cicada`）。SQL 在 cicadar-api 的 `Persistence/Migrations/InitialAuthSchema.sql`。
 
-空库执行 `InitialAuthSchema.sql`。这份可以重复执行，迁移登记之后会跳过建表。
+空库执行这份脚本。完成后有 8 张表：`user`、`session`、`account`、`verification`、`wechat_login_ticket`、`favorite`、`comment`，以及登记迁移的 `__EFMigrationsHistory`。表、索引、外键已经存在时会跳过，可以重复执行。
+
+命令行会按分号逐条执行，密码交互输入：
 
 ```bash
 mysql -h 127.0.0.1 -u cicada -p cicada < Persistence/Migrations/InitialAuthSchema.sql
 ```
+
+图形客户端先选中 `cicada` 库，再用「执行脚本」（DBeaver 是 Alt+X）。全文选中后当成一条语句执行时，会在第二条 `CREATE TABLE` 上报 1064。DataGrip 在数据源 Advanced 里打开 `allowMultiQueries=true`，重新连接后再执行整份。
 
 已经由 Prisma 建过表的库，只执行 `baseline-existing.sql`，用来登记迁移记录。
 
@@ -105,7 +109,7 @@ mysql -h 127.0.0.1 -u cicada -p cicada < Persistence/Migrations/InitialAuthSchem
 mysql -h 127.0.0.1 -u cicada -p cicada < Persistence/Migrations/baseline-existing.sql
 ```
 
-表已经在、迁移历史还没登记时，再跑空库那份会在建表处失败。改模型之后，在装有 .NET SDK 的开发机上重新导出 SQL，服务器仍只用 MySQL 客户端执行。
+改模型之后，在装有 .NET SDK 的开发机上重新导出 SQL。`dotnet ef migrations script` 会带上 `DELIMITER`，需要整理成现在这种按分号分隔的普通语句。服务器仍只用 MySQL 客户端执行。
 
 ## 仓库路径
 
