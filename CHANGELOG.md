@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/Next-Aurora/cicada/compare/v1.5.0...v1.6.0) (2026-10-29)
+
+
+### Features
+
+* add nginx vhost for the API ([f12d120](https://github.com/Next-Aurora/cicada/commit/f12d1208f63130aba2c9c64fd600af33ab116839))
+
 # [1.5.0](https://github.com/Next-Aurora/cicada/compare/v1.4.1...v1.5.0) (2026-10-29)
 
 
