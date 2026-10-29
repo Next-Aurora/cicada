@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/Next-Aurora/cicada/compare/v1.4.1...v1.5.0) (2026-10-29)
+
+
+### Bug Fixes
+
+* probe MySQL health with mysqladmin ping ([7bf684c](https://github.com/Next-Aurora/cicada/commit/7bf684c9b261ac4ad730e91f12cf9c3d8a622d12))
+
+
+### Features
+
+* route auth data access through cicadar-api ([316935a](https://github.com/Next-Aurora/cicada/commit/316935a04f05937472bf256f1148b631de4b80e0))
+
 ## [1.4.1](https://github.com/Next-Aurora/cicada/compare/v1.4.0...v1.4.1) (2026-10-28)
 
 
