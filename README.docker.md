@@ -61,7 +61,7 @@ docker compose down
 
 ## CI → Portainer
 
-推送 `v*` tag（或手动跑 **Build and Push Docker Image**）后：
+推送到 `main`、推送 `v*` tag，或手动跑 **Build and Push Docker Image** 后：
 
 1. 构建并推送 `{registry}/{namespace}/cicadar-ui:{version}`
 2. 更新 Portainer Stack `cicada`（或 develop/staging 后缀）

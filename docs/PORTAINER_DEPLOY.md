@@ -5,7 +5,7 @@
 ## 概述
 
 - **Workflow**：[`.github/workflows/docker-build.yml`](../.github/workflows/docker-build.yml)
-- **触发**：推送 `v*` tag（semantic-release 在 `main` 发版后会打 tag）、`workflow_dispatch`、针对 `main` 的 `pull_request`（仅构建不推送/不部署）
+- **触发**：推送到 `main`（构建并更新 Portainer）、`v*` tag（再发一版带版本号的镜像）、`workflow_dispatch`、针对 `main` 的 `pull_request`（仅构建不推送/不部署）。发版提交含 `[skip ci]`，不会重复部署
 - **定时（自建栈）**：[`.github/workflows/weekly-deploy.yml`](../.github/workflows/weekly-deploy.yml) — 北京时间 **每周一 00:00**（周日 24:00）检查 `main` 是否较上次 weekly 成功部署有**新提交**；有则复用 `docker-build` 构建并更新 Portainer。无新提交则跳过。镜像 tag 形如 **`weekly-{短SHA}-{run}`**（与发版 tag / `main-*` 区分）。Actions → **Weekly Deploy** 可手动试跑。
 - **流程**：构建镜像 → 推送到阿里云容器镜像服务 → 调用 Portainer API 更新 Stack（`env_data` 注入 `IMAGE_URI`）
 

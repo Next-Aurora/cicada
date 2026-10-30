@@ -1,6 +1,7 @@
 name: Build and Push Docker Image
 
-# 与 semantic-release 产出的 v* tag 对齐：tag 推送后构建镜像并更新 Portainer Stack
+# main 上的每次推送都会构建镜像并更新 Portainer。
+# v* tag 仍会再构建一次带版本号的镜像。发版提交含 [skip ci]，不会把 chore(release) 再部署一遍。
 on:
   workflow_call:
     inputs:
@@ -15,6 +16,8 @@ on:
         type: string
         default: ""
   push:
+    branches:
+      - main
     tags:
       - "v*"
   pull_request:
@@ -44,6 +47,12 @@ on:
         description: "镜像 tag（留空则自动生成）"
         required: false
         default: ""
+
+# 生产部署排队，避免 main 推送和随后的 v* tag 同时改 Portainer。
+# pull request 只构建，单独排队，不挡住生产。
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('docker-pr-{0}', github.ref) || 'portainer-cicada-production' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   # 在仓库 Variables 中配置 ALIYUN_REGISTRY / ALIYUN_NAMESPACE（推送前必填 ALIYUN_REGISTRY）
