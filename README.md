@@ -38,28 +38,35 @@ pnpm dev
 
 MySQL 用 `scripts/mysql/deploy.sh` 部署，只监听服务器的 `127.0.0.1:3306`。应用用户是 `cicada`，密码在服务器 `/opt/mysql/.env`，不要写进仓库或镜像。
 
-容器访问宿主机上的 MySQL 时用 `host.docker.internal`，不要写 `127.0.0.1`（那是容器自己）。密钥用 `pnpm auth:secrets` 生成（32 字节随机数，Base64），输出只贴进 Portainer。在栈的环境变量里填写：
+三个容器走同一个 Docker 网络 `cicada-internal`，用容器名互访。`host.docker.internal` 会落到网桥地址（如 `172.17.0.1`），连不上只绑在 `127.0.0.1` 的端口。密钥用 `pnpm auth:secrets` 生成（32 字节随机数，Base64），输出只贴进 Portainer。在栈的环境变量里填写：
 
 **cicadar-api**（登录读写走这个栈）：
 
 | 变量 | 值 |
 |------|-----|
-| `CONNECTION_STRING` | `server=host.docker.internal;port=3306;database=cicada;user=cicada;password=应用用户密码` |
+| `CONNECTION_STRING` | `server=mysql;port=3306;database=cicada;user=cicada;password=应用用户密码` |
 | `INTERNAL_AUTH_TOKEN` | `pnpm auth:secrets` 生成，与站点 `CICADA_INTERNAL_TOKEN` 相同 |
 
 **cicada 站点**：
 
 | 变量 | 值 |
 |------|-----|
-| `CICADA_API_URL` | `http://host.docker.internal:8080` |
+| `CICADA_API_URL` | `http://cicadar-api:8080` |
 | `CICADA_INTERNAL_TOKEN` | 与 API 的 `INTERNAL_AUTH_TOKEN` 相同 |
-| `DATABASE_URL` | 只给备份脚本。`mysql://cicada:密码@host.docker.internal:3306/cicada` |
+| `DATABASE_URL` | 只给备份脚本。`mysql://cicada:密码@mysql:3306/cicada` |
 
-改过 API 的 `docker-compose.yml` 后，在 Portainer 里重新部署 cicadar-api，`host.docker.internal` 才会生效。
+服务器上先建一次网络，再更新 MySQL 和两个栈（已有容器不会自动加入新网络）：
+
+```bash
+docker network create cicada-internal
+sudo bash scripts/mysql/deploy.sh
+```
+
+然后在 Portainer 里把上面的变量改掉，并重新部署 cicadar-api 与 cicada。宿主机上的 Nginx、本机客户端仍用 `127.0.0.1`。
 
 ## API 的 Nginx
 
-公网入口是 [`scripts/nginx/cicadar-api.conf`](scripts/nginx/cicadar-api.conf)：`api.cicadar.cn` 反代到 `127.0.0.1:8080`。`/internal/` 在这份配置里直接 404。站点容器访问 API 仍用上一节的 `http://host.docker.internal:8080`。
+公网入口是 [`scripts/nginx/cicadar-api.conf`](scripts/nginx/cicadar-api.conf)：`api.cicadar.cn` 反代到 `127.0.0.1:8080`。`/internal/` 在这份配置里直接 404。站点容器访问 API 用上一节的 `http://cicadar-api:8080`。
 
 先把 `api.cicadar.cn` 解析到这台机器。泛证书已经覆盖 `*.cicadar.cn`，一般不用重签。在服务器上执行：
 

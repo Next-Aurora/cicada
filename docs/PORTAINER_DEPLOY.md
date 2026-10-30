@@ -61,8 +61,8 @@ GitHub 托管 Runner 只能访问公网。Portainer 若仅内网可达，需公�
 
 | 变量 | 说明 |
 |------|------|
-| `DATABASE_URL` | 备份脚本用。容器内主机写 `host.docker.internal`，格式 `mysql://cicada:密码@host.docker.internal:3306/cicada`。登录不再直连 MySQL |
-| `CICADA_API_URL` | cicadar-api 地址。容器里访问宿主机用 `http://host.docker.internal:8080` |
+| `DATABASE_URL` | 备份脚本用。容器内主机名 `mysql`，格式 `mysql://cicada:密码@mysql:3306/cicada`。登录不再直连 MySQL |
+| `CICADA_API_URL` | `http://cicadar-api:8080`（同一 Docker 网络 `cicada-internal` 上的容器名） |
 | `CICADA_INTERNAL_TOKEN` | 与 API 栈的 `INTERNAL_AUTH_TOKEN` 相同 |
 | `BETTER_AUTH_SECRET` | ≥32 字符 |
 | `BETTER_AUTH_URL` | 对外站点 URL |
@@ -73,7 +73,7 @@ GitHub 托管 Runner 只能访问公网。Portainer 若仅内网可达，需公�
 
 | 变量 | 值 |
 |------|-----|
-| `CONNECTION_STRING` | `server=host.docker.internal;port=3306;database=cicada;user=cicada;password=应用用户密码` |
+| `CONNECTION_STRING` | `server=mysql;port=3306;database=cicada;user=cicada;password=应用用户密码` |
 | `INTERNAL_AUTH_TOKEN` | 与站点 `CICADA_INTERNAL_TOKEN` 相同。`pnpm auth:secrets` 成对生成，不要写进仓库 |
 
 密码来自服务器 `/opt/mysql/.env` 的应用用户。从自己电脑连这台库用 SSH 隧道，见 [README](../README.md) 的「从自己的电脑连这台库」。建表步骤见同一篇的「建表」。
@@ -110,7 +110,7 @@ sudo bash scripts/nginx/enable-https-wildcard.sh --email you@example.com --china
 # 取消站点 conf 中 HTTPS 注释：include /etc/nginx/snippets/ssl-cicadar.cn.conf;
 ```
 
-- 反代模板：[`cicadar.conf`](../scripts/nginx/cicadar.conf)（主站）、[`cicadar-api.conf`](../scripts/nginx/cicadar-api.conf)（`api.cicadar.cn` → `127.0.0.1:8080`）。证书覆盖 `cicadar.cn` + `*.cicadar.cn`，acme.sh 自动续期。API 公网入口对 `/internal/` 返回 404；站点容器仍用 `http://host.docker.internal:8080`
+- 反代模板：[`cicadar.conf`](../scripts/nginx/cicadar.conf)（主站）、[`cicadar-api.conf`](../scripts/nginx/cicadar-api.conf)（`api.cicadar.cn` → `127.0.0.1:8080`）。证书覆盖 `cicadar.cn` + `*.cicadar.cn`，acme.sh 自动续期。API 公网入口对 `/internal/` 返回 404；站点容器用 `http://cicadar-api:8080`
 - 凭据 / `--china` / TXT NXDOMAIN 排查：见 [`scripts/nginx/README.md`](../scripts/nginx/README.md)
 - 无 DNS API 时可用备选 [`enable-https.sh`](../scripts/nginx/enable-https.sh)（HTTP-01，须每个域名已有公网解析）
 - 其他通用反代：`sudo bash scripts/nginx/install.sh --server-name 你的域名 --upstream 127.0.0.1:3000`
@@ -137,7 +137,7 @@ ACR 个人版不接受 BuildKit 默认附带的 OCI attestation。workflow 已�
 
 ### 应用连不上 MySQL
 
-容器内不要写 `127.0.0.1`（那是容器自己）。用 `host.docker.internal`，或把 MySQL 放进同一 Docker 网络后改 `DATABASE_URL` 主机名。
+容器内不要写 `127.0.0.1`（那是容器自己），也不要写 `host.docker.internal`（那是网桥地址，到不了只绑在 `127.0.0.1` 的端口）。站点、API、MySQL 都加入 `cicada-internal` 后，用容器名 `cicadar-api` 和 `mysql`。网络不存在时先在服务器执行 `docker network create cicada-internal`，再部署栈。
 
 ## 相关文档
 

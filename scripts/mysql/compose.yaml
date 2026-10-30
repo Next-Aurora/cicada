@@ -20,6 +20,9 @@ services:
       - --collation-server=utf8mb4_unicode_ci
     # mysql 官方镜像没有 MariaDB 的 healthcheck.sh。用 127.0.0.1 走 TCP，
     # 初始化时的临时服务只听 socket（port 0），不会被这次检查当成已就绪。
+    networks:
+      - default
+      - cicada-internal
     healthcheck:
       test:
         [
@@ -38,3 +41,7 @@ volumes:
 networks:
   default:
     name: mysql_network
+  # 供 cicadar-api / cicada 用容器名 mysql 访问。宿主机端口仍只绑 127.0.0.1。
+  cicada-internal:
+    name: cicada-internal
+    external: true

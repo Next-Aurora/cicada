@@ -104,6 +104,11 @@ set +a
 
 ensure_tencent_mirror
 
+if ! docker network inspect cicada-internal >/dev/null 2>&1; then
+  docker network create cicada-internal
+  echo "已创建网络 cicada-internal。"
+fi
+
 echo "使用配置: /opt/mysql/compose.yaml"
 echo "镜像: ${MYSQL_IMAGE:-mysql:8.4}"
 
@@ -127,8 +132,10 @@ echo "数据库: ${MYSQL_DATABASE}"
 echo "应用用户: ${MYSQL_USER}"
 echo "密码文件: ${ENV_FILE}"
 echo
-echo "cicada 可用的 DATABASE_URL:"
+echo "本机客户端:"
 echo "  mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@127.0.0.1:3306/${MYSQL_DATABASE}"
+echo "cicada-internal 网络里的容器:"
+echo "  mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE}"
 echo
 echo "root 密码也在 ${ENV_FILE} 的 MYSQL_ROOT_PASSWORD。"
 echo "端口只绑在 127.0.0.1，不要对公网开放 3306。"

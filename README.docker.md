@@ -29,7 +29,7 @@ curl -fsS http://127.0.0.1:3000/api/health
 要点：
 
 - **运行时**注入 `DATABASE_URL`、`CICADA_API_URL`、`CICADA_INTERNAL_TOKEN`、`BETTER_AUTH_*`（不是构建期 `NEXT_PUBLIC_*`）
-- 宿主机 MySQL 只监听 `127.0.0.1:3306`。容器里用 `host.docker.internal`。API 栈用 `CONNECTION_STRING=server=host.docker.internal;port=3306;database=cicada;user=cicada;password=...`，站点登录通过 API，不直连库。从自己电脑连接用 SSH 隧道，见 [README](./README.md)
+- 宿主机 MySQL 只监听 `127.0.0.1:3306`。站点、API、MySQL 容器加入网络 `cicada-internal` 后，用容器名互访：`CICADA_API_URL=http://cicadar-api:8080`，`CONNECTION_STRING=server=mysql;port=3306;database=cicada;user=cicada;password=...`。站点登录通过 API，不直连库。从自己电脑连接用 SSH 隧道，见 [README](./README.md)
 - 默认端口绑定 `127.0.0.1:3000`，前面用 Nginx 反代（主站 `scripts/nginx/cicadar.conf`，API `scripts/nginx/cicadar-api.conf`）
 - 对外 HTTPS：推荐泛域名 `scripts/nginx/enable-https-wildcard.sh`（步骤见 [scripts/nginx/README.md](./scripts/nginx/README.md)）
 
@@ -48,7 +48,7 @@ sudo bash scripts/nginx/enable-https-wildcard.sh --email you@example.com --china
 # 然后取消 cicadar.conf、cicadar-api.conf 中 HTTPS server 注释并 reload
 ```
 
-泛证书覆盖 `cicadar.cn` + `*.cicadar.cn`，自动续期；子域共用 `/etc/nginx/snippets/ssl-cicadar.cn.conf`。`api.cicadar.cn` 反代到 `127.0.0.1:8080`，`/internal/` 在 Nginx 上直接 404。站点容器仍用 `http://host.docker.internal:8080`。说明见 [README](./README.md) 的「API 的 Nginx」。
+泛证书覆盖 `cicadar.cn` + `*.cicadar.cn`，自动续期；子域共用 `/etc/nginx/snippets/ssl-cicadar.cn.conf`。`api.cicadar.cn` 反代到 `127.0.0.1:8080`，`/internal/` 在 Nginx 上直接 404。站点容器用 `http://cicadar-api:8080`。说明见 [README](./README.md) 的「API 的 Nginx」。
 
 ## 常用命令
 

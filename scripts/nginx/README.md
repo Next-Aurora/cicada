@@ -93,7 +93,7 @@ sudo ln -sfn /etc/nginx/sites-available/cicadar-api.conf /etc/nginx/sites-enable
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-站点容器继续用 `http://host.docker.internal:8080` 调内部接口。公网这份配置对 `/internal/` 直接返回 404。证书就绪后，取消 `cicadar-api.conf` 里 HTTPS `server` 的注释。用 HTTP-01 而不是泛证书时，把 `api.cicadar.cn` 加进 `--domains`（该域名须已有公网解析）。
+站点容器用 `http://cicadar-api:8080` 调内部接口。公网这份配置对 `/internal/` 直接返回 404。证书就绪后，取消 `cicadar-api.conf` 里 HTTPS `server` 的注释。用 HTTP-01 而不是泛证书时，把 `api.cicadar.cn` 加进 `--domains`（该域名须已有公网解析）。
 
 ### 3. 签发泛证书（自动续期）
 

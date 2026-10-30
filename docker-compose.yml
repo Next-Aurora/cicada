@@ -14,7 +14,7 @@ services:
       - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
       - DATABASE_URL=${DATABASE_URL}
-      - CICADA_API_URL=${CICADA_API_URL:-}
+      - CICADA_API_URL=${CICADA_API_URL:-http://cicadar-api:8080}
       - CICADA_INTERNAL_TOKEN=${CICADA_INTERNAL_TOKEN:-}
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
       - BETTER_AUTH_URL=${BETTER_AUTH_URL}
@@ -28,6 +28,7 @@ services:
       - WECHAT_MINI_LOGIN_PATH=${WECHAT_MINI_LOGIN_PATH:-}
     networks:
       - cicada-network
+      - cicada-internal
     restart: unless-stopped
     deploy:
       update_config:
@@ -50,3 +51,8 @@ networks:
     name: cicada-network
     driver: bridge
     external: false
+  # 与 cicadar-api、mysql 容器互通。端口仍只发布在 127.0.0.1，不经过宿主机回环。
+  # 服务器上先执行一次：docker network create cicada-internal
+  cicada-internal:
+    name: cicada-internal
+    external: true

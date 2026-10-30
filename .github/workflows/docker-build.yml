@@ -74,7 +74,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.inputs.tag || (github.event_name == 'pull_request' && github.event.pull_request.head.sha) || github.ref }}
 
@@ -115,11 +115,11 @@ jobs:
           echo "uri=${{ env.ALIYUN_REGISTRY }}/${{ env.ALIYUN_NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ steps.resolve_version.outputs.tag }}" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.ALIYUN_REGISTRY }}/${{ env.ALIYUN_NAMESPACE }}/${{ env.IMAGE_NAME }}
           tags: |
@@ -139,7 +139,7 @@ jobs:
 
       - name: Log in to Aliyun Container Registry
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.ALIYUN_REGISTRY }}
           # ACR 固定密码登录：用户名=镜像仓库登录名，密码=访问凭证里设置的 Registry 密码（不是 AccessKey）
@@ -147,7 +147,7 @@ jobs:
           password: ${{ secrets.ALIYUN_REGISTRY_PASSWORD || secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
       - name: Build and push image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -196,7 +196,7 @@ jobs:
       - name: Deploy stack to Portainer
         if: github.event_name != 'pull_request'
         id: portainer_deploy
-        uses: cssnr/portainer-stack-deploy-action@v1
+        uses: cssnr/portainer-stack-deploy-action@v2
         with:
           url: ${{ secrets.PORTAINER_HOST }}
           token: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
@@ -243,7 +243,7 @@ jobs:
 
       - name: 发送构建结果邮件
         if: steps.check_mail.outputs.send == 'true'
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v23
         continue-on-error: true
         with:
           server_address: ${{ secrets.MAIL_SMTP_SERVER }}
