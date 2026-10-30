@@ -17,6 +17,7 @@
     "test:watch": "cross-env FORCE_COLOR=1 vitest",
     "release": "semantic-release",
     "db:generate": "prisma generate",
+    "auth:secrets": "node scripts/generate-auth-secrets.mjs",
     "db:create": "node scripts/create-database.mjs",
     "db:backup": "node scripts/backup-database.mjs",
     "db:restore": "node scripts/restore-database.mjs",

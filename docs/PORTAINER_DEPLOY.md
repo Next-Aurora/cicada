@@ -74,7 +74,7 @@ GitHub 托管 Runner 只能访问公网。Portainer 若仅内网可达，需公�
 | 变量 | 值 |
 |------|-----|
 | `CONNECTION_STRING` | `server=host.docker.internal;port=3306;database=cicada;user=cicada;password=应用用户密码` |
-| `INTERNAL_AUTH_TOKEN` | 与站点 `CICADA_INTERNAL_TOKEN` 相同 |
+| `INTERNAL_AUTH_TOKEN` | 与站点 `CICADA_INTERNAL_TOKEN` 相同。`pnpm auth:secrets` 成对生成，不要写进仓库 |
 
 密码来自服务器 `/opt/mysql/.env` 的应用用户。从自己电脑连这台库用 SSH 隧道，见 [README](../README.md) 的「从自己的电脑连这台库」。建表步骤见同一篇的「建表」。
 

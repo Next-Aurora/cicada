@@ -26,8 +26,8 @@ pnpm dev
 |------|------|
 | `DATABASE_URL` | 本机建库、备份用的 MySQL 连接串。站点登录不再直连数据库 |
 | `CICADA_API_URL` | cicadar-api 地址，例如 `http://127.0.0.1:8080` |
-| `CICADA_INTERNAL_TOKEN` | 与 API `InternalAuth:Token` 相同的内部令牌 |
-| `BETTER_AUTH_SECRET` | ≥32 字符密钥（可用 `openssl rand -base64 32`） |
+| `CICADA_INTERNAL_TOKEN` | 与 API `INTERNAL_AUTH_TOKEN` 相同。`pnpm auth:secrets` 会成对生成 |
+| `BETTER_AUTH_SECRET` | ≥32 字符密钥。`pnpm auth:secrets` 生成，不要提交到仓库 |
 | `BETTER_AUTH_URL` | 本地 `http://localhost:3000`，生产为站点 URL |
 | `AUTH_TRUSTED_ORIGINS` | 可选，额外信任来源（逗号分隔） |
 | `AUTH_IDLE_TIMEOUT_MINUTES` | 无操作自动退出分钟数，默认 `10`（范围 1～1440；客户端闲置检测，跨标签同步；到期前约 1 分钟提示） |
@@ -38,14 +38,14 @@ pnpm dev
 
 MySQL 用 `scripts/mysql/deploy.sh` 部署，只监听服务器的 `127.0.0.1:3306`。应用用户是 `cicada`，密码在服务器 `/opt/mysql/.env`，不要写进仓库或镜像。
 
-容器访问宿主机上的 MySQL 时用 `host.docker.internal`，不要写 `127.0.0.1`（那是容器自己）。在 Portainer 栈的环境变量里填写：
+容器访问宿主机上的 MySQL 时用 `host.docker.internal`，不要写 `127.0.0.1`（那是容器自己）。密钥用 `pnpm auth:secrets` 生成（32 字节随机数，Base64），输出只贴进 Portainer。在栈的环境变量里填写：
 
 **cicadar-api**（登录读写走这个栈）：
 
 | 变量 | 值 |
 |------|-----|
 | `CONNECTION_STRING` | `server=host.docker.internal;port=3306;database=cicada;user=cicada;password=应用用户密码` |
-| `INTERNAL_AUTH_TOKEN` | 自定一串长令牌 |
+| `INTERNAL_AUTH_TOKEN` | `pnpm auth:secrets` 生成，与站点 `CICADA_INTERNAL_TOKEN` 相同 |
 
 **cicada 站点**：
 

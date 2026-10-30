@@ -9,6 +9,7 @@
 | `sync-guides.mjs` | 同步 `guides/` → `public/guides/` |
 | `db:create` / `db:backup` / `db:restore` | MySQL 建空库 / 备份 / 恢复。表结构在 cicadar-api |
 | `schema-owned-by-api.mjs` | `db:migrate` 与 `db:push` 的说明：不再从本仓建表 |
+| `generate-auth-secrets.mjs` | `pnpm auth:secrets`：打印 `BETTER_AUTH_SECRET` 和内部令牌，不写文件 |
 
 ## 服务器部署（按组件分目录）
 
