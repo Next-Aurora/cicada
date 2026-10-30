@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/Next-Aurora/cicada/compare/v1.7.0...v1.8.0) (2026-10-30)
+
+
+### Features
+
+* tuck sign-out into the account menu and add a site footer ([3443aa1](https://github.com/Next-Aurora/cicada/commit/3443aa110e46f7a360955f58a0dc7f24f718e9fc))
+
 # [1.7.0](https://github.com/Next-Aurora/cicada/compare/v1.6.0...v1.7.0) (2026-10-30)
 
 
