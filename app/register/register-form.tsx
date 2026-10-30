@@ -11,11 +11,13 @@ import {
   authPrimaryButtonClass,
   authSecondaryButtonClass,
 } from "@/components/auth-card"
+import { PasswordField } from "@/components/password-field"
 import { Button } from "@/components/ui/button"
 import { CardContent, CardDescription, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { authClient } from "@/lib/auth-client"
+import { isPasswordValid } from "@/lib/password-policy"
 
 type RegisterFormProps = {
   githubEnabled: boolean
@@ -26,12 +28,17 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [passwordAttempted, setPasswordAttempted] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault()
     setError(null)
+    if (!isPasswordValid(password)) {
+      setPasswordAttempted(true)
+      return
+    }
     setPending(true)
 
     const { error: signUpError } = await authClient.signUp.email({
@@ -96,15 +103,12 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="password">密码</Label>
-            <Input
+            <PasswordField
               id="password"
-              type="password"
-              autoComplete="new-password"
-              required
-              minLength={8}
-              className={authFieldClass}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              attempted={passwordAttempted}
+              onChange={setPassword}
+              onInvalidAttempt={() => setPasswordAttempted(true)}
             />
           </div>
           {error ? <p className="text-destructive text-sm">{error}</p> : null}
