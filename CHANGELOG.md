@@ -1,3 +1,15 @@
+# [1.7.0](https://github.com/Next-Aurora/cicada/compare/v1.6.0...v1.7.0) (2026-10-30)
+
+
+### Bug Fixes
+
+* reach the API and MySQL over a shared Docker network ([6cfe110](https://github.com/Next-Aurora/cicada/commit/6cfe110dbc25de2c1822086e2108808814b08c0c))
+
+
+### Features
+
+* show password requirements on the register form ([fc46d46](https://github.com/Next-Aurora/cicada/commit/fc46d465b0b0ded71de59270741ec42c34564554))
+
 # [1.6.0](https://github.com/Next-Aurora/cicada/compare/v1.5.0...v1.6.0) (2026-10-29)
 
 
