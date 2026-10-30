@@ -28,7 +28,7 @@ alwaysApply: true
 
 ## 全局壳层
 
-- `SiteChrome`：`PageAtmosphere` 固定渐变光斑 + 半透明 sticky 顶栏 + 页脚备案。
+- `SiteChrome`：`PageAtmosphere` 固定渐变光斑 + 半透明 sticky 顶栏 + 页脚（版权声明在上，备案在下；`max-w-6xl` 与顶栏对齐，`border-border/60` 顶部分割）。
 - 顶栏内边距宜 **偏紧**：`pb-2`，`pt-[max(0.5rem,env(safe-area-inset-top))]`（勿 `py-3` 以上叠过大 safe-area 下限）。
 - `/g/*` 攻略阅读页隐藏顶栏；其余公开页保留顶栏与氛围背景。
 - 语义色：`styles/tailwind.css` 将 teal 品牌映射到 `primary`；优先 `bg-background`、`text-foreground`、`text-muted-foreground`、`border-border`、`text-primary`。
@@ -50,7 +50,7 @@ alwaysApply: true
 ## 顶栏认证
 
 - `AuthMenu` 未登录：**一组胶囊**（`rounded-full` 浅底 + `ring-foreground/10`），登录 ghost、注册白底 `text-primary`；勿 ghost + outline 混用。
-- 已登录：昵称 truncate + ghost「退出」。
+- 已登录：昵称胶囊（truncate + 小箭头）。悬停或点击后在下方出现菜单，目前只有「退出」。
 
 ## 登录 / 注册
 

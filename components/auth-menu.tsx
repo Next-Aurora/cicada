@@ -1,7 +1,9 @@
 "use client"
 
+import { ChevronDown, LogOut } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
@@ -12,6 +14,83 @@ import {
   publishIdleMessage,
 } from "@/lib/auth-idle-client"
 
+async function signOut(router: ReturnType<typeof useRouter>) {
+  const channel = openIdleChannel()
+  publishIdleMessage(channel, { type: "logout", reason: "manual" })
+  channel?.close()
+  clearLastActivityTs()
+  await authClient.signOut()
+  router.refresh()
+}
+
+function AccountMenu({ name, onSignOut }: { name: string; onSignOut: () => Promise<void> }) {
+  const [open, setOpen] = useState(false)
+  const rootRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onPointerDown(event: PointerEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false)
+    }
+    document.addEventListener("pointerdown", onPointerDown)
+    document.addEventListener("keydown", onKeyDown)
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown)
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  }, [open])
+
+  return (
+    <div
+      ref={rootRef}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        className="text-foreground/80 hover:bg-muted/70 focus-visible:ring-ring/50 flex h-8 max-w-[10rem] items-center gap-1 rounded-full px-2.5 text-sm outline-none focus-visible:ring-3 sm:max-w-[14rem]"
+        aria-expanded={open}
+        aria-haspopup="menu"
+        onClick={() => {
+          if (window.matchMedia("(hover: hover)").matches) return
+          setOpen((current) => !current)
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+            event.preventDefault()
+            setOpen(true)
+          }
+        }}
+      >
+        <span className="truncate">{name}</span>
+        <ChevronDown
+          aria-hidden
+          className={cn("text-muted-foreground size-3.5 shrink-0 transition-transform", open && "rotate-180")}
+        />
+      </button>
+      {open ? (
+        <div className="absolute top-full right-0 z-50 pt-1.5">
+          <div className="bg-popover min-w-28 rounded-xl p-1 shadow-md ring-1 ring-foreground/10" role="menu">
+            <button
+              type="button"
+              role="menuitem"
+              className="hover:bg-muted flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm"
+              onClick={() => void onSignOut()}
+            >
+              <LogOut aria-hidden className="text-muted-foreground size-3.5" />
+              退出
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 export function AuthMenu() {
   const router = useRouter()
   const { data: session, isPending } = authClient.useSession()
@@ -21,29 +100,7 @@ export function AuthMenu() {
   }
 
   if (session?.user) {
-    return (
-      <div className="flex items-center gap-2">
-        <span className="text-muted-foreground max-w-[10rem] truncate text-sm sm:max-w-[14rem]">
-          {session.user.name || session.user.email}
-        </span>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            void (async () => {
-              const channel = openIdleChannel()
-              publishIdleMessage(channel, { type: "logout", reason: "manual" })
-              channel?.close()
-              clearLastActivityTs()
-              await authClient.signOut()
-              router.refresh()
-            })()
-          }}
-        >
-          退出
-        </Button>
-      </div>
-    )
+    return <AccountMenu name={session.user.name || session.user.email} onSignOut={() => signOut(router)} />
   }
 
   return (
