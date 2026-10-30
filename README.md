@@ -55,14 +55,13 @@ MySQL 用 `scripts/mysql/deploy.sh` 部署，只监听服务器的 `127.0.0.1:33
 | `CICADA_INTERNAL_TOKEN` | 与 API 的 `INTERNAL_AUTH_TOKEN` 相同 |
 | `DATABASE_URL` | 只给备份脚本。`mysql://cicada:密码@mysql:3306/cicada` |
 
-服务器上先建一次网络，再更新 MySQL 和两个栈（已有容器不会自动加入新网络）：
+换一台机器时，先跑 MySQL 部署脚本。它会在缺网络时创建 `cicada-internal`，再启动数据库：
 
 ```bash
-docker network create cicada-internal
 sudo bash scripts/mysql/deploy.sh
 ```
 
-然后在 Portainer 里把上面的变量改掉，并重新部署 cicadar-api 与 cicada。宿主机上的 Nginx、本机客户端仍用 `127.0.0.1`。
+然后把两个栈的环境变量按上表填好，推送到 `main`，或在 Portainer 里部署 cicadar-api 与 cicada。发布工作流在更新栈之前也会创建这张网络（已经有则跳过）。不要再单独执行 `docker network create`。宿主机上的 Nginx、本机客户端仍用 `127.0.0.1`。
 
 ## API 的 Nginx
 

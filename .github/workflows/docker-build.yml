@@ -193,6 +193,38 @@ jobs:
         if: github.event_name != 'pull_request'
         run: sleep 10
 
+      - name: Ensure cicada-internal network
+        if: github.event_name != 'pull_request'
+        env:
+          PORTAINER_HOST: ${{ secrets.PORTAINER_HOST }}
+          PORTAINER_ACCESS_TOKEN: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+          base="${PORTAINER_HOST%/}"
+          endpoints="$(curl -fsS -H "X-API-Key: ${PORTAINER_ACCESS_TOKEN}" "${base}/api/endpoints")"
+          endpoint_id="$(printf '%s' "$endpoints" | jq -r '[.[] | select(.Type == 1 and .Status == 1)][0].Id')"
+          if [ -z "$endpoint_id" ] || [ "$endpoint_id" = "null" ]; then
+            echo "Portainer 上没有可用的本机 Docker 环境。" >&2
+            exit 1
+          fi
+          code="$(curl -sS -o /tmp/cicada-network.json -w '%{http_code}' \
+            -X POST \
+            -H "X-API-Key: ${PORTAINER_ACCESS_TOKEN}" \
+            -H "Content-Type: application/json" \
+            "${base}/api/endpoints/${endpoint_id}/docker/networks/create" \
+            -d '{"Name":"cicada-internal","Driver":"bridge","CheckDuplicate":true,"Attachable":true}')"
+          if [ "$code" = "200" ] || [ "$code" = "201" ] || [ "$code" = "409" ]; then
+            echo "网络 cicada-internal 已就绪（HTTP ${code}）。"
+            exit 0
+          fi
+          if grep -qi 'already exists' /tmp/cicada-network.json; then
+            echo "网络 cicada-internal 已存在。"
+            exit 0
+          fi
+          echo "创建网络 cicada-internal 失败，HTTP ${code}" >&2
+          cat /tmp/cicada-network.json >&2
+          exit 1
+
       - name: Deploy stack to Portainer
         if: github.event_name != 'pull_request'
         id: portainer_deploy

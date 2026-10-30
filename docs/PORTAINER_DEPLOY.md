@@ -137,7 +137,7 @@ ACR 个人版不接受 BuildKit 默认附带的 OCI attestation。workflow 已�
 
 ### 应用连不上 MySQL
 
-容器内不要写 `127.0.0.1`（那是容器自己），也不要写 `host.docker.internal`（那是网桥地址，到不了只绑在 `127.0.0.1` 的端口）。站点、API、MySQL 都加入 `cicada-internal` 后，用容器名 `cicadar-api` 和 `mysql`。网络不存在时先在服务器执行 `docker network create cicada-internal`，再部署栈。
+容器内不要写 `127.0.0.1`（那是容器自己），也不要写 `host.docker.internal`（那是网桥地址，到不了只绑在 `127.0.0.1` 的端口）。站点、API、MySQL 加入 `cicada-internal` 后，用容器名 `cicadar-api` 和 `mysql`。这张网络由 `scripts/mysql/deploy.sh` 和发布工作流创建，部署栈时不用再手建。
 
 ## 相关文档
 

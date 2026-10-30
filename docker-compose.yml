@@ -51,8 +51,8 @@ networks:
     name: cicada-network
     driver: bridge
     external: false
-  # 与 cicadar-api、mysql 容器互通。端口仍只发布在 127.0.0.1，不经过宿主机回环。
-  # 服务器上先执行一次：docker network create cicada-internal
+  # 与 cicadar-api、mysql 容器互通。端口仍只发布在 127.0.0.1。
+  # 网络由 mysql 的 deploy.sh 或发布工作流创建，Compose 只加入。
   cicada-internal:
     name: cicada-internal
     external: true
