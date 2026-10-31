@@ -7,6 +7,9 @@ describe("auth idle client helpers", () => {
     expect(formatIdleCountdown(1_000)).toBe("1 秒")
     expect(formatIdleCountdown(61_000)).toBe("1 分 01 秒")
     expect(formatIdleCountdown(0)).toBe("0 秒")
+    expect(formatIdleCountdown(1_000, "en")).toBe("1 sec")
+    expect(formatIdleCountdown(61_000, "en")).toBe("1 min 01 sec")
+    expect(formatIdleCountdown(61_000, "yue")).toBe("1 分 01 秒")
   })
 
   it("builds idle login href", () => {

@@ -3,17 +3,23 @@ import type { Metadata } from "next"
 import { RegisterForm } from "@/app/register/register-form"
 import { AuthPageShell } from "@/components/auth-page-shell"
 import { isGitHubAuthEnabled } from "@/lib/auth-flags"
+import { getLocale } from "@/lib/i18n/get-locale"
+import { messages } from "@/lib/i18n/messages"
 
-export const metadata: Metadata = {
-  title: "注册",
-  description: "注册凌风蝉（cicadar）账号。",
+export async function generateMetadata(): Promise<Metadata> {
+  const m = messages[await getLocale()].auth
+  return {
+    title: m.registerTitle,
+    description: m.registerMeta,
+  }
 }
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
   const githubEnabled = isGitHubAuthEnabled()
+  const m = messages[await getLocale()].auth
 
   return (
-    <AuthPageShell title="注册" description="创建账号，后续可用于评论与收藏。">
+    <AuthPageShell title={m.registerTitle} description={m.registerDescription}>
       <RegisterForm githubEnabled={githubEnabled} />
     </AuthPageShell>
   )

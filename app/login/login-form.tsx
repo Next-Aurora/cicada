@@ -5,13 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useEffectEvent, useRef, useState } from "react"
 
 import {
+  authAlertClass,
   AuthCard,
   AuthDivider,
-  authAlertClass,
   authFieldClass,
   authPrimaryButtonClass,
   authSecondaryButtonClass,
 } from "@/components/auth-card"
+import { useI18n } from "@/components/locale-provider"
 import { Button } from "@/components/ui/button"
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -23,10 +24,9 @@ import { bindWeChatIdentity, pollWeChatMiniLogin, startWeChatMiniLogin } from "@
 import { isWechatPlaceholderEmail } from "@/lib/wechat-bind"
 import { isWeChatInAppBrowser } from "@/lib/wechat-browser"
 import {
+  isWechatIdentityMethodEnabled,
   WECHAT_IDENTITY_METHODS,
   type WechatIdentityMethod,
-  isWechatIdentityMethodEnabled,
-  wechatIdentityMethodLabel,
 } from "@/lib/wechat-identity"
 
 const WECHAT_TICKET_STORAGE_KEY = "cicada:wechat-login-ticket"
@@ -38,6 +38,7 @@ type LoginFormProps = {
 
 export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) {
   const router = useRouter()
+  const { m } = useI18n()
   const searchParams = useSearchParams()
   const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"))
   const idleLoggedOut = searchParams.get("reason") === "idle"
@@ -99,11 +100,11 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
     }
 
     if (polled.data.status === "expired") {
-      setError("登录已超时，请重新点击微信登录")
+      setError(m.auth.wechatExpired)
       return
     }
 
-    setError("请重新点击微信登录")
+    setError(m.auth.wechatRetry)
   })
 
   const startPolling = useEffectEvent((ticket: string) => {
@@ -161,7 +162,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
     setPending(false)
 
     if (signInError) {
-      setError(signInError.message || "登录失败，请检查邮箱与密码")
+      setError(signInError.message || m.auth.signInFailed)
       return
     }
 
@@ -199,7 +200,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
     setError(null)
 
     if (!isWechatIdentityMethodEnabled(bindMethod)) {
-      setError("该绑定方式暂未开放")
+      setError(m.auth.methodClosed)
       return
     }
 
@@ -219,24 +220,24 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
 
   const showWeChat = wechatMiniEnabled && inWeChat
   const description = requireBindIdentity
-    ? "微信登录成功。请绑定登录方式后继续，后续将支持手机号。"
+    ? m.auth.bindLead
     : showWeChat
       ? githubEnabled
-        ? "使用微信、邮箱密码或 GitHub 登录凌风蝉"
-        : "使用微信或邮箱密码登录凌风蝉"
+        ? m.auth.loginLeadWechatGithub
+        : m.auth.loginLeadWechat
       : githubEnabled
-        ? "使用邮箱密码或 GitHub 登录凌风蝉"
-        : "使用邮箱密码登录凌风蝉"
+        ? m.auth.loginLeadGithub
+        : m.auth.loginLead
 
   if (requireBindIdentity) {
     return (
       <AuthCard>
         <CardHeader className="gap-2 pt-1">
-          <CardTitle className="text-foreground/80 text-lg font-medium">完善账号</CardTitle>
+          <CardTitle className="text-foreground/80 text-lg font-medium">{m.auth.bindTitle}</CardTitle>
           <CardDescription className="leading-relaxed">{description}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <div className="bg-muted/50 flex flex-wrap gap-1 rounded-full p-0.5 ring-1 ring-foreground/10">
+          <div className="bg-muted/50 ring-foreground/10 flex flex-wrap gap-1 rounded-full p-0.5 ring-1">
             {WECHAT_IDENTITY_METHODS.map((method) => {
               const enabled = isWechatIdentityMethodEnabled(method)
               const selected = bindMethod === method
@@ -259,8 +260,8 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
                     }
                   }}
                 >
-                  {wechatIdentityMethodLabel(method)}
-                  {!enabled ? "（即将支持）" : null}
+                  {method === "email" ? m.auth.methodEmail : m.auth.methodPhone}
+                  {!enabled ? m.auth.comingSoon : null}
                 </Button>
               )
             })}
@@ -270,7 +271,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
             {bindMethod === "email" ? (
               <>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="bind-email">邮箱</Label>
+                  <Label htmlFor="bind-email">{m.auth.email}</Label>
                   <Input
                     id="bind-email"
                     type="email"
@@ -282,7 +283,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="bind-password">密码</Label>
+                  <Label htmlFor="bind-password">{m.auth.password}</Label>
                   <Input
                     id="bind-password"
                     type="password"
@@ -294,12 +295,10 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
                     onChange={(e) => setBindPassword(e.target.value)}
                   />
                 </div>
-                <p className="text-muted-foreground text-xs leading-relaxed">
-                  已有账号则验证密码并合并；没有账号则用该邮箱创建密码登录。
-                </p>
+                <p className="text-muted-foreground text-xs leading-relaxed">{m.auth.bindHint}</p>
               </>
             ) : (
-              <p className="text-muted-foreground text-sm">手机号绑定即将支持，请先使用邮箱。</p>
+              <p className="text-muted-foreground text-sm">{m.auth.phoneSoon}</p>
             )}
             {error ? (
               <p role="alert" className={authAlertClass}>
@@ -311,7 +310,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
               disabled={bindPending || !isWechatIdentityMethodEnabled(bindMethod)}
               className={authPrimaryButtonClass}
             >
-              {bindPending ? "绑定中…" : "确认绑定"}
+              {bindPending ? m.auth.binding : m.auth.confirmBind}
             </Button>
           </form>
         </CardContent>
@@ -330,7 +329,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
             role="status"
             className="rounded-xl border border-amber-400 bg-amber-100 px-3 py-2.5 text-sm leading-relaxed text-amber-950 dark:border-amber-300/50 dark:bg-amber-400/20 dark:text-amber-50"
           >
-            因长时间无操作已自动退出，请重新登录。
+            {m.auth.idleNotice}
           </p>
         ) : null}
 
@@ -342,12 +341,10 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
               className={authPrimaryButtonClass}
               onClick={() => void onWeChat()}
             >
-              {wechatPending ? "正在打开小程序…" : "微信登录"}
+              {wechatPending ? m.auth.wechatOpening : m.auth.wechat}
             </Button>
             {wechatPending ? (
-              <p className="text-muted-foreground text-center text-sm leading-relaxed">
-                请在小程序中完成授权，然后回到本页。
-              </p>
+              <p className="text-muted-foreground text-center text-sm leading-relaxed">{m.auth.wechatHint}</p>
             ) : null}
             <AuthDivider />
           </>
@@ -355,7 +352,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
 
         <form className="flex flex-col gap-3" onSubmit={onSubmit}>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="email">邮箱</Label>
+            <Label htmlFor="email">{m.auth.email}</Label>
             <Input
               id="email"
               type="email"
@@ -367,7 +364,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="password">密码</Label>
+            <Label htmlFor="password">{m.auth.password}</Label>
             <Input
               id="password"
               type="password"
@@ -384,7 +381,7 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
             </p>
           ) : null}
           <Button type="submit" disabled={pending} className={authPrimaryButtonClass}>
-            {pending ? "登录中…" : "登录"}
+            {pending ? m.auth.signingIn : m.auth.signIn}
           </Button>
         </form>
 
@@ -397,15 +394,15 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
               className={authSecondaryButtonClass}
               onClick={() => void onGitHub()}
             >
-              使用 GitHub 登录
+              {m.auth.githubSignIn}
             </Button>
           </>
         ) : null}
 
         <p className="text-muted-foreground border-border/60 border-t pt-4 text-center text-sm">
-          还没有账号？{" "}
+          {m.auth.noAccount}{" "}
           <Link href="/register" className="text-primary font-medium underline-offset-4 hover:underline">
-            注册
+            {m.auth.signUp}
           </Link>
         </p>
       </CardContent>

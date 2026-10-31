@@ -1,8 +1,7 @@
 import { idleActivityChannelName, idleActivityStorageKey } from "@/lib/auth-idle"
+import type { Locale } from "@/lib/i18n/locale"
 
-export type IdleBroadcastMessage =
-  | { type: "activity"; ts: number }
-  | { type: "logout"; reason: "idle" | "manual" }
+export type IdleBroadcastMessage = { type: "activity"; ts: number } | { type: "logout"; reason: "idle" | "manual" }
 
 export function readLastActivityTs() {
   try {
@@ -46,12 +45,17 @@ export function publishIdleMessage(channel: BroadcastChannel | null, message: Id
   }
 }
 
-export function formatIdleCountdown(remainingMs: number) {
+export function formatIdleCountdown(remainingMs: number, locale: Locale = "zh") {
   const totalSeconds = Math.max(0, Math.ceil(remainingMs / 1000))
   const minutes = Math.floor(totalSeconds / 60)
   const seconds = totalSeconds % 60
+  const padded = seconds.toString().padStart(2, "0")
+  if (locale === "en") {
+    if (minutes <= 0) return `${seconds} sec`
+    return `${minutes} min ${padded} sec`
+  }
   if (minutes <= 0) return `${seconds} 秒`
-  return `${minutes} 分 ${seconds.toString().padStart(2, "0")} 秒`
+  return `${minutes} 分 ${padded} 秒`
 }
 
 export function idleLoginHref(callbackPath?: string | null) {

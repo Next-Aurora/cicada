@@ -3,6 +3,8 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 
 import { getGuide, guideExists, listGuides } from "@/lib/guides"
+import { getLocale } from "@/lib/i18n/get-locale"
+import { messages } from "@/lib/i18n/messages"
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -13,11 +15,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const guide = getGuide(slug)
-  if (!guide) return { title: "攻略未找到" }
+  const copy = messages[await getLocale()].guides
+  if (!guide) return { title: copy.notFound }
 
   const description =
-    [guide.destination, guide.dates, guide.summary].filter(Boolean).join(" · ") ||
-    "凌风蝉旅行攻略"
+    [guide.destination, guide.dates, guide.summary].filter(Boolean).join(" · ") || copy.fallbackDescription
 
   const images = guide.ogImage ? [guide.ogImage] : undefined
 
@@ -45,14 +47,15 @@ export default async function GuidePage({ params }: Props) {
   const guide = getGuide(slug)
   if (!guide || !guideExists(slug)) notFound()
 
+  const copy = messages[await getLocale()].guides
   const src = `/guides/${slug}/index.html`
   const label = guide.title
 
   return (
     <div className="bg-background flex min-h-0 flex-1 flex-col">
       <header className="border-border bg-card flex shrink-0 items-center gap-3 border-b px-4 py-2">
-        <Link href="/guides" className="text-primary text-sm font-semibold hover:underline">
-          ← 旅行攻略
+        <Link href="/guides" className="text-primary shrink-0 text-sm font-semibold hover:underline">
+          {copy.back}
         </Link>
         <span className="text-muted-foreground min-w-0 flex-1 truncate text-sm" title={label}>
           {label}
@@ -61,9 +64,9 @@ export default async function GuidePage({ params }: Props) {
           href={src}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-muted-foreground hover:text-primary ml-auto shrink-0 text-sm"
+          className="text-muted-foreground hover:text-primary shrink-0 text-sm"
         >
-          单独打开
+          {copy.open}
         </a>
       </header>
       <iframe title={label} src={src} className="min-h-0 w-full flex-1 border-0 bg-white" />

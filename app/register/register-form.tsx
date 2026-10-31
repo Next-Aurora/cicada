@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 import {
+  authAlertClass,
   AuthCard,
   AuthDivider,
-  authAlertClass,
   authFieldClass,
   authPrimaryButtonClass,
   authSecondaryButtonClass,
 } from "@/components/auth-card"
+import { useI18n } from "@/components/locale-provider"
 import { PasswordField } from "@/components/password-field"
 import { Button } from "@/components/ui/button"
 import { CardContent, CardDescription, CardHeader } from "@/components/ui/card"
@@ -26,6 +27,7 @@ type RegisterFormProps = {
 
 export function RegisterForm({ githubEnabled }: RegisterFormProps) {
   const router = useRouter()
+  const { m } = useI18n()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -52,7 +54,7 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
     setPending(false)
 
     if (signUpError) {
-      setError(signUpError.message || "注册失败，请稍后重试")
+      setError(signUpError.message || m.auth.signUpFailed)
       return
     }
 
@@ -72,15 +74,13 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
     <AuthCard>
       <CardHeader className="gap-2 pt-1">
         <CardDescription className="text-sm leading-relaxed">
-          {githubEnabled
-            ? "填写以下信息即可完成注册；也可在下方使用 GitHub。"
-            : "填写以下信息即可完成注册。"}
+          {githubEnabled ? m.auth.registerLeadGithub : m.auth.registerLead}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <form className="flex flex-col gap-3" onSubmit={onSubmit}>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="name">昵称</Label>
+            <Label htmlFor="name">{m.auth.nickname}</Label>
             <Input
               id="name"
               autoComplete="name"
@@ -91,7 +91,7 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="email">邮箱</Label>
+            <Label htmlFor="email">{m.auth.email}</Label>
             <Input
               id="email"
               type="email"
@@ -103,7 +103,7 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="password">密码</Label>
+            <Label htmlFor="password">{m.auth.password}</Label>
             <PasswordField
               id="password"
               value={password}
@@ -118,7 +118,7 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
             </p>
           ) : null}
           <Button type="submit" disabled={pending} className={authPrimaryButtonClass}>
-            {pending ? "注册中…" : "注册"}
+            {pending ? m.auth.signingUp : m.auth.signUp}
           </Button>
         </form>
 
@@ -131,15 +131,15 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
               className={authSecondaryButtonClass}
               onClick={() => void onGitHub()}
             >
-              使用 GitHub 注册/登录
+              {m.auth.githubSignUp}
             </Button>
           </>
         ) : null}
 
         <p className="text-muted-foreground border-border/60 border-t pt-4 text-center text-sm">
-          已有账号？{" "}
+          {m.auth.hasAccount}{" "}
           <Link href="/login" className="text-primary font-medium underline-offset-4 hover:underline">
-            登录
+            {m.auth.signIn}
           </Link>
         </p>
       </CardContent>

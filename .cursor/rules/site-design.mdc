@@ -28,7 +28,7 @@ alwaysApply: true
 
 ## 全局壳层
 
-- `SiteChrome`：`PageAtmosphere` 固定渐变光斑 + 半透明 sticky 顶栏 + 页脚（版权声明在上，备案在下；`max-w-6xl` 与顶栏对齐，`border-border/60` 顶部分割）。
+- `SiteChrome`：`PageAtmosphere` 固定渐变光斑 + 半透明 sticky 顶栏 + 页脚（版权声明在上，备案在下，居中；语言开关在页脚右侧；`max-w-6xl` 与顶栏对齐，`border-border/60` 顶部分割）。窄屏时版权仍居中，开关落到其下方并靠右。
 - 顶栏内边距宜 **偏紧**：`pb-2`，`pt-[max(0.5rem,env(safe-area-inset-top))]`（勿 `py-3` 以上叠过大 safe-area 下限）。
 - `/g/*` 攻略阅读页隐藏顶栏；其余公开页保留顶栏与氛围背景。
 - 语义色：`styles/tailwind.css` 将 teal 品牌映射到 `primary`；优先 `bg-background`、`text-foreground`、`text-muted-foreground`、`border-border`、`text-primary`。
@@ -49,6 +49,7 @@ alwaysApply: true
 
 ## 顶栏认证
 
+- 语言：`LocaleSwitch`（`中` / `粤` / `EN`，当前项白底 `text-primary`）只放在页脚右侧，全站同一处，含 `/g/*`。品牌名不翻译（凌风蝉、CICADAR）。界面文案在 `lib/i18n/messages.ts`，语言存在 cookie `cicada-locale`。攻略正文 HTML 保持原文。
 - `AuthMenu` 未登录：**一组胶囊**（`rounded-full` 浅底 + `ring-foreground/10`），登录 ghost、注册白底 `text-primary`；勿 ghost + outline 混用。
 - 已登录：昵称胶囊（truncate + 小箭头）。悬停或点击后在下方出现菜单，目前只有「退出」。
 

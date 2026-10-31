@@ -5,14 +5,11 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
+import { useI18n } from "@/components/locale-provider"
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
+import { clearLastActivityTs, openIdleChannel, publishIdleMessage } from "@/lib/auth-idle-client"
 import { cn } from "@/lib/utils"
-import {
-  clearLastActivityTs,
-  openIdleChannel,
-  publishIdleMessage,
-} from "@/lib/auth-idle-client"
 
 async function signOut(router: ReturnType<typeof useRouter>) {
   const channel = openIdleChannel()
@@ -24,6 +21,7 @@ async function signOut(router: ReturnType<typeof useRouter>) {
 }
 
 function AccountMenu({ name, onSignOut }: { name: string; onSignOut: () => Promise<void> }) {
+  const { m } = useI18n()
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
 
@@ -44,12 +42,7 @@ function AccountMenu({ name, onSignOut }: { name: string; onSignOut: () => Promi
   }, [open])
 
   return (
-    <div
-      ref={rootRef}
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <div ref={rootRef} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <button
         type="button"
         className="text-foreground/80 hover:bg-muted/70 focus-visible:ring-ring/50 flex h-8 max-w-[10rem] items-center gap-1 rounded-full px-2.5 text-sm outline-none focus-visible:ring-3 sm:max-w-[14rem]"
@@ -74,7 +67,7 @@ function AccountMenu({ name, onSignOut }: { name: string; onSignOut: () => Promi
       </button>
       {open ? (
         <div className="absolute top-full right-0 z-50 pt-1.5">
-          <div className="bg-popover min-w-28 rounded-xl p-1 shadow-md ring-1 ring-foreground/10" role="menu">
+          <div className="bg-popover ring-foreground/10 min-w-28 rounded-xl p-1 shadow-md ring-1" role="menu">
             <button
               type="button"
               role="menuitem"
@@ -82,7 +75,7 @@ function AccountMenu({ name, onSignOut }: { name: string; onSignOut: () => Promi
               onClick={() => void onSignOut()}
             >
               <LogOut aria-hidden className="text-muted-foreground size-3.5" />
-              退出
+              {m.nav.signOut}
             </button>
           </div>
         </div>
@@ -93,6 +86,7 @@ function AccountMenu({ name, onSignOut }: { name: string; onSignOut: () => Promi
 
 export function AuthMenu() {
   const router = useRouter()
+  const { m } = useI18n()
   const { data: session, isPending } = authClient.useSession()
 
   if (isPending) {
@@ -104,7 +98,7 @@ export function AuthMenu() {
   }
 
   return (
-    <div className="bg-muted/50 flex items-center gap-0.5 rounded-full p-0.5 ring-1 ring-foreground/10">
+    <div className="bg-muted/50 ring-foreground/10 flex items-center gap-0.5 rounded-full p-0.5 ring-1">
       <Button
         render={<Link href="/login" />}
         nativeButton={false}
@@ -112,7 +106,7 @@ export function AuthMenu() {
         size="sm"
         className={cn("h-8 rounded-full px-3.5 text-sm font-medium", "hover:bg-background/80")}
       >
-        登录
+        {m.nav.signIn}
       </Button>
       <Button
         render={<Link href="/register" />}
@@ -121,10 +115,10 @@ export function AuthMenu() {
         size="sm"
         className={cn(
           "h-8 rounded-full px-3.5 text-sm font-medium",
-          "bg-background text-primary shadow-sm hover:bg-background"
+          "bg-background text-primary hover:bg-background shadow-sm"
         )}
       >
-        注册
+        {m.nav.signUp}
       </Button>
     </div>
   )

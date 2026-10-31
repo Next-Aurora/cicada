@@ -4,8 +4,10 @@ import { Check, Eye, EyeOff } from "lucide-react"
 import { useId, useState } from "react"
 
 import { authFieldClass } from "@/components/auth-card"
+import { useI18n } from "@/components/locale-provider"
 import { Input } from "@/components/ui/input"
-import { passwordRules } from "@/lib/password-policy"
+import { fill } from "@/lib/i18n/messages"
+import { PASSWORD_MIN_LENGTH, passwordRules } from "@/lib/password-policy"
 import { cn } from "@/lib/utils"
 
 type PasswordFieldProps = {
@@ -26,6 +28,7 @@ export function PasswordField({
   autoComplete = "new-password",
   onInvalidAttempt,
 }: PasswordFieldProps) {
+  const { m } = useI18n()
   const [visible, setVisible] = useState(false)
   const rulesId = useId()
   const showError = passwordRules.some((rule) => !rule.test(value)) && (attempted || value.length > 0)
@@ -40,10 +43,7 @@ export function PasswordField({
           required
           aria-invalid={showError || undefined}
           aria-describedby={rulesId}
-          className={cn(
-            authFieldClass,
-            "pr-10 [&::-ms-clear]:hidden [&::-ms-reveal]:hidden"
-          )}
+          className={cn(authFieldClass, "pr-10 [&::-ms-clear]:hidden [&::-ms-reveal]:hidden")}
           value={value}
           onChange={(event) => onChange(event.target.value)}
           onInvalid={(event) => {
@@ -54,7 +54,7 @@ export function PasswordField({
         <button
           type="button"
           className="text-muted-foreground hover:text-foreground focus-visible:text-foreground absolute inset-y-0 right-0 flex w-10 items-center justify-center rounded-r-xl outline-none"
-          aria-label={visible ? "隐藏密码" : "显示密码"}
+          aria-label={visible ? m.password.hide : m.password.show}
           aria-pressed={visible}
           onMouseDown={(event) => event.preventDefault()}
           onClick={() => setVisible((current) => !current)}
@@ -79,14 +79,11 @@ export function PasswordField({
               ) : (
                 <span
                   aria-hidden
-                  className={cn(
-                    "size-1 shrink-0 rounded-full",
-                    unmet ? "bg-destructive" : "bg-muted-foreground/70"
-                  )}
+                  className={cn("size-1 shrink-0 rounded-full", unmet ? "bg-destructive" : "bg-muted-foreground/70")}
                 />
               )}
-              <span className="sr-only">{met ? "已满足：" : unmet ? "未满足：" : "要求："}</span>
-              {rule.label}
+              <span className="sr-only">{met ? m.password.met : unmet ? m.password.unmet : m.password.required}</span>
+              {rule.id === "min-length" ? fill(m.password.minLength, { n: PASSWORD_MIN_LENGTH }) : rule.label}
             </li>
           )
         })}

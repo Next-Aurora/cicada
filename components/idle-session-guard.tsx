@@ -3,19 +3,21 @@
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useEffectEvent, useRef, useState } from "react"
 
+import { useI18n } from "@/components/locale-provider"
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
+import { getIdleWarningMs, idleActivityStorageKey } from "@/lib/auth-idle"
 import {
   clearLastActivityTs,
   formatIdleCountdown,
+  type IdleBroadcastMessage,
   idleLoginHref,
   openIdleChannel,
   publishIdleMessage,
   readLastActivityTs,
   writeLastActivityTs,
-  type IdleBroadcastMessage,
 } from "@/lib/auth-idle-client"
-import { getIdleWarningMs, idleActivityStorageKey } from "@/lib/auth-idle"
+import { fill } from "@/lib/i18n/messages"
 import { safeCallbackUrl } from "@/lib/safe-callback-url"
 
 const ACTIVITY_EVENTS = ["mousedown", "keydown", "scroll", "touchstart", "pointerdown"] as const
@@ -29,6 +31,7 @@ type IdleSessionGuardProps = {
 export function IdleSessionGuard({ timeoutMs }: IdleSessionGuardProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const { locale, m } = useI18n()
   const { data: session } = authClient.useSession()
   const [remainingMs, setRemainingMs] = useState<number | null>(null)
 
@@ -60,10 +63,7 @@ export function IdleSessionGuard({ timeoutMs }: IdleSessionGuardProps) {
     setRemainingMs(timeoutMs)
     publishIdleMessage(channelRef.current, { type: "activity", ts: now })
 
-    if (
-      options?.refreshSession &&
-      now - lastSessionRefreshAt.current >= SESSION_REFRESH_THROTTLE_MS
-    ) {
+    if (options?.refreshSession && now - lastSessionRefreshAt.current >= SESSION_REFRESH_THROTTLE_MS) {
       lastSessionRefreshAt.current = now
       void authClient.getSession()
     }
@@ -125,10 +125,7 @@ export function IdleSessionGuard({ timeoutMs }: IdleSessionGuardProps) {
 
       const idleFor = Date.now() - lastActivityAt.current
       const msUntilWarning = timeoutMs - warningMs - idleFor
-      const delay =
-        msUntilWarning > 0
-          ? Math.min(msUntilWarning, remaining)
-          : Math.min(1_000, remaining)
+      const delay = msUntilWarning > 0 ? Math.min(msUntilWarning, remaining) : Math.min(1_000, remaining)
 
       timer = window.setTimeout(schedule, Math.max(250, delay))
     }
@@ -223,9 +220,9 @@ export function IdleSessionGuard({ timeoutMs }: IdleSessionGuardProps) {
       className="border-border bg-card text-card-foreground fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-50 mx-auto flex max-w-md flex-col gap-3 rounded-xl border p-4 shadow-lg sm:inset-x-auto sm:right-6"
     >
       <div>
-        <p className="font-medium">即将因闲置退出登录</p>
+        <p className="font-medium">{m.idle.title}</p>
         <p className="text-muted-foreground mt-1 text-sm">
-          约 {formatIdleCountdown(remainingMs)} 后自动退出。继续操作可保持登录。
+          {fill(m.idle.body, { time: formatIdleCountdown(remainingMs, locale) })}
         </p>
       </div>
       <Button
@@ -236,7 +233,7 @@ export function IdleSessionGuard({ timeoutMs }: IdleSessionGuardProps) {
           touch({ refreshSession: true, force: true })
         }}
       >
-        继续使用
+        {m.idle.stay}
       </Button>
     </div>
   )
