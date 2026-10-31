@@ -25,23 +25,24 @@ export function SiteChrome({ children, idleTimeoutMs }: SiteChromeProps) {
       {hideSiteHeader ? null : <SiteHeader />}
       <div className="flex min-h-0 flex-1 flex-col">{children}</div>
       <footer className="shrink-0 px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-8 lg:px-10">
-        <div className="border-border/60 mx-auto grid max-w-6xl items-center gap-x-4 gap-y-3 border-t pt-6 sm:grid-cols-[1fr_auto_1fr]">
-          <div className="hidden sm:block" aria-hidden />
-          <div className="flex flex-col items-center gap-1.5 text-center">
-            <p className="text-muted-foreground text-xs leading-relaxed">
-              © {new Date().getFullYear()} 凌风蝉 <span className="uppercase">cicadar</span> {m.footer.rights}
-            </p>
-            <a
-              href="https://beian.miit.gov.cn/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground/80 hover:text-foreground text-xs underline-offset-4 transition-colors hover:underline"
-            >
-              蜀ICP备2024112200号-2
-            </a>
-          </div>
-          <div className="justify-self-end">
-            <LocaleSwitch />
+        <div className="border-border/60 mx-auto max-w-6xl border-t pt-6">
+          <div className="relative">
+            <div className="flex flex-col items-center gap-1.5 text-center sm:px-36">
+              <p className="text-muted-foreground text-xs leading-relaxed">
+                © {new Date().getFullYear()} 凌风蝉 <span className="uppercase">cicadar</span> {m.footer.rights}
+              </p>
+              <a
+                href="https://beian.miit.gov.cn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground/80 hover:text-foreground text-xs underline-offset-4 transition-colors hover:underline"
+              >
+                蜀ICP备2024112200号-2
+              </a>
+            </div>
+            <div className="mt-3 flex justify-end sm:absolute sm:inset-y-0 sm:right-0 sm:mt-0 sm:items-center">
+              <LocaleSwitch />
+            </div>
           </div>
         </div>
       </footer>
