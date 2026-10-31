@@ -7,6 +7,7 @@ import { useState } from "react"
 import {
   AuthCard,
   AuthDivider,
+  authAlertClass,
   authFieldClass,
   authPrimaryButtonClass,
   authSecondaryButtonClass,
@@ -111,7 +112,11 @@ export function RegisterForm({ githubEnabled }: RegisterFormProps) {
               onInvalidAttempt={() => setPasswordAttempted(true)}
             />
           </div>
-          {error ? <p className="text-destructive text-sm">{error}</p> : null}
+          {error ? (
+            <p role="alert" className={authAlertClass}>
+              {error}
+            </p>
+          ) : null}
           <Button type="submit" disabled={pending} className={authPrimaryButtonClass}>
             {pending ? "注册中…" : "注册"}
           </Button>

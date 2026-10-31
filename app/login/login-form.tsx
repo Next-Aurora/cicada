@@ -7,6 +7,7 @@ import { useEffect, useEffectEvent, useRef, useState } from "react"
 import {
   AuthCard,
   AuthDivider,
+  authAlertClass,
   authFieldClass,
   authPrimaryButtonClass,
   authSecondaryButtonClass,
@@ -300,7 +301,11 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
             ) : (
               <p className="text-muted-foreground text-sm">手机号绑定即将支持，请先使用邮箱。</p>
             )}
-            {error ? <p className="text-destructive text-sm">{error}</p> : null}
+            {error ? (
+              <p role="alert" className={authAlertClass}>
+                {error}
+              </p>
+            ) : null}
             <Button
               type="submit"
               disabled={bindPending || !isWechatIdentityMethodEnabled(bindMethod)}
@@ -321,7 +326,10 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         {idleLoggedOut ? (
-          <p className="border-primary/15 bg-primary/5 text-muted-foreground rounded-xl border px-3 py-2.5 text-sm leading-relaxed">
+          <p
+            role="status"
+            className="rounded-xl border border-amber-400 bg-amber-100 px-3 py-2.5 text-sm leading-relaxed text-amber-950 dark:border-amber-300/50 dark:bg-amber-400/20 dark:text-amber-50"
+          >
             因长时间无操作已自动退出，请重新登录。
           </p>
         ) : null}
@@ -370,7 +378,11 @@ export function LoginForm({ githubEnabled, wechatMiniEnabled }: LoginFormProps) 
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {error ? <p className="text-destructive text-sm">{error}</p> : null}
+          {error ? (
+            <p role="alert" className={authAlertClass}>
+              {error}
+            </p>
+          ) : null}
           <Button type="submit" disabled={pending} className={authPrimaryButtonClass}>
             {pending ? "登录中…" : "登录"}
           </Button>

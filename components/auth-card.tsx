@@ -35,6 +35,8 @@ export function AuthDivider() {
 }
 
 export const authFieldClass = "h-10 rounded-xl bg-background/80 md:text-sm"
+export const authAlertClass =
+  "rounded-xl border border-destructive/25 bg-destructive/10 px-3 py-2.5 text-sm leading-relaxed text-destructive"
 export const authPrimaryButtonClass = "mt-1 h-10 w-full rounded-full font-medium"
 export const authSecondaryButtonClass =
   "h-10 w-full rounded-full border-border/80 bg-background/60 font-medium"

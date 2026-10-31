@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 type AuthPageShellProps = {
   title: string
   description?: string
@@ -22,15 +20,6 @@ export function AuthPageShell({ title, description, children }: AuthPageShellPro
         </header>
 
         {children}
-
-        <p className="mt-8 text-center">
-          <Link
-            href="/"
-            className="text-muted-foreground hover:text-primary text-sm transition-colors hover:underline hover:underline-offset-4"
-          >
-            ← 返回首页
-          </Link>
-        </p>
       </div>
     </main>
   )

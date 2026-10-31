@@ -54,7 +54,7 @@ alwaysApply: true
 
 ## 登录 / 注册
 
-- 布局：`AuthPageShell`（居中、`animate-[fade-up_0.7s_ease-out_both]`、**无品牌 eyebrow**、`<h1>` 用上表认证页标题类名 + `description` +「← 返回首页」）；表单在 `AuthCard`（与入口卡同顶条 + ring）。
+- 布局：`AuthPageShell`（居中、`animate-[fade-up_0.7s_ease-out_both]`、**无品牌 eyebrow**、`<h1>` 用上表认证页标题类名 + `description`；不放「返回首页」，顶栏 logo 已链回首页）；表单在 `AuthCard`（与入口卡同顶条 + ring）。错误用 `authAlertClass`（浅红底圆角条），不要裸红字。
 - **勿重复「凌风蝉」**：顶栏已展示品牌，shell 内不要再加品牌胶囊或第二套 logo。
 - 输入：`authFieldClass`（`h-10 rounded-xl`）；主按钮 `authPrimaryButtonClass`（全宽 `rounded-full`）；GitHub 等 `authSecondaryButtonClass`；分隔用 `AuthDivider`。
 - 页级说明写在 shell 的 `description`；卡片内 `CardDescription` 只写登录方式相关短句，避免再写品牌名。
