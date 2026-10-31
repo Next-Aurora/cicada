@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/Next-Aurora/cicada/compare/v1.9.0...v1.9.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* use a welcome line on the register page ([df43101](https://github.com/Next-Aurora/cicada/commit/df43101d133b3bf496cb9c3174cf221764b89cfe))
+
 # [1.9.0](https://github.com/Next-Aurora/cicada/compare/v1.8.0...v1.9.0) (2026-10-31)
 
 
