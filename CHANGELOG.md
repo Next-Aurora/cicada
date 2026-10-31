@@ -1,3 +1,15 @@
+# [1.9.0](https://github.com/Next-Aurora/cicada/compare/v1.8.0...v1.9.0) (2026-10-31)
+
+
+### Bug Fixes
+
+* restyle auth alerts and drop the extra home link ([0fb497b](https://github.com/Next-Aurora/cicada/commit/0fb497ba11599bf4e3f8615ca4d03383bcc7d402))
+
+
+### Features
+
+* offer the site in Mandarin, Cantonese, and English ([fce6b18](https://github.com/Next-Aurora/cicada/commit/fce6b18f5f0a9047ce93788efc10066156ce0eed))
+
 # [1.8.0](https://github.com/Next-Aurora/cicada/compare/v1.7.0...v1.8.0) (2026-10-30)
 
 
