@@ -33,11 +33,11 @@ export default async function HomePage() {
       available: false,
     },
     {
-      href: "#",
+      href: "/play",
       title: m.toolsTitle,
       desc: m.toolsDesc,
       mark: m.toolsMark,
-      available: false,
+      available: true,
     },
   ]
 

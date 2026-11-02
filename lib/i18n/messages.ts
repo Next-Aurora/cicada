@@ -107,6 +107,67 @@ export type Messages = {
     body: string
     stay: string
   }
+  play: {
+    title: string
+    description: string
+    eyebrow: string
+    lead: string
+    quarkTitle: string
+    quarkLead: string
+    qr: string
+    qrWaiting: string
+    qrExpired: string
+    qrHint: string
+    qrLoading: string
+    qrConnecting: string
+    qrRefresh: string
+    qrClose: string
+    qrSameDevice: string
+    filesLoading: string
+    refreshToken: string
+    deviceId: string
+    bind: string
+    unlink: string
+    linked: string
+    root: string
+    back: string
+    empty: string
+    subtitles: string
+    subtitleLead: string
+    player: string
+    idle: string
+    files: string
+    collapse: string
+    fullscreen: string
+    exitFullscreen: string
+    localFile: string
+    sidecar: string
+    search: string
+    url: string
+    loadUrl: string
+    offset: string
+    noCue: string
+    noTiming: string
+    browserHint: string
+    assrtCredit: string
+    assrtTitle: string
+    advanced: string
+    assrtOwn: string
+    assrtSite: string
+    assrtToken: string
+    assrtQuota: string
+    saveAssrt: string
+    clearAssrt: string
+    failed: string
+    localNote: string
+    history: string
+    kinds: {
+      folder: string
+      video: string
+      audio: string
+      subtitle: string
+    }
+  }
 }
 
 export function fill(template: string, values: Record<string, string | number>) {
@@ -131,7 +192,7 @@ const zh: Messages = {
   home: {
     eyebrow: "旅行 · 记录 · 小工具",
     headline: "风起了，路还在长",
-    lead: "旅行攻略已经上线；博客与小工具会陆续补上。",
+    lead: "旅行攻略和小工具已经上线；博客会陆续补上。",
     cta: "查看旅行攻略",
     navLabel: "站点入口",
     soon: "即将开放",
@@ -142,7 +203,7 @@ const zh: Messages = {
     blogDesc: "随笔与记录",
     blogMark: "文",
     toolsTitle: "小工具",
-    toolsDesc: "日常好用的小能力",
+    toolsDesc: "一些顺手的功能",
     toolsMark: "具",
   },
   guides: {
@@ -220,6 +281,62 @@ const zh: Messages = {
     body: "约 {time} 后自动退出。继续操作可保持登录。",
     stay: "继续使用",
   },
+  play: {
+    title: "网盘播放",
+    description: "用自己的夸克网盘播放音频和视频。",
+    eyebrow: "小工具",
+    lead: "连上夸克，播放网盘里的音频和视频。",
+    quarkTitle: "夸克",
+    quarkLead: "用夸克 App 扫码，或填入 refresh token 和 device id。",
+    qr: "扫码登录",
+    qrWaiting: "夸克登录二维码",
+    qrExpired: "二维码过期了，请再扫一次。",
+    qrHint: "使用夸克 app 扫码",
+    qrLoading: "正在获取二维码",
+    qrConnecting: "正在连接",
+    qrRefresh: "刷新二维码",
+    qrClose: "关闭",
+    qrSameDevice: "刷新会沿用这台设备，不会再占一个新名额。如果还是这句，先在夸克 App 里去掉一台已登录的设备。",
+    filesLoading: "正在读取目录",
+    refreshToken: "refresh token",
+    deviceId: "device id",
+    bind: "用已有令牌登录",
+    unlink: "断开连接",
+    linked: "已连接 {name}",
+    root: "全部文件",
+    back: "上一级",
+    empty: "这个文件夹里没有能播的音频或视频",
+    subtitles: "字幕",
+    subtitleLead: "点一句，跳到对应时间。",
+    player: "播放",
+    idle: "选一个文件开始播放",
+    files: "文件浏览",
+    collapse: "收起",
+    fullscreen: "全屏",
+    exitFullscreen: "退出全屏",
+    localFile: "本地文件",
+    sidecar: "文件夹里的字幕",
+    search: "搜索字幕",
+    url: "字幕链接",
+    loadUrl: "载入",
+    offset: "偏差（秒）",
+    noCue: "还没有字幕",
+    noTiming: "这份字幕没有时间轴",
+    browserHint: "浏览器可能播不了这个格式，mp4 和 mp3 更稳妥。",
+    assrtCredit: "字幕来自",
+    assrtTitle: "射手网",
+    advanced: "高级设置",
+    assrtOwn: "你的 Token，尾号 {tail}，每分钟 {quota} 次。",
+    assrtSite: "现在用站点的额度，每分钟 {quota} 次。换上自己的 Token 后，可以按你的额度来。",
+    assrtToken: "射手网 Token",
+    assrtQuota: "每分钟",
+    saveAssrt: "换上我的",
+    clearAssrt: "改回站点的",
+    failed: "没完成，请再试一次",
+    localNote: "未登录时，进度记在这台浏览器。登录后跟账号走，同一部片子留较新的进度。",
+    history: "最近看过",
+    kinds: { folder: "文件夹", video: "视频", audio: "音频", subtitle: "字幕" },
+  },
 }
 
 const en: Messages = {
@@ -240,7 +357,7 @@ const en: Messages = {
   home: {
     eyebrow: "Travel · notes · tools",
     headline: "The wind is up, and the road goes on",
-    lead: "Travel guides are live. Notes and tools will follow.",
+    lead: "Travel guides and tools are live. Notes will follow.",
     cta: "Browse travel guides",
     navLabel: "Site sections",
     soon: "Coming soon",
@@ -251,7 +368,7 @@ const en: Messages = {
     blogDesc: "Essays and records",
     blogMark: "N",
     toolsTitle: "Tools",
-    toolsDesc: "Small things for everyday use",
+    toolsDesc: "A few handy things",
     toolsMark: "T",
   },
   guides: {
@@ -330,6 +447,62 @@ const en: Messages = {
     body: "Signing out in about {time}. Stay active to keep the session.",
     stay: "Stay signed in",
   },
+  play: {
+    title: "Playback",
+    description: "Play audio and video from your Quark drive.",
+    eyebrow: "Tools",
+    lead: "Connect Quark and play what's stored there.",
+    quarkTitle: "Quark",
+    quarkLead: "Scan with the Quark app, or enter a refresh token and device id.",
+    qr: "Scan to sign in",
+    qrWaiting: "Quark sign-in code",
+    qrExpired: "That code expired. Scan again.",
+    qrHint: "Scan with the Quark app",
+    qrLoading: "Getting the code",
+    qrConnecting: "Connecting",
+    qrRefresh: "Refresh the code",
+    qrClose: "Close",
+    qrSameDevice: "Refreshing keeps this device, so it does not take another slot. If this remains, remove a signed-in device in the Quark app.",
+    filesLoading: "Reading this folder",
+    refreshToken: "refresh token",
+    deviceId: "device id",
+    bind: "Sign in with a token",
+    unlink: "Disconnect",
+    linked: "Connected, {name}",
+    root: "All files",
+    back: "Up",
+    empty: "Nothing playable in this folder",
+    subtitles: "Subtitles",
+    subtitleLead: "Click a line to jump there.",
+    player: "Player",
+    idle: "Choose a file to play",
+    files: "Files",
+    collapse: "Hide",
+    fullscreen: "Full screen",
+    exitFullscreen: "Exit full screen",
+    localFile: "Local file",
+    sidecar: "Subtitle in this folder",
+    search: "Find subtitles",
+    url: "Subtitle link",
+    loadUrl: "Load",
+    offset: "Shift (sec)",
+    noCue: "No subtitles yet",
+    noTiming: "This subtitle has no timings",
+    browserHint: "This format may not play. mp4 and mp3 usually do.",
+    assrtCredit: "Subtitles from",
+    assrtTitle: "assrt.net",
+    advanced: "Advanced",
+    assrtOwn: "Your token, ending {tail}, {quota} times a minute.",
+    assrtSite: "Using the site allowance, {quota} times a minute. Add your own token to use yours.",
+    assrtToken: "Your assrt.net token",
+    assrtQuota: "Per minute",
+    saveAssrt: "Use my token",
+    clearAssrt: "Use the site's",
+    failed: "That didn't go through. Try again.",
+    localNote: "Signed out, progress stays in this browser. After you sign in, it follows your account, and the newer progress is kept.",
+    history: "Recent",
+    kinds: { folder: "Folder", video: "Video", audio: "Audio", subtitle: "Subtitle" },
+  },
 }
 
 const yue: Messages = {
@@ -350,7 +523,7 @@ const yue: Messages = {
   home: {
     eyebrow: "旅行 · 记录 · 小工具",
     headline: "风起咗，路仲长",
-    lead: "旅行攻略已经上线；博客同小工具会陆续补上。",
+    lead: "旅行攻略同小工具已经上线；博客会陆续补上。",
     cta: "睇旅行攻略",
     navLabel: "网站入口",
     soon: "就快开放",
@@ -361,7 +534,7 @@ const yue: Messages = {
     blogDesc: "随笔同记录",
     blogMark: "文",
     toolsTitle: "小工具",
-    toolsDesc: "日常好用嘅小功能",
+    toolsDesc: "一啲顺手嘅功能",
     toolsMark: "具",
   },
   guides: {
@@ -438,6 +611,62 @@ const yue: Messages = {
     title: "就快因为闲置登出",
     body: "大约 {time} 之后自动登出。继续操作就可以保持登入。",
     stay: "继续用",
+  },
+  play: {
+    title: "网盘播放",
+    description: "用自己嘅夸克网盘播放音频同视频。",
+    eyebrow: "小工具",
+    lead: "连上夸克，播网盘入面嘅音频同视频。",
+    quarkTitle: "夸克",
+    quarkLead: "用夸克 App 扫码，或者填 refresh token 同 device id。",
+    qr: "扫码登入",
+    qrWaiting: "夸克登入二维码",
+    qrExpired: "二维码过期咗，请再扫一次。",
+    qrHint: "用夸克 app 扫码",
+    qrLoading: "获取紧二维码",
+    qrConnecting: "连接紧",
+    qrRefresh: "刷新二维码",
+    qrClose: "关闭",
+    qrSameDevice: "刷新会沿用呢部设备，唔会再占一个新名额。如果仲系呢句，先喺夸克 App 去掉一台已经登入嘅设备。",
+    filesLoading: "读取紧目录",
+    refreshToken: "refresh token",
+    deviceId: "device id",
+    bind: "用已有令牌登入",
+    unlink: "断开连接",
+    linked: "已经连接 {name}",
+    root: "全部文件",
+    back: "上一级",
+    empty: "呢个文件夹冇得播嘅音频或者视频",
+    subtitles: "字幕",
+    subtitleLead: "点一句，就跳去对应时间。",
+    player: "播放",
+    idle: "拣一个文件开始播",
+    files: "文件浏览",
+    collapse: "收起",
+    fullscreen: "全屏",
+    exitFullscreen: "退出全屏",
+    localFile: "本地文件",
+    sidecar: "文件夹入面嘅字幕",
+    search: "搜字幕",
+    url: "字幕链接",
+    loadUrl: "载入",
+    offset: "偏差（秒）",
+    noCue: "未有字幕",
+    noTiming: "呢份字幕冇时间轴",
+    browserHint: "浏览器可能播唔到呢个格式，mp4 同 mp3 稳阵啲。",
+    assrtCredit: "字幕来自",
+    assrtTitle: "射手网",
+    advanced: "高级设置",
+    assrtOwn: "你嘅 Token，尾号 {tail}，每分钟 {quota} 次。",
+    assrtSite: "而家用紧站点额度，每分钟 {quota} 次。换上自己嘅 Token 之后，就可以跟你嘅额度。",
+    assrtToken: "射手网 Token",
+    assrtQuota: "每分钟",
+    saveAssrt: "换上我嘅",
+    clearAssrt: "改返站点嘅",
+    failed: "未完成，请再试一次",
+    localNote: "未登入时，进度记喺呢部浏览器。登入之后跟账号走，同一部片留较新嘅进度。",
+    history: "最近睇过",
+    kinds: { folder: "文件夹", video: "视频", audio: "音频", subtitle: "字幕" },
   },
 }
 
