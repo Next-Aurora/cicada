@@ -191,7 +191,7 @@ const zh: Messages = {
   },
   home: {
     eyebrow: "旅行 · 记录 · 小工具",
-    headline: "风起了，路还在长",
+    headline: "风起了，路还长",
     lead: "旅行攻略和小工具已经上线；博客会陆续补上。",
     cta: "查看旅行攻略",
     navLabel: "站点入口",
