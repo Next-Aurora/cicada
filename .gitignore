@@ -35,3 +35,5 @@ yarn-error.log*
 .vercel
 /.npm-only-allow
 .pnpm-store/
+
+*.code-workspace

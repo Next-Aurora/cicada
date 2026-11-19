@@ -87,7 +87,7 @@ function ChatRoomInner() {
       dc.onmessage = (event) => {
         // 接收字符串控制帧
         if (typeof event.data === "string") {
-          const msg = JSON.parse(event.data)
+          const msg: { type: string; transferId: string } = JSON.parse(event.data) as { type: string; transferId: string }
           if (msg.type === "file-meta") {
             // 准备接收文件
             receiveBuffersRef.current.set(msg.transferId, [])
@@ -141,15 +141,15 @@ function ChatRoomInner() {
       const pc = createPeerConnection(senderId)
 
       if (type === "offer") {
-        await pc.setRemoteDescription(new RTCSessionDescription(JSON.parse(payload)))
+        await pc.setRemoteDescription(new RTCSessionDescription(JSON.parse(payload) as RTCSessionDescriptionInit))
         const answer = await pc.createAnswer()
         await pc.setLocalDescription(answer)
         conn.invoke("SendSignal", senderId, "answer", JSON.stringify(answer)).catch(console.error)
       } else if (type === "answer") {
-        await pc.setRemoteDescription(new RTCSessionDescription(JSON.parse(payload)))
+        await pc.setRemoteDescription(new RTCSessionDescription(JSON.parse(payload) as RTCSessionDescriptionInit))
       } else if (type === "ice") {
         try {
-          await pc.addIceCandidate(new RTCIceCandidate(JSON.parse(payload)))
+          await pc.addIceCandidate(new RTCIceCandidate(JSON.parse(payload) as RTCLocalIceCandidateInit ))
         } catch (e) {
           console.error("ICE 添加失败", e)
         }
