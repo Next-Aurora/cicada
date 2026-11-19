@@ -1,3 +1,17 @@
+# [1.10.0](https://github.com/Next-Aurora/cicada/compare/v1.9.1...v1.10.0) (2026-11-19)
+
+
+### Bug Fixes
+
+* center the footer copyright beside the language switch ([e747c54](https://github.com/Next-Aurora/cicada/commit/e747c54843ff0824a4e2525253d74dd9395443c9))
+
+
+### Features
+
+* add basic play ([49c16c0](https://github.com/Next-Aurora/cicada/commit/49c16c0f495b96329d501e3c2565383a4ecaad2a))
+* add chat page(basic) ([0848feb](https://github.com/Next-Aurora/cicada/commit/0848feb144653694b47c93b5f2a6f898fa7035a7))
+* add type and police beian ([648b302](https://github.com/Next-Aurora/cicada/commit/648b3029f053776072e4fea3a92bf8b294d6ae17))
+
 ## [1.9.1](https://github.com/Next-Aurora/cicada/compare/v1.9.0...v1.9.1) (2026-10-31)
 
 
