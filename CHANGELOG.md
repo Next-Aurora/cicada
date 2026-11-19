@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/Next-Aurora/cicada/compare/v1.10.0...v1.11.0) (2026-11-19)
+
+
+### Features
+
+* update slogan ([58824a3](https://github.com/Next-Aurora/cicada/commit/58824a363f0a26a9a4658055f80ce764eecd00c3))
+
 # [1.10.0](https://github.com/Next-Aurora/cicada/compare/v1.9.1...v1.10.0) (2026-11-19)
 
 
